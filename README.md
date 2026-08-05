@@ -16,14 +16,26 @@
 
 ---
 
+## 📁 檔案結構拆分說明
+本專案已將龐大的對話庫抽離，實現程式碼解耦：
+- `CinnamonCoffee.cs`：模組主邏輯、事件循環、選單控制器與動畫處理。
+- `CinnamonCoffeeDialogue.cs`：獨立對話台詞資料庫與文本生成邏輯（`partial class CinnamonCoffee`）。
+
+---
+
 ## 📦 安裝說明
-1. 確保已安裝必要前置模組：
-   - Script Hook V
-   - ScriptHookV .NET (Legacy 3725 或增強版)
-2. 將 `CinnamonCoffee.cs`、`CinnamonCoffee.cfg`、`CinnamonCoffeeALife.ini` 放入遊戲目錄下的 `scripts\` 資料夾中：
+
+### 方式 A：直接下載編譯好的成品 (推薦一般玩家)
+1. 從 GitHub Releases 或 Actions 下載 `CinnamonRendezvous-v1.2.zip`。
+2. 解壓縮後將 `scripts\` 資料夾內的檔案（包含 `CinnamonCoffee.dll`、`CinnamonCoffee.cfg`、`CinnamonCoffeeALife.ini`）複製至你的 GTA V 遊戲目錄：
    ```text
    \Grand Theft Auto V\scripts\
    ```
+
+### 方式 B：自行編譯（開發者）
+本專案已配置完整的 `.csproj` 與建置腳本：
+- 本地編譯：於 PowerShell 中執行 `./build.ps1`
+- CI/CD：提交至 GitHub 後將自動觸發 `.github/workflows/build.yml` 編譯產生最新 `.dll`。
 
 ---
 
