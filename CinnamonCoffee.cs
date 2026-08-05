@@ -10,21 +10,21 @@ using GTA;
 using GTA.Native;
 using GTA.Math;
 
-/// CinnamonCoffee - An adult GTA V ScriptHookVDotNet v3 mod.
-/// Adapted from GTA Vs and GTA IVs HotCoffee scripts for the SHVDN v3 API.
+/// 肉桂情事 (Cinnamon Rendezvous) - GTA V ScriptHookVDotNet v3 成人腳本模組。
+/// 改編自 GTA V 與 GTA IV 的經典 HotCoffee 腳本，專為 SHVDN v3 API 設計。
 /// 
-/// REQUIREMENTS:
-///   - ScriptHookV (by Alexander Blade)
-///   - ScriptHookVDotNet v3 (community .NET wrapper)
-///   - Place this .cs (or compiled .dll) in your GTA V /scripts/ folder
+/// 必要前置需求：
+///   - ScriptHookV (作者: Alexander Blade)
+///   - ScriptHookVDotNet v3 (社群 .NET 包裝庫)
+///   - 將此 .cs (或編譯好的 .dll) 放置於 GTA V 目錄下的 /scripts/ 資料夾
 ///
-/// CONTROLS:
-///   J          = Open/Close menu
-///   NumPad 8/2 = Navigate menu
-///   NumPad 5   = Select menu option
-///   NumPad 0   = Go back (sub-menu) / Close menu
-///   NumPad 4/6 = Change speed (during animation)
-///   NumPad 1   = Reset speed (during animation)
+/// 操作按鍵：
+///   J          = 開啟/關閉選單
+///   NumPad 8/2 = 選單上下導航
+///   NumPad 5   = 確認選擇選單項目
+///   NumPad 0   = 返回上一層選單 / 關閉選單
+///   NumPad 4/6 = 調整動畫速度 (動畫進行中)
+///   NumPad 1   = 重置動畫速度 (動畫進行中)
 
 namespace CinnamonCoffee
 {
@@ -32,7 +32,7 @@ namespace CinnamonCoffee
     {
 
         // ================================================================
-        //  ENUMS
+        //  枚舉定義 (ENUMS)
         // ================================================================
 
         private enum ScriptState { Idle, Approaching, Animating }
@@ -42,51 +42,51 @@ namespace CinnamonCoffee
         private enum PriceGroup { Kissing, Blowjob, Facesitting, Cowgirl, Doggy }
 
         // ================================================================
-        //  INNER CLASSES
+        //  內部類別 (INNER CLASSES)
         // ================================================================
 
-        // ── Personality system ────────────────────────────────────────────────────
+        // ── 個性系統 (Personality System) ──────────────────────────────────────────
         private class PersonalityProfile
         {
             public string Name;
-            // 0.0–1.0 scale for all traits
-            public double Friendliness; // affects dialogue warmth (VeryFriendly→VeryHostile tiers)
-            public double Confidence;   // affects sex boldness (throat frequency, dominant behaviour)
-            public double Greed;        // affects pricing, negotiate difficulty, payment easter egg
-            public double Patience;     // affects approach acceptance (how much she tolerates persistence)
-            public double Riskiness;    // affects easter egg (casual→hooker) and inside-finish acceptance
-            public double Attachment;   // affects relationship gains/losses magnitude
-            public double Aggressiveness; // affects fight-or-flight on rejection: high = fights back, low = flees
+            // 所有特質特徵數值介於 0.0–1.0 之間
+            public double Friendliness; // 影響對話熱情度 (非常友善→非常敵對)
+            public double Confidence;   // 影響行為大膽度
+            public double Greed;        // 影響服務定價、議價難度與支付彩蛋
+            public double Patience;     // 影響搭訕接受度 (對纏人的忍耐程度)
+            public double Riskiness;    // 影響彩蛋機制與內射接受度
+            public double Attachment;   // 影響關係度增減的幅度
+            public double Aggressiveness; // 影響被拒絕時的反應：高=反擊，低=逃跑
         }
 
         private class ALifePedData
         {
             public string Fingerprint;
-            public string Name;         // randomly assigned on first encounter
+            public string Name;         // 首次遭遇時隨機分配的姓名
             public int    Reputation;   // -2 to 100
             public string Relationship; // Hostile/Avoiding/Stranger/Acquaintance/Familiar/Friendly/Friendzoned/Flirty/Girlfriend/Obsessed
-            public string Personality;  // name key — look up via GetProfile()
-            public bool   HasMet;       // true after first accept or reject dialogue
-            public bool   HasMetSecondTime; // true after player recruits her a second time (unlocks personal flirt lines)
-            public string Voice;        // assigned once in A-Life mode, persisted across sessions
-            public string HookerAnim;   // approach animation dict, assigned once in Prost A-Life, persisted
-            public bool   IsHooker;     // set by easter egg: casual girl who agreed to charge
-            public bool   WasHooker;     // true once she ever agreed to the arrangement (never cleared — used to detect re-proposal vs first proposal)
-            public bool   HookerPermaReject; // true if she permanently refuses any business proposal — never changes back; rep penalty is -25 on every attempt
-            public bool   NameKnown;    // true once she's told the player her name (branch 0 item 0)
-            public string LastPositiveRelationship; // saved before rep drops to -1 so it can be restored on recovery
+            public string Personality;  // 個性名稱 Key — 透過 GetProfile() 查詢
+            public bool   HasMet;       // 首次接受或拒絕對話後設為 true
+            public bool   HasMetSecondTime; // 玩家第二次招募後設為 true (解鎖個人調情台詞)
+            public string Voice;        // A-Life 模式中分配一次，跨會話持久化保存
+            public string HookerAnim;   // 搭訕動畫字典，分配後持久化保存
+            public bool   IsHooker;     // 彩蛋設定：同意收費的普通平民女性
+            public bool   WasHooker;     // 曾同意過協議時設為 true (用於判斷是否為再次提議)
+            public bool   HookerPermaReject; // 永久拒絕商業提議時設為 true
+            public bool   NameKnown;    // 向玩家透露姓名後設為 true
+            public string LastPositiveRelationship; // 好感度降至 -1 前保存的關係狀態
             public string Mood;          // transient: "Relaxed","Happy","Alert","Playful","Annoyed","Needy","Jealous"
-            public bool?  PrefBJ;       // null=unknown, true=willing, false=not into it
-            public bool?  PrefRough;    // null=unknown, true=willing, false=not into it
-            public int[]  HookerPrices;  // [0]=Kissing [1]=Blowjob [2]=Facesitting [3]=Cowgirl [4]=Doggy — mirrors PriceGroup enum. null=not set yet
-            public string ALifeMode;     // "Normal" or "Prostitute" — which A-Life system manages this ped
-            public int    Cash;           // carried money — dropped as loot when she dies
-            public int    Stored;         // banked savings — never lost on death
-            public long   LastSimUtc;     // UTC ticks when this ped was last offline-simulated
-            public bool   CivilianRejected; // Prost A-Life: true once a non-hooker model has rejected a proposition — locks the answer in
-            public bool   CimPreference;     // true if this NPC enjoys finishing inside — set once at init, never changes
+            public bool?  PrefBJ;       // null=未知, true=願意, false=不願意
+            public bool?  PrefRough;    // null=未知, true=願意, false=不願意
+            public int[]  HookerPrices;  // [0]=Kissing [1]=Blowjob [2]=Facesitting [3]=Cowgirl [4]=Doggy — 對應 PriceGroup 枚舉，null 表示尚未設定
+            public string ALifeMode;     // "Normal" 或 "Prostitute" — 管理此 NPC 的 A-Life 系統模式
+            public int    Cash;           // 隨身攜帶現金 — 死亡時掉落
+            public int    Stored;         // 存款存款 — 死亡時不會丟失
+            public long   LastSimUtc;     // 該 NPC 上次離線模擬的 UTC 時間戳
+            public bool   CivilianRejected; // 賣春模式：平民 NPC 拒絕提議後設為 true (鎖定答案)
+            public bool   CimPreference;     // 若該 NPC 喜歡內射則設為 true (初始化後不變)
             public long   KnownTopics;       // bitmask — bits 0-5: b0 items 1-6; bits 6-11: b1 items 0-5; bits 12-16: b2 items 0-4; bits 17-23: b3 items 0-6; bits 24-30: b5 items 0-6; bits 31-37: b6 items 0-6. Re-asking costs rep
-            public string LongTermGoal;      // permanent life aspiration — assigned once on first encounter, never changes:
+            public string LongTermGoal;      // 永久人生抱負 — 首次遭遇時分配且不變：
                                              //   Casual:       "致富"|"尋找愛情"|"保持自由"|"享受樂趣"|"生存"|"尋找保護"
                                              //   Prostitution: "致富"|"GetOut"|"生存"|"尋找保護"
 
@@ -181,7 +181,7 @@ namespace CinnamonCoffee
             new PersonalityProfile { Name="Unstable",   Friendliness=0.45, Confidence=0.50, Greed=0.55, Patience=0.10, Riskiness=0.95, Attachment=0.60, Aggressiveness=0.80 },
         };
 
-        /// <summary>Look up a personality profile by name. Returns null if not found.</summary>
+        /// <summary>Look up a personality profile by name. 傳回 null if not found.</summary>
 
         private static readonly string[] HOOKER_VOICES = {
             "S_F_Y_HOOKER_01_WHITE_FULL_01",
@@ -342,10 +342,10 @@ namespace CinnamonCoffee
         private const string VEH_LOW_FP_DICT = "mini@prostitutes@sexlow_veh_first_person";
 
         // ================================================================
-        //  INSTANCE FIELDS
+        //  實例欄位 (INSTANCE FIELDS)
         // ================================================================
 
-        // -- Script state --
+        // -- 腳本狀態 --
         private ScriptState state = ScriptState.Idle;
         private bool playerWasInVehicle = false;
         private bool _backseatEntryPending = false; // true while TrySwapSeats outside-entry is in progress — suppresses auto passenger-seat entry
@@ -705,7 +705,7 @@ namespace CinnamonCoffee
             return Math.Max(0.30, Math.Min(0.95, chance));
         }
 
-        /// <summary>Returns true when a subtitle response string is positive (non-null and not ~r~ coloured).</summary>
+        /// <summary>傳回 true when a subtitle response string is positive (non-null and not ~r~ coloured).</summary>
         private static bool IsPositive(string s)
         {
             return s != null && !s.StartsWith("~r~");
@@ -715,7 +715,7 @@ namespace CinnamonCoffee
         //  METHODS
         // ================================================================
 
-        /// <summary>Returns two personality-matched walk-away lines (prefix ~r~name:~s~ added by caller).</summary>
+        /// <summary>傳回 two personality-matched walk-away lines (prefix ~r~name:~s~ added by caller).</summary>
 
         private void LoadSettings()
         {
@@ -960,7 +960,7 @@ namespace CinnamonCoffee
             return new Vector3(x, y, z);
         }
 
-        /// <summary>Returns true if the current girl model is listed in sinkraLowerModels.</summary>
+        /// <summary>傳回 true if the current girl model is listed in sinkraLowerModels.</summary>
         private bool IsSinkraLowerModel()
         {
             return girl != null && girl.Exists() && _sinkraLowerModels.Count > 0
@@ -1131,7 +1131,7 @@ namespace CinnamonCoffee
             }
         }
 
-        /// <summary>Check if a service is available for the current girl (per group).</summary>
+        /// <summary>檢查是否 a service is available for the current girl (per group).</summary>
         private bool IsServiceAvailable(bool isCar, int idx)
         {
             // Car services are ALWAYS available
@@ -1484,7 +1484,7 @@ namespace CinnamonCoffee
             return Math.Max(10, price);
         }
 
-        /// <summary>Negotiate a Prostitution A-Life hooker price down by $5–$15. Returns true if she agreed.</summary>
+        /// <summary>Negotiate a Prostitution A-Life hooker price down by $5–$15. 傳回 true if she agreed.</summary>
         private bool NegotiateProstHookerPrice(ALifePedData d, bool isCar, int idx)
         {
             if (d.HookerPrices == null) GenerateProstHookerPrices(d);
@@ -2065,7 +2065,7 @@ namespace CinnamonCoffee
         }
 
         /// <summary>Get item count for current menu level.</summary>
-        /// <summary>Returns true if the item at <paramref name="idx"/> in the current menu level should be skipped during navigation.</summary>
+        /// <summary>傳回 true if the item at <paramref name="idx"/> in the current menu level should be skipped during navigation.</summary>
         private bool IsMenuItemLocked(int idx)
         {
             ALifePedData dNav = null;
@@ -8166,7 +8166,7 @@ namespace CinnamonCoffee
             }
         }
 
-        /// <summary>Check if a vehicle is suitable (not a bike/boat/aircraft).</summary>
+        /// <summary>檢查是否 a vehicle is suitable (not a bike/boat/aircraft).</summary>
         private bool IsSuitableVehicle(Vehicle car)
         {
             if (car == null) return false;
@@ -12721,7 +12721,7 @@ namespace CinnamonCoffee
             return true;
         }
 
-        /// <summary>Returns true when both player and girl are in the same vehicle.</summary>
+        /// <summary>傳回 true when both player and girl are in the same vehicle.</summary>
         private bool BothInSameVehicle()
         {
             if (!hasGirl || girl == null || !girl.Exists()) return false;
@@ -12729,7 +12729,7 @@ namespace CinnamonCoffee
             return pl.IsInVehicle() && girl.IsInVehicle() && girl.CurrentVehicle == pl.CurrentVehicle;
         }
 
-        /// <summary>Returns true when the "Move to back/front seat" item should appear in the Actions menu (prostitution / hooker A-Life girls only).</summary>
+        /// <summary>傳回 true when the "Move to back/front seat" item should appear in the Actions menu (prostitution / hooker A-Life girls only).</summary>
         private bool ShowSeatSwapInActions()
         {
             if (!aLifeMode) return false;
@@ -12739,7 +12739,7 @@ namespace CinnamonCoffee
             return dSeat.IsHooker || dSeat.ALifeMode == "Prostitute";
         }
 
-        /// <summary>Returns true when the player is sitting in a rear seat of the given vehicle.</summary>
+        /// <summary>傳回 true when the player is sitting in a rear seat of the given vehicle.</summary>
         private bool IsPlayerInBackSeat(Vehicle car)
         {
             if (car == null) return false;
@@ -12747,7 +12747,7 @@ namespace CinnamonCoffee
             return car.GetPedOnSeat(VehicleSeat.LeftRear) == pl || car.GetPedOnSeat(VehicleSeat.RightRear) == pl;
         }
 
-        /// <summary>Returns true when mode is Car and the player is currently in the back seat.</summary>
+        /// <summary>傳回 true when mode is Car and the player is currently in the back seat.</summary>
         private bool IsBackseatCarMode()
         {
             if (mode != Mode.Car) return false;
@@ -12878,7 +12878,7 @@ namespace CinnamonCoffee
             }
         }
 
-        /// <summary>Returns true if the street-mode service at index idx is a blowjob variant.</summary>
+        /// <summary>傳回 true if the street-mode service at index idx is a blowjob variant.</summary>
         private bool IsEscalateBJItem(bool isCar, int idx)
         {
             if (isCar)
@@ -13639,9 +13639,9 @@ namespace CinnamonCoffee
             int idx = 0;
             if (ShowInviteVehicleItem())
                 DrawMenuItem("Invite to Vehicle ~b~[>]~s~", idx++, x, ref y, lh);
-            DrawMenuItem("Conversation ~b~[>]~s~", idx++, x, ref y, lh);
+            DrawMenuItem("對話交流 ~b~[>]~s~", idx++, x, ref y, lh);
             bool isHookerAct = (dAct != null && (dAct.IsHooker || dAct.ALifeMode == "Prostitute"));
-            DrawMenuItem(isHookerAct ? "Services ~b~[>]~s~" : "Intimacy ~b~[>]~s~", idx++, x, ref y, lh);
+            DrawMenuItem(isHookerAct ? "服務項目 ~b~[>]~s~" : "親密互動 ~b~[>]~s~", idx++, x, ref y, lh);
             // "Give Her Money" — A-Life only
             if (aLifeMode && _currentGirlKey != null)
                 DrawMenuItem("Give Her Money ~b~[>]~s~", idx++, x, ref y, lh);
@@ -13753,7 +13753,7 @@ namespace CinnamonCoffee
                 if (!isCar)
                 {
                     // Street: show Standing Services + Sit Down hub
-                    DrawMenuItem("Standing Services ~b~[>]~s~", 0, x, ref y, lh);
+                    DrawMenuItem("站姿服務 ~b~[>]~s~", 0, x, ref y, lh);
                     DrawMenuItem("Sit Down ~b~[>]~s~",          1, x, ref y, lh);
                 }
                 else
@@ -14067,7 +14067,7 @@ namespace CinnamonCoffee
         private void DrawSandboxCarMenu(float x, ref float y, float lh)
         {
             DrawSectionHeader("互動", x, ref y);
-            DrawMenuItem("Services ~b~[>]~s~", 0, x, ref y, lh);
+            DrawMenuItem("服務項目 ~b~[>]~s~", 0, x, ref y, lh);
             if (FindBackseatVehicle() != null)
                 DrawMenuItem(GetSeatItemLabel(), 1, x, ref y, lh);
         }
@@ -14213,7 +14213,7 @@ namespace CinnamonCoffee
                         // name display removed
                     }
                 }
-                DrawMenuItem("Standing Services ~b~[>]~s~", 0, x, ref y, lh);
+                DrawMenuItem("站姿服務 ~b~[>]~s~", 0, x, ref y, lh);
                 DrawMenuItem("Sit Down ~b~[>]~s~",          1, x, ref y, lh);
                 return;
             }
