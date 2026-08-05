@@ -24836,7 +24836,5 @@ namespace CinnamonCoffee
             // ApproachLine, ConvSub, IntimacySub, LeaveLine, SandboxCar, Settings, Compatibility
             return SH + LH * 0.5f;
         }
-
-}
     }
 }
