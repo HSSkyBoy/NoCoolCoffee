@@ -2569,11 +2569,11 @@ namespace CinnamonCoffee
                                 else if (_approachCandidate != null && _approachCandidate.Exists())
                                 {
                                     if (d.Reputation == -1) ShowAvoidingReactionSubtitle(d);
-                                    _approachCandidate.Task.Wander();
+                                    _approachCandidate.Task.WanderAround();
                                 }
                             }
                             else if (_approachCandidate != null && _approachCandidate.Exists())
-                                _approachCandidate.Task.Wander();
+                                _approachCandidate.Task.WanderAround();
                             _approachCandidate = null;
                             _approachSelectedCluster = -1;
                             _approachSecondChance = false;
@@ -3190,7 +3190,7 @@ namespace CinnamonCoffee
                         foreach (Ped np in World.GetNearbyPeds(Game.Player.Character, 30f))
                             if (np != null && np.Exists() && GetPedFingerprint(np) == _currentGirlFp) { girlPed2 = np; break; }
                         FullReset();
-                        if (girlPed2 != null && girlPed2.Exists()) girlPed2.Task.Wander();
+                        if (girlPed2 != null && girlPed2.Exists()) girlPed2.Task.WanderAround();
                         menuLevel = MenuLevel.Main;
                         menuIndex = 0;
                     }
@@ -3580,7 +3580,7 @@ namespace CinnamonCoffee
                             }
                         }
                         FullReset();
-                        if (girlPed != null && girlPed.Exists()) girlPed.Task.Wander();
+                        if (girlPed != null && girlPed.Exists()) girlPed.Task.WanderAround();
                         menuLevel = MenuLevel.Main;
                         menuIndex = 0;
                     }
@@ -3762,7 +3762,7 @@ namespace CinnamonCoffee
                         { girlPedInt = np; break; }
                     }
                     FullReset();
-                    if (girlPedInt != null && girlPedInt.Exists()) girlPedInt.Task.Wander();
+                    if (girlPedInt != null && girlPedInt.Exists()) girlPedInt.Task.WanderAround();
                     menuLevel = MenuLevel.Main;
                     menuIndex = 0;
                 }
@@ -3817,7 +3817,7 @@ namespace CinnamonCoffee
                         ShowSubtitle(permaLines[rng.Next(permaLines.Length)], 4500);
                         Ped girlPedEsc = girl;
                         FullReset();
-                        if (girlPedEsc != null && girlPedEsc.Exists()) girlPedEsc.Task.Wander();
+                        if (girlPedEsc != null && girlPedEsc.Exists()) girlPedEsc.Task.WanderAround();
                         return;
                     }
 
@@ -10466,7 +10466,7 @@ namespace CinnamonCoffee
                     if (girl != null && girl.Exists())
                     {
                         Function.Call(Hash.SET_BLOCKING_OF_NON_TEMPORARY_EVENTS, girl, false);
-                        girl.Task.Wander();
+                        girl.Task.WanderAround();
                         Function.Call((Hash)0x726256CC1EEB182F, girl); // CLEAR_FACIAL_IDLE_ANIM_OVERRIDE
                         girl.IsPositionFrozen = false;
                         girl.BlockPermanentEvents = false;
@@ -10555,7 +10555,7 @@ namespace CinnamonCoffee
                         if (girl != null && girl.Exists())
                         {
                             Function.Call(Hash.SET_BLOCKING_OF_NON_TEMPORARY_EVENTS, girl, false);
-                            girl.Task.Wander();
+                            girl.Task.WanderAround();
                         }
                         menuLevel = MenuLevel.None;
                         return;
@@ -10677,7 +10677,7 @@ namespace CinnamonCoffee
                 {
                     _aLifeHookerServices = false;
                     Function.Call(Hash.SET_BLOCKING_OF_NON_TEMPORARY_EVENTS, girl, false);
-                    girl.Task.Wander();
+                    girl.Task.WanderAround();
                     Function.Call((Hash)0x726256CC1EEB182F, girl);
                     girl.IsPositionFrozen = false;
                     girl.BlockPermanentEvents = false;
@@ -10794,7 +10794,7 @@ namespace CinnamonCoffee
                         girl.IsPositionFrozen = false;
                         Function.Call(Hash.SET_ENTITY_COLLISION, girl, true, true);
                         Function.Call(Hash.SET_BLOCKING_OF_NON_TEMPORARY_EVENTS, girl, false);
-                        girl.Task.Wander();
+                        girl.Task.WanderAround();
                         Function.Call((Hash)0x726256CC1EEB182F, girl);
                         girl.IsPersistent = false;
                         girl.MarkAsNoLongerNeeded();
@@ -11007,7 +11007,7 @@ namespace CinnamonCoffee
                     // Fully release her so the main loop doesn't re-offer services after she walks away
                     _aLifeHookerServices = false;
                     Function.Call(Hash.SET_BLOCKING_OF_NON_TEMPORARY_EVENTS, girl, false);
-                    girl.Task.Wander();
+                    girl.Task.WanderAround();
                     Function.Call((Hash)0x726256CC1EEB182F, girl); // CLEAR_FACIAL_IDLE_ANIM_OVERRIDE
                     girl.IsPositionFrozen = false;
                     girl.BlockPermanentEvents = false;
@@ -11839,7 +11839,7 @@ namespace CinnamonCoffee
             if (broke)
             {
                 FullReset();
-                if (pedRef != null && pedRef.Exists()) pedRef.Task.Wander();
+                if (pedRef != null && pedRef.Exists()) pedRef.Task.WanderAround();
                 menuLevel = MenuLevel.Main;
                 menuIndex = 0;
             }
@@ -11943,7 +11943,7 @@ namespace CinnamonCoffee
             if (released != null && released.Exists() && released.IsAlive)
             {
                 Function.Call(Hash.SET_BLOCKING_OF_NON_TEMPORARY_EVENTS, released, false);
-                released.Task.Wander();
+                released.Task.WanderAround();
             }
         }
 
@@ -12427,7 +12427,7 @@ namespace CinnamonCoffee
                 Function.Call(Hash.SET_ENTITY_COLLISION, girl, true, true);
                 girl.BlockPermanentEvents = false;
                 // Give her a wander task so AI doesn't re-queue the old vehicle enter
-                girl.Task.Wander();
+                girl.Task.WanderAround();
                 girl.IsPersistent = false;
                 girl.MarkAsNoLongerNeeded();
             }
@@ -14170,11 +14170,11 @@ namespace CinnamonCoffee
                                 else if (_approachCandidate != null && _approachCandidate.Exists())
                                 {
                                     if (d.Reputation == -1) ShowAvoidingReactionSubtitle(d);
-                                    _approachCandidate.Task.Wander();
+                                    _approachCandidate.Task.WanderAround();
                                 }
                             }
                             else if (_approachCandidate != null && _approachCandidate.Exists())
-                                _approachCandidate.Task.Wander();
+                                _approachCandidate.Task.WanderAround();
                             _approachCandidate = null;
                             _approachSelectedCluster = -1;
                             _approachSecondChance = false;
@@ -14791,7 +14791,7 @@ namespace CinnamonCoffee
                         foreach (Ped np in World.GetNearbyPeds(Game.Player.Character, 30f))
                             if (np != null && np.Exists() && GetPedFingerprint(np) == _currentGirlFp) { girlPed2 = np; break; }
                         FullReset();
-                        if (girlPed2 != null && girlPed2.Exists()) girlPed2.Task.Wander();
+                        if (girlPed2 != null && girlPed2.Exists()) girlPed2.Task.WanderAround();
                         menuLevel = MenuLevel.Main;
                         menuIndex = 0;
                     }
@@ -15181,7 +15181,7 @@ namespace CinnamonCoffee
                             }
                         }
                         FullReset();
-                        if (girlPed != null && girlPed.Exists()) girlPed.Task.Wander();
+                        if (girlPed != null && girlPed.Exists()) girlPed.Task.WanderAround();
                         menuLevel = MenuLevel.Main;
                         menuIndex = 0;
                     }
@@ -15363,7 +15363,7 @@ namespace CinnamonCoffee
                         { girlPedInt = np; break; }
                     }
                     FullReset();
-                    if (girlPedInt != null && girlPedInt.Exists()) girlPedInt.Task.Wander();
+                    if (girlPedInt != null && girlPedInt.Exists()) girlPedInt.Task.WanderAround();
                     menuLevel = MenuLevel.Main;
                     menuIndex = 0;
                 }
@@ -15418,7 +15418,7 @@ namespace CinnamonCoffee
                         ShowSubtitle(permaLines[rng.Next(permaLines.Length)], 4500);
                         Ped girlPedEsc = girl;
                         FullReset();
-                        if (girlPedEsc != null && girlPedEsc.Exists()) girlPedEsc.Task.Wander();
+                        if (girlPedEsc != null && girlPedEsc.Exists()) girlPedEsc.Task.WanderAround();
                         return;
                     }
 
@@ -22067,7 +22067,7 @@ namespace CinnamonCoffee
                     if (girl != null && girl.Exists())
                     {
                         Function.Call(Hash.SET_BLOCKING_OF_NON_TEMPORARY_EVENTS, girl, false);
-                        girl.Task.Wander();
+                        girl.Task.WanderAround();
                         Function.Call((Hash)0x726256CC1EEB182F, girl); // CLEAR_FACIAL_IDLE_ANIM_OVERRIDE
                         girl.IsPositionFrozen = false;
                         girl.BlockPermanentEvents = false;
@@ -22156,7 +22156,7 @@ namespace CinnamonCoffee
                         if (girl != null && girl.Exists())
                         {
                             Function.Call(Hash.SET_BLOCKING_OF_NON_TEMPORARY_EVENTS, girl, false);
-                            girl.Task.Wander();
+                            girl.Task.WanderAround();
                         }
                         menuLevel = MenuLevel.None;
                         return;
@@ -22278,7 +22278,7 @@ namespace CinnamonCoffee
                 {
                     _aLifeHookerServices = false;
                     Function.Call(Hash.SET_BLOCKING_OF_NON_TEMPORARY_EVENTS, girl, false);
-                    girl.Task.Wander();
+                    girl.Task.WanderAround();
                     Function.Call((Hash)0x726256CC1EEB182F, girl);
                     girl.IsPositionFrozen = false;
                     girl.BlockPermanentEvents = false;
@@ -22395,7 +22395,7 @@ namespace CinnamonCoffee
                         girl.IsPositionFrozen = false;
                         Function.Call(Hash.SET_ENTITY_COLLISION, girl, true, true);
                         Function.Call(Hash.SET_BLOCKING_OF_NON_TEMPORARY_EVENTS, girl, false);
-                        girl.Task.Wander();
+                        girl.Task.WanderAround();
                         Function.Call((Hash)0x726256CC1EEB182F, girl);
                         girl.IsPersistent = false;
                         girl.MarkAsNoLongerNeeded();
@@ -22608,7 +22608,7 @@ namespace CinnamonCoffee
                     // Fully release her so the main loop doesn't re-offer services after she walks away
                     _aLifeHookerServices = false;
                     Function.Call(Hash.SET_BLOCKING_OF_NON_TEMPORARY_EVENTS, girl, false);
-                    girl.Task.Wander();
+                    girl.Task.WanderAround();
                     Function.Call((Hash)0x726256CC1EEB182F, girl); // CLEAR_FACIAL_IDLE_ANIM_OVERRIDE
                     girl.IsPositionFrozen = false;
                     girl.BlockPermanentEvents = false;
@@ -23440,7 +23440,7 @@ namespace CinnamonCoffee
             if (broke)
             {
                 FullReset();
-                if (pedRef != null && pedRef.Exists()) pedRef.Task.Wander();
+                if (pedRef != null && pedRef.Exists()) pedRef.Task.WanderAround();
                 menuLevel = MenuLevel.Main;
                 menuIndex = 0;
             }
@@ -23544,7 +23544,7 @@ namespace CinnamonCoffee
             if (released != null && released.Exists() && released.IsAlive)
             {
                 Function.Call(Hash.SET_BLOCKING_OF_NON_TEMPORARY_EVENTS, released, false);
-                released.Task.Wander();
+                released.Task.WanderAround();
             }
         }
 
@@ -24028,7 +24028,7 @@ namespace CinnamonCoffee
                 Function.Call(Hash.SET_ENTITY_COLLISION, girl, true, true);
                 girl.BlockPermanentEvents = false;
                 // Give her a wander task so AI doesn't re-queue the old vehicle enter
-                girl.Task.Wander();
+                girl.Task.WanderAround();
                 girl.IsPersistent = false;
                 girl.MarkAsNoLongerNeeded();
             }
