@@ -14,108 +14,108 @@ namespace CinnamonCoffee
             {
                 case "Shy":
                     return new string[] {
-                        "~r~" + n + ":~s~ \"Please just... leave me alone.\"",
-                        "~r~" + n + ":~s~ \"I can't do this. I'm going.\"",
+                        "~r~" + n + ":~s~ \"請... 讓我一個人靜靜。\"",
+                        "~r~" + n + ":~s~ \"我做不到，我要走了。\"",
                     };
                 case "Sweet":
                     return new string[] {
-                        "~r~" + n + ":~s~ \"I really tried. I have to go now.\"",
-                        "~r~" + n + ":~s~ \"Please don't follow me. I'm done.\"",
+                        "~r~" + n + ":~s~ \"我真的努力過了，現在我必須離開。\"",
+                        "~r~" + n + ":~s~ \"請不要跟著我，我們結束了。\"",
                     };
                 case "Romantic":
                     return new string[] {
-                        "~r~" + n + ":~s~ \"This isn't what I wanted. Goodbye.\"",
-                        "~r~" + n + ":~s~ \"I deserve better than this. I'm leaving.\"",
+                        "~r~" + n + ":~s~ \"這不是我想要的，再見。\"",
+                        "~r~" + n + ":~s~ \"我值得更好的，我走了。\"",
                     };
                 case "Needy":
                     return new string[] {
-                        "~r~" + n + ":~s~ \"I can't believe you. I'm done.\"",
-                        "~r~" + n + ":~s~ \"You really hurt me. I'm going.\"",
+                        "~r~" + n + ":~s~ \"我真不敢相信你，算了吧。\"",
+                        "~r~" + n + ":~s~ \"你真的傷害了我，我要走了。\"",
                     };
                 case "Flirty":
                     return new string[] {
-                        "~r~" + n + ":~s~ \"And just like that, you ruined it. Bye.\"",
-                        "~r~" + n + ":~s~ \"Not cute anymore. I'm out.\"",
+                        "~r~" + n + ":~s~ \"就這樣，你搞砸了一切。拜拜。\"",
+                        "~r~" + n + ":~s~ \"一點都不討喜了，我走了。\"",
                     };
                 case "Playful":
                     return new string[] {
-                        "~r~" + n + ":~s~ \"Okay, game over. I'm leaving.\"",
-                        "~r~" + n + ":~s~ \"Not funny anymore. We're done.\"",
+                        "~r~" + n + ":~s~ \"好了，遊戲結束，我要走了。\"",
+                        "~r~" + n + ":~s~ \"這一點都不好笑，我們算了吧。\"",
                     };
                 case "Party Girl":
                     return new string[] {
-                        "~r~" + n + ":~s~ \"Ugh. You just killed my vibe. I'm out.\"",
-                        "~r~" + n + ":~s~ \"Done. I've got better places to be.\"",
+                        "~r~" + n + ":~s~ \"呃，你徹底掃了我的興。我走了。\"",
+                        "~r~" + n + ":~s~ \"夠了，我還有更好的地方要去。\"",
                     };
                 case "Sarcastic":
                     return new string[] {
-                        "~r~" + n + ":~s~ \"Oh wow. Shocking ending. I'm leaving.\"",
-                        "~r~" + n + ":~s~ \"Great job. Really. Goodbye.\"",
+                        "~r~" + n + ":~s~ \"噢哇，真是令人震驚的結局。我走了。\"",
+                        "~r~" + n + ":~s~ \"幹得好，真的，再見。\"",
                     };
                 case "Cold":
                     return new string[] {
-                        "~r~" + n + ":~s~ \"I'm done. Don't talk to me again.\"",
-                        "~r~" + n + ":~s~ \"That's it. Walk away.\"",
+                        "~r~" + n + ":~s~ \"算了吧，別再和我說話了。\"",
+                        "~r~" + n + ":~s~ \"到此為止，走開吧。\"",
                     };
                 case "Independent":
                     return new string[] {
-                        "~r~" + n + ":~s~ \"I don't need this. I'm gone.\"",
-                        "~r~" + n + ":~s~ \"My time is too valuable for this.\"",
+                        "~r~" + n + ":~s~ \"我不需要這個，我走了。\"",
+                        "~r~" + n + ":~s~ \"我的時間很寶貴，別浪費了。\"",
                     };
                 case "Mysterious":
                     return new string[] {
-                        "~r~" + n + ":~s~ \"Some things don't need explaining. This is over.\"",
-                        "~r~" + n + ":~s~ \"I think we both know I'm leaving now.\"",
+                        "~r~" + n + ":~s~ \"有些事不需要解釋，已經結束了。\"",
+                        "~r~" + n + ":~s~ \"我想我們都知道我現在要走了。\"",
                     };
                 case "Classy":
                     return new string[] {
-                        "~r~" + n + ":~s~ \"I expected more. Clearly a mistake. Goodbye.\"",
-                        "~r~" + n + ":~s~ \"This is beneath me. I'm leaving.\"",
+                        "~r~" + n + ":~s~ \"我原本期待更多，顯然是個錯誤。再見。\"",
+                        "~r~" + n + ":~s~ \"這太失我的身份了，我走了。\"",
                     };
                 case "Gold Digger":
                     return new string[] {
-                        "~r~" + n + ":~s~ \"You're not worth my time. Bye.\"",
-                        "~r~" + n + ":~s~ \"I've got better options. Don't contact me.\"",
+                        "~r~" + n + ":~s~ \"你根本不值得我浪費時間。拜拜。\"",
+                        "~r~" + n + ":~s~ \"我有更好的選擇，別再聯絡我。\"",
                     };
                 case "Manipulative":
                     return new string[] {
-                        "~r~" + n + ":~s~ \"You played yourself. I'm done here.\"",
-                        "~r~" + n + ":~s~ \"This conversation is no longer useful to me.\"",
+                        "~r~" + n + ":~s~ \"你聰明反被聰明誤，我不陪你了。\"",
+                        "~r~" + n + ":~s~ \"這場對話對我已經沒有任何價值了。\"",
                     };
                 case "Street Smart":
                     return new string[] {
-                        "~r~" + n + ":~s~ \"I see what this is. I'm out.\"",
-                        "~r~" + n + ":~s~ \"You're not worth the drama. Gone.\"",
+                        "~r~" + n + ":~s~ \"我看清是怎麼回事了，我走了。\"",
+                        "~r~" + n + ":~s~ \"你不值得我費心，再見。\"",
                     };
                 case "Jealous":
                     return new string[] {
-                        "~r~" + n + ":~s~ \"I can't even look at you right now. Leave me alone.\"",
-                        "~r~" + n + ":~s~ \"Forget it. I'm done with this.\"",
+                        "~r~" + n + ":~s~ \"我現在連看都不想看到你，走開。\"",
+                        "~r~" + n + ":~s~ \"算了吧，我受夠這一切了。\"",
                     };
                 case "Dominant":
                     return new string[] {
-                        "~r~" + n + ":~s~ \"I don't tolerate this. We're done.\"",
-                        "~r~" + n + ":~s~ \"You had your chance. Walk away.\"",
+                        "~r~" + n + ":~s~ \"我不會忍受這個，我們結束了。\"",
+                        "~r~" + n + ":~s~ \"你給過你機會了，走開吧。\"",
                     };
                 case "Aggressive":
                     return new string[] {
-                        "~r~" + n + ":~s~ \"Get out of my face. Now.\"",
-                        "~r~" + n + ":~s~ \"Don't push me. I'm leaving before this gets worse.\"",
+                        "~r~" + n + ":~s~ \"現在滾出我的視線。\"",
+                        "~r~" + n + ":~s~ \"別逼我，在事情變得更糟前我要走了。\"",
                     };
                 case "Chaotic":
                     return new string[] {
-                        "~r~" + n + ":~s~ \"I'm bored of this. Bye.\"",
-                        "~r~" + n + ":~s~ \"You're too much. Or not enough. Either way, I'm gone.\"",
+                        "~r~" + n + ":~s~ \"我厭倦這個了，拜拜。\"",
+                        "~r~" + n + ":~s~ \"你太過份了，或者根本不夠格。總之我走了。\"",
                     };
                 case "Unstable":
                     return new string[] {
-                        "~r~" + n + ":~s~ \"I can't — I just can't. I'm leaving.\"",
-                        "~r~" + n + ":~s~ \"Don't follow me. I mean it.\"",
+                        "~r~" + n + ":~s~ \"我真的受不了了... 我要走了。\"",
+                        "~r~" + n + ":~s~ \"別跟著我，我是認真的。\"",
                     };
                 default:
                     return new string[] {
-                        "~r~" + n + ":~s~ \"I'm done. Goodbye.\"",
-                        "~r~" + n + ":~s~ \"That's it. I'm leaving.\"",
+                        "~r~" + n + ":~s~ \"我們結束了，再見。\"",
+                        "~r~" + n + ":~s~ \"到此為止，我走了。\"",
                     };
             }
         }
@@ -127,27 +127,27 @@ namespace CinnamonCoffee
             switch (personality)
             {
                 case "Shy":
-                    return new string[] { "~r~"+n+":~s~ \"P-please, not here! Someone could see us!\"", "~r~"+n+":~s~ \"I can't do that out in the open...\"" };
+                    return new string[] { "~r~"+n+":~s~ \"請... 請不要在這裡！會被人看見的！\"", "~r~"+n+":~s~ \"我不能在大庭廣眾之下做這個...\"" };
                 case "Sweet":
-                    return new string[] { "~r~"+n+":~s~ \"Not out here, okay? Can we find somewhere private?\"", "~r~"+n+":~s~ \"I'd love to but not where people can see us!\"" };
+                    return new string[] { "~r~"+n+":~s~ \"別在外面好嗎？我們能找個隱密的地方嗎？\"", "~r~"+n+":~s~ \"我很想，但不能在有人看得到的地方！\"" };
                 case "Romantic":
-                    return new string[] { "~r~"+n+":~s~ \"Not like this. I want somewhere private, just us.\"", "~r~"+n+":~s~ \"This should be somewhere special, not out here.\"" };
+                    return new string[] { "~r~"+n+":~s~ \"不要這樣，我想找個只有我們兩人的私人空間。\"", "~r~"+n+":~s~ \"這種事應該在特別的地方，而不是戶外。\"" };
                 case "Needy":
-                    return new string[] { "~r~"+n+":~s~ \"Please not out here... I don't want people to see.\"", "~r~"+n+":~s~ \"Can we go somewhere private? I just want it to be us.\"" };
+                    return new string[] { "~r~"+n+":~s~ \"請別在外面... 我不想讓人看到。\"", "~r~"+n+":~s~ \"我們能去隱密的地方嗎？我只想和你單獨在一起。\"" };
                 case "Flirty":
-                    return new string[] { "~r~"+n+":~s~ \"Ooh, bold — but not out here. Find us a spot.\"", "~r~"+n+":~s~ \"I'm into it, just not where anyone can watch.\"" };
+                    return new string[] { "~r~"+n+":~s~ \"噢，真大膽——但不能在外面。去找個地方吧。\"", "~r~"+n+":~s~ \"我有興趣，但不能在別人能看到的地方。\"" };
                 case "Playful":
-                    return new string[] { "~r~"+n+":~s~ \"Haha okay but NOT out here. Get creative.\"", "~r~"+n+":~s~ \"Points for nerve, but find somewhere private first.\"" };
+                    return new string[] { "~r~"+n+":~s~ \"哈哈好吧，但絕不能在外面，發揮你的創意吧。\"", "~r~"+n+":~s~ \"膽量加分，但先找個隱密的地方再說。\"" };
                 case "Party Girl":
-                    return new string[] { "~r~"+n+":~s~ \"Not out in the open! At least find a car.\"", "~r~"+n+":~s~ \"I'm down but not where everyone can see us.\"" };
+                    return new string[] { "~r~"+n+":~s~ \"別在大街上！至少找輛車吧。\"", "~r~"+n+":~s~ \"我可以，但不能在大家都能看到的地方。\"" };
                 case "Sarcastic":
-                    return new string[] { "~r~"+n+":~s~ \"Oh sure, right here on the street. Great plan.\"", "~r~"+n+":~s~ \"Yeah, no. Find somewhere that isn't literally public.\"" };
+                    return new string[] { "~r~"+n+":~s~ \"喔當然，就在馬路上。真是個好計劃。\"", "~r~"+n+":~s~ \"才不要。去找個不是公共場所的地方。\"" };
                 case "Cold":
-                    return new string[] { "~r~"+n+":~s~ \"Not in public. Find somewhere else.\"", "~r~"+n+":~s~ \"I don't do this where people can see.\"" };
+                    return new string[] { "~r~"+n+":~s~ \"不要在公共場合，找別的地方。\"", "~r~"+n+":~s~ \"我不會在有人的地方做這種事。\"" };
                 case "Independent":
-                    return new string[] { "~r~"+n+":~s~ \"Not out here. I'm not doing this where anyone can see.\"", "~r~"+n+":~s~ \"Private means private. Figure it out.\"" };
+                    return new string[] { "~r~"+n+":~s~ \"不要在這裡，我不會在看得見的地方做這個。\"", "~r~"+n+":~s~ \"私密就是私密，你自己想辦法。\"" };
                 case "Classy":
-                    return new string[] { "~r~"+n+":~s~ \"Absolutely not out here. I have standards.\"", "~r~"+n+":~s~ \"Find somewhere discreet or don't bother.\"" };
+                    return new string[] { "~r~"+n+":~s~ \"絕對不能在這裡，我可是有原則的。\"", "~r~"+n+":~s~ \"找個隱密的地方，否則就算了。\"" };
                 case "Gold Digger":
                     return new string[] { "~r~"+n+":~s~ \"Not out here. I'm not cheap AND careless.\"", "~r~"+n+":~s~ \"I need privacy for this. Go find somewhere.\"" };
                 case "Manipulative":
@@ -380,7 +380,7 @@ namespace CinnamonCoffee
                 case "Romantic":   return new string[] { "~g~"+n+":~s~ \"...Because it's you. Just this once.\"", "~g~"+n+":~s~ \"Don't make me regret this.\"" };
                 case "Needy":      return new string[] { "~g~"+n+":~s~ \"Fine. But please have it next time. Please.\"", "~g~"+n+":~s~ \"I'll let it go this time. Don't let me down again.\"" };
                 case "Flirty":     return new string[] { "~g~"+n+":~s~ \"Ugh, fine. You're lucky you're charming.\"", "~g~"+n+":~s~ \"Just this once. Don't push it.\"" };
-                case "Playful":    return new string[] { "~g~"+n+":~s~ \"Haha okay fine, I'll let it slide. This once!\"", "~g~"+n+":~s~ \"You're lucky I'm in a good mood.\"" };
+                case "Playful":    return new string[] { "~g~"+n+":~s~ \"哈哈好吧，這次就算了，就這一次！\"", "~g~"+n+":~s~ \"算你運氣好，我今天心情不錯。\"" };
                 case "Party Girl": return new string[] { "~g~"+n+":~s~ \"Ugh, fine. But seriously, bring the cash next time.\"", "~g~"+n+":~s~ \"I'll let it go. Don't make it a thing.\"" };
                 case "Sarcastic":  return new string[] { "~g~"+n+":~s~ \"Oh fine. I'll let it slide. Shocking generosity from me.\"", "~g~"+n+":~s~ \"You owe me. Just so you know.\"" };
                 case "Cold":       return new string[] { "~g~"+n+":~s~ \"Fine. This time. Don't test me again.\"", "~g~"+n+":~s~ \"I'll let it slide. Once.\"" };
@@ -485,7 +485,7 @@ namespace CinnamonCoffee
                 case "Aggressive":  return "~r~"+n+":~s~ \"Back off.\"";
                 case "Chaotic":     return "~r~"+n+":~s~ \"Nope! Not today!\"";
                 case "Unstable":    return "~r~"+n+":~s~ \"No! Don't ask me!\"";
-                default:            return "~r~"+n+":~s~ \"No thanks.\"";
+                default:            return "~r~"+n+":~s~ \"不用了，謝謝。\"";
             }
         }
 
@@ -828,7 +828,7 @@ namespace CinnamonCoffee
                     if (tier == 0) return new[] { n + ": \"" + amtStr + "? What am I, a tip jar?\"",
                                                   n + ": \"" + amtStr + ". Wow. I'm overwhelmed. Not.\"",
                                                   n + ": \"" + amtStr + "? Gee thanks, Mr. Money Bags.\"" };
-                    if (tier == 1) return new[] { n + ": \"" + amtStr + "? What am I, a tip jar? No thanks.\"",
+                    if (tier == 1) return new[] { n + ": \"" + amtStr + "? What am I, a tip jar? 不用了，謝謝。\"",
                                                   n + ": \"Oh wow, " + amtStr + ". Should I curtsy? ...No.\"",
                                                   n + ": \"" + amtStr + "? Is this a joke? Because I'm not laughing.\"" };
                     return new[] { n + ": \"" + amtStr + "?! Wow, are you proposing or bribing me? Either way, no.\"",
@@ -906,7 +906,7 @@ namespace CinnamonCoffee
                                    n + ": \"" + amtStr + "?! I can't be bought! ...But I CAN be bribed with tacos.\"" };
                 case "Mysterious":
                     if (tier == 0) return new[] { n + ": \"...No.\"",
-                                                  n + ": \"" + amtStr + ". Not interested.\"",
+                                                  n + ": \"" + amtStr + ". 沒興趣。\"",
                                                   n + ": \"Some things aren't about money.\"" };
                     if (tier == 1) return new[] { n + ": \"...No. Some things can't be bought.\"",
                                                   n + ": \"" + amtStr + "... Tempting. But no.\"",
@@ -935,7 +935,7 @@ namespace CinnamonCoffee
                                    n + ": \"" + amtStr + "?! I HATE that I want to say yes! BUT NO! PROBABLY! NO!\"",
                                    n + ": \"" + amtStr + "?! *screams internally* *screams externally* STILL NO!\"" };
                 default:
-                    if (tier == 0) return new[] { n + ": \"No thanks.\"",
+                    if (tier == 0) return new[] { n + ": \"不用了，謝謝。\"",
                                                   n + ": \"I'd rather not.\"",
                                                   n + ": \"I'm good, thanks.\"" };
                     if (tier == 1) return new[] { n + ": \"No, but thanks for the offer.\"",
@@ -1069,14 +1069,14 @@ namespace CinnamonCoffee
             switch (personality)
             {
                 case "Shy":         return new string[] { "~r~"+n+":~s~ \"I... I'm sorry. I just want to be friends.\"", "~r~"+n+":~s~ \"I don't think I can do that anymore.\"", "~r~"+n+":~s~ \"Please don't ask me that. It's different now.\"", "~r~"+n+":~s~ \"I like you as a friend. Let's keep it that way.\"" };
-                case "Sweet":       return new string[] { "~r~"+n+":~s~ \"That's sweet, but no. Friends only.\"", "~r~"+n+":~s~ \"I care about you, but not like that anymore.\"", "~r~"+n+":~s~ \"I'd rather keep what we have. And what we have is friendship.\"", "~r~"+n+":~s~ \"No thanks. But I still like you.\"" };
+                case "Sweet":       return new string[] { "~r~"+n+":~s~ \"That's sweet, but no. Friends only.\"", "~r~"+n+":~s~ \"I care about you, but not like that anymore.\"", "~r~"+n+":~s~ \"I'd rather keep what we have. And what we have is friendship.\"", "~r~"+n+":~s~ \"不用了，謝謝。 But I still like you.\"" };
                 case "Romantic":    return new string[] { "~r~"+n+":~s~ \"I can't go back to that. It would ruin everything.\"", "~r~"+n+":~s~ \"What we have now is real. Let's not trade it for that.\"", "~r~"+n+":~s~ \"I said friends. And I meant it.\"", "~r~"+n+":~s~ \"No. Not like that. Not anymore.\"" };
                 case "Needy":       return new string[] { "~r~"+n+":~s~ \"Please don't push me on this. I just want you to stay.\"", "~r~"+n+":~s~ \"I can't. Not anymore. Just be my friend?\"", "~r~"+n+":~s~ \"Don't make this weird. We're friends now.\"", "~r~"+n+":~s~ \"Please... just friends. Okay?\"" };
                 case "Flirty":      return new string[] { "~r~"+n+":~s~ \"Tempting, but no. Friends only.\"", "~r~"+n+":~s~ \"Nice try. You had your chance.\"", "~r~"+n+":~s~ \"I still like you, just not like that.\"", "~r~"+n+":~s~ \"Nope! That ship sailed.\"" };
                 case "Playful":     return new string[] { "~r~"+n+":~s~ \"Haha, no. We're friends now, dummy.\"", "~r~"+n+":~s~ \"Nice try! Not happening.\"", "~r~"+n+":~s~ \"I said friends! That's it!\"", "~r~"+n+":~s~ \"Not a chance. But I still like you as a friend.\"" };
                 case "Party Girl":  return new string[] { "~r~"+n+":~s~ \"Nah. We're just friends. That's more fun anyway.\"", "~r~"+n+":~s~ \"Still no. But hey, we can still hang.\"", "~r~"+n+":~s~ \"Not happening. But friends is cool.\"", "~r~"+n+":~s~ \"Ha, no. Come on, let's just have fun.\"" };
                 case "Sarcastic":   return new string[] { "~r~"+n+":~s~ \"Oh, so now you want to pay? No.\"", "~r~"+n+":~s~ \"Still no. Don't push it.\"", "~r~"+n+":~s~ \"Wow. You tried again. Brave. Still no.\"", "~r~"+n+":~s~ \"I like you. But not like that.\"" };
-                case "Cold":        return new string[] { "~r~"+n+":~s~ \"No.\"", "~r~"+n+":~s~ \"We're friends. That's it.\"", "~r~"+n+":~s~ \"Not interested.\"", "~r~"+n+":~s~ \"Don't ask again.\"" };
+                case "Cold":        return new string[] { "~r~"+n+":~s~ \"No.\"", "~r~"+n+":~s~ \"We're friends. That's it.\"", "~r~"+n+":~s~ \"沒興趣。\"", "~r~"+n+":~s~ \"Don't ask again.\"" };
                 case "Independent": return new string[] { "~r~"+n+":~s~ \"I said friends. That's it.\"", "~r~"+n+":~s~ \"I don't go backwards. Friendship only.\"", "~r~"+n+":~s~ \"Not happening. We're just friends.\"", "~r~"+n+":~s~ \"My answer doesn't change.\"" };
                 case "Classy":      return new string[] { "~r~"+n+":~s~ \"I've already given you my answer.\"", "~r~"+n+":~s~ \"That proposal remains declined.\"", "~r~"+n+":~s~ \"Persisting won't change the outcome.\"", "~r~"+n+":~s~ \"No. And please don't ask again.\"" };
                 case "Gold Digger": return new string[] { "~r~"+n+":~s~ \"I said friends. That's it.\"", "~r~"+n+":~s~ \"Still no. Don't push it.\"", "~r~"+n+":~s~ \"Not happening. We're just friends.\"", "~r~"+n+":~s~ \"I like you. But not like that.\"" };
@@ -1102,7 +1102,7 @@ namespace CinnamonCoffee
                 case "Romantic":    return new string[] { "~g~"+n+":~s~ \"This isn't how I imagined things, but... okay.\"", "~g~"+n+":~s~ \"I'd rather it was more than business. But sure.\"", "~g~"+n+":~s~ \"If this is how we start... fine.\"", "~g~"+n+":~s~ \"You caught me off guard. Okay. Let's try.\"" };
                 case "Needy":       return new string[] { "~g~"+n+":~s~ \"You want to pay me? Yes! Okay!\"", "~g~"+n+":~s~ \"If it means spending more time with you — deal.\"", "~g~"+n+":~s~ \"Okay yes! Just don't disappear after.\"", "~g~"+n+":~s~ \"Deal. But you have to stay. Promise?\"" };
                 case "Flirty":      return new string[] { "~g~"+n+":~s~ \"Oh, so it's like that? I like where this is going.\"", "~g~"+n+":~s~ \"Money AND fun? Sold.\"", "~g~"+n+":~s~ \"Ha. I was wondering when you'd ask. Sure.\"", "~g~"+n+":~s~ \"Let's make it work. I'm in.\"" };
-                case "Playful":     return new string[] { "~g~"+n+":~s~ \"Ooh, this is new! Sure, let's try it!\"", "~g~"+n+":~s~ \"Ha! You actually asked! Okay, fine!\"", "~g~"+n+":~s~ \"You caught me in a weird mood. Sure.\"", "~g~"+n+":~s~ \"I'll try it once. Could be fun!\"" };
+                case "Playful":     return new string[] { "~g~"+n+":~s~ \"噢，這真新鮮！好啊，我們試試看！\"", "~g~"+n+":~s~ \"哈！你居然真的問了！好吧，可以！\"", "~g~"+n+":~s~ \"你正好碰上我心情微妙的時候，好吧。\"", "~g~"+n+":~s~ \"我試一次看看，說不定挺有趣的！\"" };
                 case "Party Girl":  return new string[] { "~g~"+n+":~s~ \"Easy money? Sure, I'm in!\"", "~g~"+n+":~s~ \"Yeah, why not? Life's short.\"", "~g~"+n+":~s~ \"Deal. Now we're talking!\"", "~g~"+n+":~s~ \"Ha! Didn't take long. Okay, yeah.\"" };
                 case "Sarcastic":   return new string[] { "~g~"+n+":~s~ \"Ha. I was wondering when you'd bring that up. Okay.\"", "~g~"+n+":~s~ \"Took you long enough. Fine.\"", "~g~"+n+":~s~ \"Sure. Predictable, but sure.\"", "~g~"+n+":~s~ \"Let me pretend to think about it. ...Okay.\"" };
                 case "Cold":        return new string[] { "~g~"+n+":~s~ \"Fine. Strictly business.\"", "~g~"+n+":~s~ \"Cash upfront. Deal.\"", "~g~"+n+":~s~ \"Okay. Don't make it personal.\"", "~g~"+n+":~s~ \"I can work with that.\"" };
@@ -1132,21 +1132,21 @@ namespace CinnamonCoffee
                 case "Needy":       return new string[] { "~r~"+n+":~s~ \"Please don't do this. I just want you to like me.\"", "~r~"+n+":~s~ \"Can't we just... be close without that?\"", "~r~"+n+":~s~ \"I don't want money to change things.\"", "~r~"+n+":~s~ \"No... I'm scared that'll ruin everything.\"" };
                 case "Flirty":      return new string[] { "~r~"+n+":~s~ \"Ha! Nice try. That's not my thing.\"", "~r~"+n+":~s~ \"I flirt for free. I don't charge for it.\"", "~r~"+n+":~s~ \"Tempting offer. But no.\"", "~r~"+n+":~s~ \"I'd rather keep the fun without the contract.\"" };
                 case "Playful":     return new string[] { "~r~"+n+":~s~ \"Ha! Really? No. But points for trying.\"", "~r~"+n+":~s~ \"Not my scene. But funny you asked.\"", "~r~"+n+":~s~ \"Nope! But I like the confidence.\"", "~r~"+n+":~s~ \"That's a no from me. Moving on!\"" };
-                case "Party Girl":  return new string[] { "~r~"+n+":~s~ \"Ha, nah. That's not really my vibe.\"", "~r~"+n+":~s~ \"I have fun, but not like that. No thanks.\"", "~r~"+n+":~s~ \"Not for me. But I'll still party with you.\"", "~r~"+n+":~s~ \"Nope. That's a line I don't cross.\"" };
+                case "Party Girl":  return new string[] { "~r~"+n+":~s~ \"Ha, nah. That's not really my vibe.\"", "~r~"+n+":~s~ \"I have fun, but not like that. 不用了，謝謝。\"", "~r~"+n+":~s~ \"Not for me. But I'll still party with you.\"", "~r~"+n+":~s~ \"Nope. That's a line I don't cross.\"" };
                 case "Sarcastic":   return new string[] { "~r~"+n+":~s~ \"Oh, wow. No. Hard no. Thanks for the laugh though.\"", "~r~"+n+":~s~ \"I'm going to pretend you didn't say that.\"", "~r~"+n+":~s~ \"Wow. Brave. And absolutely not.\"", "~r~"+n+":~s~ \"Ha! I appreciate the offer, but no.\"" };
-                case "Cold":        return new string[] { "~r~"+n+":~s~ \"No.\"", "~r~"+n+":~s~ \"That's not something I do.\"", "~r~"+n+":~s~ \"Not interested.\"", "~r~"+n+":~s~ \"No thanks. That's not me.\"" };
+                case "Cold":        return new string[] { "~r~"+n+":~s~ \"No.\"", "~r~"+n+":~s~ \"That's not something I do.\"", "~r~"+n+":~s~ \"沒興趣。\"", "~r~"+n+":~s~ \"不用了，謝謝。 That's not me.\"" };
                 case "Independent": return new string[] { "~r~"+n+":~s~ \"I don't do that. My call, not yours.\"", "~r~"+n+":~s~ \"That's not the kind of deal I make.\"", "~r~"+n+":~s~ \"I'm good on my own. No.\"", "~r~"+n+":~s~ \"That's a no. I like keeping things clean.\"" };
                 case "Classy":      return new string[] { "~r~"+n+":~s~ \"I find that offer rather insulting, honestly.\"", "~r~"+n+":~s~ \"That's not how I conduct myself.\"", "~r~"+n+":~s~ \"No. And I'd prefer not to revisit this.\"", "~r~"+n+":~s~ \"I'm going to politely decline.\"" };
                 case "Gold Digger": return new string[] { "~r~"+n+":~s~ \"Hmm. The rate would have to be very good.\"", "~r~"+n+":~s~ \"I'm flattered, kind of. But that's not for me.\"", "~r~"+n+":~s~ \"Not really my scene. Sorry.\"", "~r~"+n+":~s~ \"Ha! I appreciate the offer, but no.\"" };
                 case "Manipulative":return new string[] { "~r~"+n+":~s~ \"Interesting timing. But no.\"", "~r~"+n+":~s~ \"I'll decide if that changes. For now — no.\"", "~r~"+n+":~s~ \"You'll have to do better than that.\"", "~r~"+n+":~s~ \"That's not going to work on me. No.\"" };
-                case "Street Smart":return new string[] { "~r~"+n+":~s~ \"I know what that leads to. No thanks.\"", "~r~"+n+":~s~ \"I don't mix that stuff up. No.\"", "~r~"+n+":~s~ \"Not biting. That's not how I operate.\"", "~r~"+n+":~s~ \"Smart enough to say no. So no.\"" };
+                case "Street Smart":return new string[] { "~r~"+n+":~s~ \"I know what that leads to. 不用了，謝謝。\"", "~r~"+n+":~s~ \"I don't mix that stuff up. No.\"", "~r~"+n+":~s~ \"Not biting. That's not how I operate.\"", "~r~"+n+":~s~ \"Smart enough to say no. So no.\"" };
                 case "Mysterious":  return new string[] { "~r~"+n+":~s~ \"That's not who I am.\"", "~r~"+n+":~s~ \"Some things aren't for sale.\"", "~r~"+n+":~s~ \"No. And I won't explain why.\"", "~r~"+n+":~s~ \"Hmm. Not really my scene. Sorry.\"" };
                 case "Jealous":     return new string[] { "~r~"+n+":~s~ \"Are you doing this with other people? Because if so — no.\"", "~r~"+n+":~s~ \"I don't like this. No.\"", "~r~"+n+":~s~ \"Not a chance. I don't share myself like that.\"", "~r~"+n+":~s~ \"No. It makes me think about who else you're asking.\"" };
                 case "Dominant":    return new string[] { "~r~"+n+":~s~ \"You don't get to propose that to me.\"", "~r~"+n+":~s~ \"No. That's not how things work between us.\"", "~r~"+n+":~s~ \"I make the offers here. And I'm not offering that.\"", "~r~"+n+":~s~ \"That's a firm no.\"" };
                 case "Aggressive":  return new string[] { "~r~"+n+":~s~ \"Are you kidding me? Get out of my face.\"", "~r~"+n+":~s~ \"Don't insult me like that.\"", "~r~"+n+":~s~ \"Wow. No. Absolutely not.\"", "~r~"+n+":~s~ \"You've got some nerve. The answer is no.\"" };
                 case "Chaotic":     return new string[] { "~r~"+n+":~s~ \"HA! NO! That's insane! I love it! But still NO!\"", "~r~"+n+":~s~ \"Wooow okay that came out of nowhere. No!\"", "~r~"+n+":~s~ \"Nope nope nope! Too chaotic even for me!\"", "~r~"+n+":~s~ \"That is WILD. Absolutely not. Wow.\"" };
                 case "Unstable":    return new string[] { "~r~"+n+":~s~ \"No! Why would you even ask me that?!\"", "~r~"+n+":~s~ \"That makes me feel weird. Stop.\"", "~r~"+n+":~s~ \"I can't. I just can't. Please don't push.\"", "~r~"+n+":~s~ \"No no no. Just... no.\"" };
-                default:            return new string[] { "~r~"+n+":~s~ \"That's not something I do.\"", "~r~"+n+":~s~ \"No thanks. That's not me.\"", "~r~"+n+":~s~ \"I'm going to pretend you didn't say that.\"", "~r~"+n+":~s~ \"I don't think so. Let's just leave it.\"" };
+                default:            return new string[] { "~r~"+n+":~s~ \"That's not something I do.\"", "~r~"+n+":~s~ \"不用了，謝謝。 That's not me.\"", "~r~"+n+":~s~ \"I'm going to pretend you didn't say that.\"", "~r~"+n+":~s~ \"I don't think so. Let's just leave it.\"" };
             }
         }
 
@@ -1166,8 +1166,8 @@ namespace CinnamonCoffee
                 case "Maternal":  return new string[] { "~r~"+n+":~s~ \"I was trying so hard for both of us. I just can't anymore. I'm sorry.\"", "~r~"+n+":~s~ \"I hope you find what you're looking for. But it isn't me. Goodbye.\"", "~r~"+n+":~s~ \"I care about you. That's exactly why I have to go.\"", "~r~"+n+":~s~ \"I gave this everything I had. I have nothing left to give. Goodbye.\"" };
                 case "Fierce":    return new string[] { "~r~"+n+":~s~ \"You blew it. We are absolutely done. Get out of my life.\"", "~r~"+n+":~s~ \"Don't test me. I said we're done. That's final.\"", "~r~"+n+":~s~ \"I gave you a chance. You wasted it. Goodbye.\"", "~r~"+n+":~s~ \"I don't repeat myself. We're done. Don't come back.\"" };
                 case "Spiritual": return new string[] { "~r~"+n+":~s~ \"The universe is telling me this is wrong for both of us. I'm leaving.\"", "~r~"+n+":~s~ \"I prayed this would work. It's not meant to be. I have to go.\"", "~r~"+n+":~s~ \"Some things end so better things can begin. Goodbye.\"", "~r~"+n+":~s~ \"I feel it in my soul. This chapter is over. Goodbye.\"" };
-                case "Anxious":   return new string[] { "~r~"+n+":~s~ \"I've been so stressed about us. I can't keep doing this. It's over.\"", "~r~"+n+":~s~ \"Every time we talk I'm bracing for something to go wrong. I need to stop.\"", "~r~"+n+":~s~ \"I'm sorry. I just can't handle this anymore. We're done.\"", "~r~"+n+":~s~ \"My anxiety can't take this anymore. I have to end it. I'm sorry.\"" };
-                default:          return new string[] { "~r~"+n+":~s~ \"This can't work between us anymore. I'm sorry.\"", "~r~"+n+":~s~ \"I've been thinking about this. We're done.\"", "~r~"+n+":~s~ \"I can't keep doing this. It's over.\"", "~r~"+n+":~s~ \"Please don't make this harder than it already is. Goodbye.\"", "~r~"+n+":~s~ \"I needed more from this. I'm not getting it. We're through.\"", "~r~"+n+":~s~ \"This is the last conversation we're having like this. It's over.\"", "~r~"+n+":~s~ \"I think we both knew this was coming. Done.\"", "~r~"+n+":~s~ \"I'm not angry. Just done. Goodbye.\"" };
+                case "Anxious":   return new string[] { "~r~"+n+":~s~ \"I've been so stressed about us. 我無法再這樣下去了，一切都結束了。\"", "~r~"+n+":~s~ \"Every time we talk I'm bracing for something to go wrong. I need to stop.\"", "~r~"+n+":~s~ \"I'm sorry. I just can't handle this anymore. We're done.\"", "~r~"+n+":~s~ \"My anxiety can't take this anymore. I have to end it. I'm sorry.\"" };
+                default:          return new string[] { "~r~"+n+":~s~ \"我們之間再也無法維持下去了，對不起。\"", "~r~"+n+":~s~ \"我想這件事很久了，我們結束吧。\"", "~r~"+n+":~s~ \"我無法再這樣下去了，一切都結束了。\"", "~r~"+n+":~s~ \"請不要讓事情變得比現在更難過，再見。\"", "~r~"+n+":~s~ \"我需要更多，但我得不到。我們完蛋了。\"", "~r~"+n+":~s~ \"這是我們最後一次這樣談話，結束了。\"", "~r~"+n+":~s~ \"我想我們心裡都清楚這一天總會來，結束了。\"", "~r~"+n+":~s~ \"我沒有生氣，只是累了，再見。\"" };
             }
         }
 
@@ -1358,7 +1358,7 @@ namespace CinnamonCoffee
             switch (personality)
             {
                 case "Dominant":    return new[]{ "~r~"+n+":~s~ \"You don't get a third chance with me.\"", "~r~"+n+":~s~ \"I said no. Now I'm done talking to you.\"" };
-                case "Shy":         return new[]{ "~r~"+n+":~s~ \"Please... just leave me alone.\"", "~r~"+n+":~s~ \"I can't do this. I'm going.\"" };
+                case "Shy":         return new[]{ "~r~"+n+":~s~ \"Please... just leave me alone.\"", "~r~"+n+":~s~ \"我做不到，我要走了。\"" };
                 case "Cold":        { int _hr0 = Function.Call<int>(Hash.GET_CLOCK_HOURS); bool _nt0 = _hr0 >= 21 || _hr0 < 3; return new[]{ "~r~"+n+":~s~ \"We're done here.\"", "~r~"+n+":~s~ " + (_nt0 ? "\"Don't come near me again tonight.\"" : "\"Don't come near me again.\"") }; }
                 case "Flirty":      return new[]{ "~r~"+n+":~s~ \"Okay, you ruined it. I'm out.\"", "~r~"+n+":~s~ \"Too pushy. Bye.\"" };
                 case "Sweet":       return new[]{ "~r~"+n+":~s~ \"I was starting to like you... don't do this.\"", "~r~"+n+":~s~ \"You're making me uncomfortable. I'm leaving.\"" };
@@ -1485,7 +1485,7 @@ namespace CinnamonCoffee
                 case "Independent": return new string[] { "~r~"+n+":~s~ \"I prefer to keep it on my terms. Not rough.\"", "~r~"+n+":~s~ \"Not really for me.\"", "~r~"+n+":~s~ \"I'd pass on that.\"" };
                 case "Classy":      return new string[] { "~r~"+n+":~s~ \"I prefer something a little more refined.\"", "~r~"+n+":~s~ \"That's not my preference.\"", "~r~"+n+":~s~ \"Not that, please.\"" };
                 case "Gold Digger": return new string[] { "~r~"+n+":~s~ \"That's not what I signed up for.\"", "~r~"+n+":~s~ \"I don't do rough.\"", "~r~"+n+":~s~ \"Not happening.\"" };
-                case "Manipulative":return new string[] { "~r~"+n+":~s~ \"That's not what I'm offering.\"", "~r~"+n+":~s~ \"I don't do rough. Not interested.\"", "~r~"+n+":~s~ \"Choose something else.\"" };
+                case "Manipulative":return new string[] { "~r~"+n+":~s~ \"That's not what I'm offering.\"", "~r~"+n+":~s~ \"I don't do rough. 沒興趣。\"", "~r~"+n+":~s~ \"Choose something else.\"" };
                 case "Street Smart":return new string[] { "~r~"+n+":~s~ \"Nah. I don't do rough.\"", "~r~"+n+":~s~ \"That's not happening.\"", "~r~"+n+":~s~ \"Not that.\"" };
                 case "Mysterious":  return new string[] { "~r~"+n+":~s~ \"Not rough.\"", "~r~"+n+":~s~ \"That's not what I want.\"", "~r~"+n+":~s~ \"No.\"" };
                 case "Jealous":     return new string[] { "~r~"+n+":~s~ \"I'm not into rough. Not with anyone.\"", "~r~"+n+":~s~ \"That's not what I want.\"", "~r~"+n+":~s~ \"No rough.\"" };
@@ -1703,7 +1703,7 @@ namespace CinnamonCoffee
                         case "Romantic":     return new string[] { "Don't act like you're welcome here. What do you want.", "Confidence noted. What do you need.", "Don't push it. What?" };
                         case "Needy":        return new string[] { "You've got some nerve. But money's money. What do you need.", "I remember you. Don't push it. What?" };
                         case "Flirty":       return new string[] { "Don't flatter yourself. What do you want.", "I'm not impressed. What do you need.", "That confidence means nothing to me. What?" };
-                        case "Playful":      return new string[] { "Don't act like we're good. What do you want.", "Your confidence doesn't impress me. What.", "What do you need." };
+                        case "Playful":      return new string[] { "Don't act like we're good. What do you want.", "Your confidence doesn't impress me. What.", "你需要什麼？" };
                         case "Party Girl":   return new string[] { "Don't act like we're good. What.", "Confidence noted. I still don't like you. What do you want.", "What do you need. Make it quick." };
                         case "Sarcastic":    return new string[] { "Bold of you. What do you need.", "Sure, confident. Whatever. What.", "I've seen better. What do you want." };
                         case "Cold":         return new string[] { "You're on thin ice. What.", "Don't act like we're good. What do you want.", "Spare me. What?" };
@@ -1712,12 +1712,12 @@ namespace CinnamonCoffee
                         case "Gold Digger":  return new string[] { "Money talks. You remember that. What do you want.", "I don't trust you, but I'll take your money. What.", "Don't flatter yourself. What?" };
                         case "Manipulative": return new string[] { "I know what you're doing. What do you want.", "Don't try to play me. What do you need.", "Confidence won't get you a discount. What?" };
                         case "Street Smart": return new string[] { "Don't act like you own the situation. What.", "I know what this is. What do you want.", "Keep it moving. What do you need." };
-                        case "Mysterious":   return new string[] { "Don't act like we're good. What.", "Confidence noted. What do you want.", "What do you need." };
+                        case "Mysterious":   return new string[] { "Don't act like we're good. What.", "Confidence noted. What do you want.", "你需要什麼？" };
                         case "Jealous":      return new string[] { "You've got nerve. What do you want.", "Don't act like I'm happy to see you. What.", "What do you need. And don't linger." };
                         case "Dominant":     return new string[] { "I'm the one who decides the terms. What do you want.", "You've got nerve. What do you need.", "Don't act like you're in charge here. What?" };
                         case "Aggressive":   return new string[] { "Don't push me. What do you want.", "Confidence means nothing here. What.", "What do you need. Fast." };
                         case "Chaotic":      return new string[] { "Bold. Annoying. What do you want.", "Don't act like that impresses me. What.", "What. Now." };
-                        case "Unstable":     return new string[] { "Don't act like we're fine. We're not. What.", "Your confidence doesn't help you here. What do you want.", "What do you need." };
+                        case "Unstable":     return new string[] { "Don't act like we're fine. We're not. What.", "Your confidence doesn't help you here. What do you want.", "你需要什麼？" };
                         default:             return warm
                             ? new string[] { "You've got some nerve. But money's money. What do you need.", "I remember you. Don't push it. What?" }
                             : new string[] { "Don't flatter yourself. What do you want.", "Don't act like we're good. What do you want." };
@@ -1728,24 +1728,24 @@ namespace CinnamonCoffee
                     {
                         case "Shy":          return new string[] { "Still showing up. Fine. What do you want.", "You again. Keep it moving. What." };
                         case "Sweet":        return new string[] { "Don't try to be smooth with me. What do you want.", "You again. What do you need.", "Keep it moving. What?" };
-                        case "Romantic":     return new string[] { "Don't play it cool with me. What do you want.", "Still here. Fine. What.", "What do you need." };
+                        case "Romantic":     return new string[] { "Don't play it cool with me. What do you want.", "Still here. Fine. What.", "你需要什麼？" };
                         case "Needy":        return new string[] { "Still showing up. Fine. What do you want.", "You again. Keep it moving. What." };
-                        case "Flirty":       return new string[] { "Save the cool act. What do you want.", "Don't try to read me. What.", "What do you need." };
-                        case "Playful":      return new string[] { "Short and quick. What do you want.", "I don't like you. But I'll work. What?", "What do you need." };
+                        case "Flirty":       return new string[] { "Save the cool act. What do you want.", "Don't try to read me. What.", "你需要什麼？" };
+                        case "Playful":      return new string[] { "Short and quick. What do you want.", "I don't like you. But I'll work. What?", "你需要什麼？" };
                         case "Party Girl":   return new string[] { "Short and quick. What do you want.", "You again. What do you need.", "What. Make it fast." };
                         case "Sarcastic":    return new string[] { "Very smooth. What do you need.", "Cool. Sure. What.", "I get it. What do you want." };
                         case "Cold":         return new string[] { "You again. Don't linger. What.", "Short and quick. What do you want.", "What. And make it fast." };
                         case "Independent":  return new string[] { "Don't try to match me. What do you want.", "Short and quick. What.", "I don't like you. What do you need." };
-                        case "Classy":       return new string[] { "Don't try to play it cool. What do you want.", "I see what you're doing. What.", "What do you need." };
+                        case "Classy":       return new string[] { "Don't try to play it cool. What do you want.", "I see what you're doing. What.", "你需要什麼？" };
                         case "Gold Digger":  return new string[] { "Cool approach. Still need cash upfront. What.", "Don't waste my time. What do you want.", "What do you need. And have the money." };
                         case "Manipulative": return new string[] { "Don't try to read me. What do you want.", "I keep it cooler. What.", "You can't play me. What do you need." };
                         case "Street Smart": return new string[] { "Stay cool all you want. I know what this is. What.", "Don't try to read me. What do you want.", "I keep it cooler. What do you need." };
-                        case "Mysterious":   return new string[] { "You again. What.", "Short and quick. What do you want.", "What do you need." };
+                        case "Mysterious":   return new string[] { "You again. What.", "Short and quick. What do you want.", "你需要什麼？" };
                         case "Jealous":      return new string[] { "You again. Don't linger. What.", "Short and quick. What do you want.", "What do you need. And make it fast." };
-                        case "Dominant":     return new string[] { "Don't try to match me. What do you want.", "I set the pace here. What.", "What do you need." };
+                        case "Dominant":     return new string[] { "Don't try to match me. What do you want.", "I set the pace here. What.", "你需要什麼？" };
                         case "Aggressive":   return new string[] { "Don't play games with me. What do you want.", "Keep it moving. What.", "What. Now." };
                         case "Chaotic":      return new string[] { "Don't try to be cool with me. What.", "What do you want. No games.", "What do you need. Fast." };
-                        case "Unstable":     return new string[] { "You again. Don't push it. What.", "Short and quick. What do you want.", "What do you need." };
+                        case "Unstable":     return new string[] { "You again. Don't push it. What.", "Short and quick. What do you want.", "你需要什麼？" };
                         default:             return warm
                             ? new string[] { "Still showing up. Fine. What do you want.", "You again. Keep it moving. What." }
                             : new string[] { "Short and quick. What do you want.", "I don't like you. But I'll work. What?" };
@@ -1755,25 +1755,25 @@ namespace CinnamonCoffee
                     switch (p)
                     {
                         case "Shy":          return new string[] { "Flattery won't change anything between us. What do you need.", "Don't bother with that. What do you want." };
-                        case "Sweet":        return new string[] { "Don't bother being nice. What do you want.", "Flattery doesn't help you here. What.", "What do you need." };
-                        case "Romantic":     return new string[] { "Don't try to charm me. What do you want.", "That doesn't work anymore. What.", "What do you need." };
+                        case "Sweet":        return new string[] { "Don't bother being nice. What do you want.", "Flattery doesn't help you here. What.", "你需要什麼？" };
+                        case "Romantic":     return new string[] { "Don't try to charm me. What do you want.", "That doesn't work anymore. What.", "你需要什麼？" };
                         case "Needy":        return new string[] { "Flattery won't change anything between us. What do you need.", "Don't bother with that. What do you want." };
-                        case "Flirty":       return new string[] { "Save the flattery. What do you want.", "That approach won't work. What.", "What do you need." };
+                        case "Flirty":       return new string[] { "Save the flattery. What do you want.", "That approach won't work. What.", "你需要什麼？" };
                         case "Playful":      return new string[] { "I know what you're doing. It stopped working. What?", "Not interested in the charm. What do you need.", "What do you want." };
-                        case "Party Girl":   return new string[] { "Save it. What do you want.", "Flattery noted. Still don't like you. What.", "What do you need." };
+                        case "Party Girl":   return new string[] { "Save it. What do you want.", "Flattery noted. Still don't like you. What.", "你需要什麼？" };
                         case "Sarcastic":    return new string[] { "Oh, very smooth. Still hate you. What.", "Flattery. Noted. What do you want.", "Ha. What do you need." };
                         case "Cold":         return new string[] { "That doesn't work on me. What do you want.", "Save it. What.", "Not interested in the charm. What do you need." };
-                        case "Independent":  return new string[] { "Flattery doesn't get you anything here. What.", "I know what you're doing. What do you want.", "What do you need." };
-                        case "Classy":       return new string[] { "Flattery is transparent. What do you want.", "Save the pleasantries. What.", "What do you need." };
+                        case "Independent":  return new string[] { "Flattery doesn't get you anything here. What.", "I know what you're doing. What do you want.", "你需要什麼？" };
+                        case "Classy":       return new string[] { "Flattery is transparent. What do you want.", "Save the pleasantries. What.", "你需要什麼？" };
                         case "Gold Digger":  return new string[] { "Flattery won't raise your discount. What do you want.", "Save the sweet words. What do you need.", "That doesn't earn you anything. What?" };
                         case "Manipulative": return new string[] { "Don't try to flatter me. I know this game. What.", "Save it. What do you want.", "What do you need. I'm not buying it." };
                         case "Street Smart": return new string[] { "Don't try to charm me. What do you want.", "Flattery is wasted on me. What.", "What do you need. Cut to it." };
-                        case "Mysterious":   return new string[] { "Save it. What do you want.", "That doesn't work. What.", "What do you need." };
-                        case "Jealous":      return new string[] { "Don't try to charm me. I don't trust you. What.", "Flattery won't help. What do you want.", "What do you need." };
+                        case "Mysterious":   return new string[] { "Save it. What do you want.", "That doesn't work. What.", "你需要什麼？" };
+                        case "Jealous":      return new string[] { "Don't try to charm me. I don't trust you. What.", "Flattery won't help. What do you want.", "你需要什麼？" };
                         case "Dominant":     return new string[] { "That doesn't work on me. Not from you. What.", "Compliments don't change anything. What do you want.", "Save it. What?" };
-                        case "Aggressive":   return new string[] { "Save it. I'm not impressed. What do you want.", "Flattery means nothing. What.", "What do you need." };
+                        case "Aggressive":   return new string[] { "Save it. I'm not impressed. What do you want.", "Flattery means nothing. What.", "你需要什麼？" };
                         case "Chaotic":      return new string[] { "Ha. Flattery. Whatever. What do you want.", "Save the sweet talk. What.", "What do you need. Now." };
-                        case "Unstable":     return new string[] { "Don't try to charm me right now. What do you want.", "Save it. What.", "What do you need." };
+                        case "Unstable":     return new string[] { "Don't try to charm me right now. What do you want.", "Save it. What.", "你需要什麼？" };
                         default:             return warm
                             ? new string[] { "Flattery won't change anything between us. What do you need.", "Don't bother with that. What do you want." }
                             : new string[] { "I know what you're doing. It stopped working. What?", "Not interested in the charm. What do you need." };
@@ -1784,27 +1784,27 @@ namespace CinnamonCoffee
                     {
                         case "Shy":          return new string[] { "I'm not laughing. What do you want.", "Yeah, very funny. What do you need." };
                         case "Sweet":        return new string[] { "I'm not in the mood for jokes. What do you want.", "Not funny. What do you need.", "What do you want." };
-                        case "Romantic":     return new string[] { "Don't joke around with me. What do you want.", "Not in the mood. What.", "What do you need." };
+                        case "Romantic":     return new string[] { "Don't joke around with me. What do you want.", "Not in the mood. What.", "你需要什麼？" };
                         case "Needy":        return new string[] { "I'm not laughing. What do you want.", "Yeah, very funny. What do you need." };
-                        case "Flirty":       return new string[] { "Save the jokes. What do you want.", "Not funny. What.", "What do you need." };
-                        case "Playful":      return new string[] { "Yeah, hilarious. What do you want.", "Not in the mood. What do you want.", "What do you need." };
-                        case "Party Girl":   return new string[] { "Not in the mood. What do you want.", "Yeah, great. What do you need.", "What. Now." };
+                        case "Flirty":       return new string[] { "Save the jokes. What do you want.", "Not funny. What.", "你需要什麼？" };
+                        case "Playful":      return new string[] { "對啊，真搞笑。你到底想怎樣？", "沒心情，你想怎樣？", "你需要什麼？" };
+                        case "Party Girl":   return new string[] { "沒心情，你想怎樣？", "Yeah, great. What do you need.", "What. Now." };
                         case "Sarcastic":    return new string[] { "Ha. Very droll. What do you need.", "Hilarious. What do you want.", "Sure, very funny. What?" };
-                        case "Cold":         return new string[] { "Cut it. What do you want.", "This stopped being funny. What.", "Not in the mood. What do you want." };
-                        case "Independent":  return new string[] { "Not funny. What do you want.", "Cut the act. What.", "What do you need." };
-                        case "Classy":       return new string[] { "I'm not amused. What do you want.", "Don't waste my time. What.", "What do you need." };
+                        case "Cold":         return new string[] { "Cut it. What do you want.", "This stopped being funny. What.", "沒心情，你想怎樣？" };
+                        case "Independent":  return new string[] { "Not funny. What do you want.", "Cut the act. What.", "你需要什麼？" };
+                        case "Classy":       return new string[] { "I'm not amused. What do you want.", "Don't waste my time. What.", "你需要什麼？" };
                         case "Gold Digger":  return new string[] { "Jokes won't get you a discount. What do you want.", "Not funny. What do you need.", "What. And have the money." };
-                        case "Manipulative": return new string[] { "Don't try to be cute. What do you want.", "I'm not playing. What.", "What do you need." };
-                        case "Street Smart": return new string[] { "Don't play games with me. What do you want.", "Cut the act. What.", "What do you need." };
-                        case "Mysterious":   return new string[] { "Not funny. What do you want.", "Cut it. What.", "What do you need." };
-                        case "Jealous":      return new string[] { "Not in the mood for jokes. What do you want.", "Don't mess around. What.", "What do you need." };
+                        case "Manipulative": return new string[] { "Don't try to be cute. What do you want.", "I'm not playing. What.", "你需要什麼？" };
+                        case "Street Smart": return new string[] { "Don't play games with me. What do you want.", "Cut the act. What.", "你需要什麼？" };
+                        case "Mysterious":   return new string[] { "Not funny. What do you want.", "Cut it. What.", "你需要什麼？" };
+                        case "Jealous":      return new string[] { "沒心情開玩笑，你想要什麼？", "別胡鬧了，有什麼事？", "你需要什麼？" };
                         case "Dominant":     return new string[] { "Don't play games with me. What do you want.", "I'm not laughing. What do you need.", "You want to mess around? What." };
                         case "Aggressive":   return new string[] { "Don't joke around with me. What do you want.", "Not funny. What.", "You think this is funny? What do you need." };
                         case "Chaotic":      return new string[] { "HA. Still not funny to me. What do you want.", "What? What do you need.", "Not in the mood. What." };
                         case "Unstable":     return new string[] { "Don't joke with me right now. What do you want.", "Not funny. What do you need.", "What." };
                         default:             return warm
                             ? new string[] { "I'm not laughing. What do you want.", "Yeah, very funny. What do you need." }
-                            : new string[] { "Yeah, hilarious. What do you want.", "Not in the mood. What do you want." };
+                            : new string[] { "對啊，真搞笑。你到底想怎樣？", "沒心情，你想怎樣？" };
                     }
 
                 default:
@@ -1859,7 +1859,7 @@ namespace CinnamonCoffee
                 case "Party Girl":   return new string[] { "~r~"+name+":~s~ \"Okay this stopped being fun. I'm out.\"", "~r~"+name+":~s~ \"Nooo. I'm done. Bye!\"" };
                 case "Romantic":     return new string[] { "~r~"+name+":~s~ \"This isn't going anywhere. Please stop.\"", "~r~"+name+":~s~ \"I'm asking you nicely — leave me alone.\"" };
                 case "Needy":        return new string[] { "~r~"+name+":~s~ \"Why do you keep doing this? Just go!\"", "~r~"+name+":~s~ \"I can't take this anymore. Leave me alone.\"" };
-                case "Independent":  return new string[] { "~r~"+name+":~s~ \"I don't need this. I'm gone.\"", "~r~"+name+":~s~ \"Back off. I can handle myself.\"" };
+                case "Independent":  return new string[] { "~r~"+name+":~s~ \"我不需要這個，我走了。\"", "~r~"+name+":~s~ \"Back off. I can handle myself.\"" };
                 case "Jealous":      return new string[] { "~r~"+name+":~s~ \"You've been messing with too many people. We're done.\"", "~r~"+name+":~s~ \"I don't want to see you near me again.\"" };
                 case "Chaotic":      return new string[] { "~r~"+name+":~s~ \"Nope nope nope — I'm leaving, bye, goodbye!\"", "~r~"+name+":~s~ \"I can't with this right now. I'm out!\"" };
                 case "Manipulative": return new string[] { "~r~"+name+":~s~ \"You've had your chances. I'm done with you.\"", "~r~"+name+":~s~ \"This is over. Don't try to change my mind.\"" };
@@ -2528,8 +2528,8 @@ namespace CinnamonCoffee
                                 if (p == "Sarcastic")    return new string[] { "~r~\"You really don't listen, do you?\"", "~r~\"We just went over this.\"" }[rng.Next(2)];
                                 if (p == "Cold")         return new string[] { "~r~\"I answered that.\"", "~r~\"We're done with that topic.\"" }[rng.Next(2)];
                                 if (p == "Street Smart") return new string[] { "~r~\"I told you already. Move on.\"", "~r~\"You've got a short memory.\"" }[rng.Next(2)];
-                                if (p == "Chaotic")      return new string[] { "~r~\"Seriously? We talked about this.\"", "~r~\"You already asked me that.\"" }[rng.Next(2)];
-                                return new string[] { "~r~\"You already asked me that.\"", "~r~\"I already answered that.\"" }[rng.Next(2)];
+                                if (p == "Chaotic")      return new string[] { "~r~\"Seriously? We talked about this.\"", "~r~\"你剛才已經問過我了。\"" }[rng.Next(2)];
+                                return new string[] { "~r~\"你剛才已經問過我了。\"", "~r~\"我已經回答過那個問題了。\"" }[rng.Next(2)];
                             }
                             if (p == "Street Smart") return "\"Born and raised. I know every corner.\"";
                             if (p == "Classy")       return "\"I've been here long enough. It's... fine.\"";
@@ -2558,32 +2558,32 @@ namespace CinnamonCoffee
                                 if (p == "依賴")        return new string[] { "~r~\"I already said. Please don't make me repeat it.\"", "~r~\"We talked about this already.\"" }[rng.Next(2)];
                                 if (p == "Cold")         return new string[] { "~r~\"Answered.\"", "~r~\"I said it once.\"" }[rng.Next(2)];
                                 if (p == "Sarcastic")    return new string[] { "~r~\"Didn't we already cover this?\"", "~r~\"Still the same answer.\"" }[rng.Next(2)];
-                                if (p == "Independent")  return new string[] { "~r~\"You already know. Move on.\"", "~r~\"We went over this.\"" }[rng.Next(2)];
+                                if (p == "Independent")  return new string[] { "~r~\"You already know. Move on.\"", "~r~\"我們已經討論過這個了。\"" }[rng.Next(2)];
                                 if (p == "Gold Digger")  return new string[] { "~r~\"My standards haven't changed.\"", "~r~\"I think I was clear the first time.\"" }[rng.Next(2)];
-                                return new string[] { "~r~\"I already told you.\"", "~r~\"You already asked me that.\"" }[rng.Next(2)];
+                                return new string[] { "~r~\"I already told you.\"", "~r~\"你剛才已經問過我了。\"" }[rng.Next(2)];
                             }
                             if (p == "依賴")        return "\"Someone to stick around. Is that too much to ask?\"";
                             if (p == "Independent")  return "\"Nothing serious. Just... company, sometimes.\"";
                             if (p == "Gold Digger")  return "\"Security. Comfort. Someone worth my time.\"";
                             if (p == "Romantic")     return "\"Something real. I know, I know.\"";
                             if (p == "Chaotic")      return "\"No idea. That's kind of the fun part.\"";
-                            if (p == "Cold" && !opensUp) return "~r~\"Not this conversation.\"";
+                            if (p == "Cold" && !opensUp) return "~r~\"不要聊這個話題。\"";
                             return (warm || opensUp) ? "\"Still figuring that out.\"" : "~r~\"Nothing you can offer.\"";
                         case 5: // "You seeing anyone?"
                             if (d != null && (d.KnownTopics & (1 << 4)) != 0)
                             {
                                 if (p == "嫉妒")      return new string[] { "~r~\"You already asked. Why are you asking again?\"", "~r~\"I said no. Are you suspicious of something?\"" }[rng.Next(2)];
                                 if (p == "Manipulative") return new string[] { "~r~\"I gave you my answer.\"", "~r~\"Still complicated. Still not your business.\"" }[rng.Next(2)];
-                                if (p == "依賴")        return new string[] { "~r~\"I told you. Still no.\"", "~r~\"You already asked me that.\"" }[rng.Next(2)];
+                                if (p == "依賴")        return new string[] { "~r~\"I told you. Still no.\"", "~r~\"你剛才已經問過我了。\"" }[rng.Next(2)];
                                 if (p == "Cold")         return new string[] { "~r~\"Still none of your business.\"", "~r~\"Answered.\"" }[rng.Next(2)];
                                 if (p == "Sarcastic")    return new string[] { "~r~\"Nothing changed in the last five minutes.\"", "~r~\"Asked and answered.\"" }[rng.Next(2)];
-                                return new string[] { "~r~\"I already answered that.\"", "~r~\"We've been through this.\"" }[rng.Next(2)];
+                                return new string[] { "~r~\"我已經回答過那個問題了。\"", "~r~\"We've been through this.\"" }[rng.Next(2)];
                             }
                             if (p == "嫉妒")      return "\"...Not anymore. And I'd rather not talk about it.\"";
                             if (p == "依賴")        return "\"No. And it's been a while.\"";
                             if (p == "Manipulative") return "\"It's complicated. Why do you ask?\"";
                             if (p == "Cold" && !opensUp) return "~r~\"That's none of your business.\"";
-                            return (warm || opensUp) ? "\"No. Not right now.\"" : "~r~\"Why are you asking?\"";
+                            return (warm || opensUp) ? "\"No. Not right now.\"" : "~r~\"你幹嘛問這個？\"";
                         case 6: // "What's your story?"
                             if (d != null && (d.KnownTopics & (1 << 5)) != 0)
                             {
@@ -2631,7 +2631,7 @@ namespace CinnamonCoffee
                                 if (p == "Shy")          return new string[] { "~r~\"You... you already said that.\"", "~r~\"You're repeating yourself.\"" }[rng.Next(2)];
                                 if (p == "依賴")        return new string[] { "~r~\"You already said that. Not that I mind.\"", "~r~\"I heard you the first time.\"" }[rng.Next(2)];
                                 if (p == "Manipulative") return new string[] { "~r~\"You already went there. Push harder.\"", "~r~\"You said that already.\"" }[rng.Next(2)];
-                                return new string[] { "~r~\"You already said that.\"", "~r~\"I heard you the first time.\"", "~r~\"You're repeating yourself.\"" }[rng.Next(3)];
+                                return new string[] { "~r~\"你剛才說過了。\"", "~r~\"I heard you the first time.\"", "~r~\"You're repeating yourself.\"" }[rng.Next(3)];
                             }
                             if (p == "Classy" || p == "Romantic")
                                 return new string[] { "\"Thank you. That's actually sweet.\"", "\"That's genuinely nice of you.\"", "\"You noticed. I appreciate that.\"" }[rng.Next(3)];
@@ -2761,7 +2761,7 @@ namespace CinnamonCoffee
                                 if (p == "Independent")  return new string[] { "~r~\"Still no. You already asked.\"", "~r~\"You asked. I answered. Same answer.\"" }[rng.Next(2)];
                                 if (p == "Cold")         return new string[] { "~r~\"You already asked that. No.\"", "~r~\"We covered this.\"" }[rng.Next(2)];
                                 if (p == "Playful")      return new string[] { "~r~\"Ha, fishing again? You already asked.\"", "~r~\"You already tried that. I'm not telling.\"" }[rng.Next(2)];
-                                if (p == "嫉妒")      return new string[] { "~r~\"You asked. Now you're asking again. What do you want to hear?\"", "~r~\"You already asked me that.\"" }[rng.Next(2)];
+                                if (p == "嫉妒")      return new string[] { "~r~\"You asked. Now you're asking again. What do you want to hear?\"", "~r~\"你剛才已經問過我了。\"" }[rng.Next(2)];
                                 if (p == "Sarcastic")    return new string[] { "~r~\"You really need the validation that bad?\"", "~r~\"Still asking. Still not telling.\"" }[rng.Next(2)];
                                 return new string[] { "~r~\"You already asked that.\"", "~r~\"I already answered.\"", "~r~\"You really need the validation, huh?\"" }[rng.Next(3)];
                             }
@@ -2791,7 +2791,7 @@ namespace CinnamonCoffee
                                 if (p == "Sarcastic")    return new string[] { "~r~\"You said that already. Keep them coming.\"", "~r~\"You mentioned it. Still obvious.\"" }[rng.Next(2)];
                                 if (p == "Shy")          return new string[] { "~r~\"You... you already said that. Thank you again.\"", "~r~\"You already told me that.\"" }[rng.Next(2)];
                                 if (p == "Romantic")     return new string[] { "~r~\"You already said that. You mean it, I know.\"", "~r~\"I heard you the first time.\"" }[rng.Next(2)];
-                                return new string[] { "~r~\"You already said that.\"", "~r~\"Thanks. Again.\"", "~r~\"You mentioned it.\"" }[rng.Next(3)];
+                                return new string[] { "~r~\"你剛才說過了。\"", "~r~\"Thanks. Again.\"", "~r~\"You mentioned it.\"" }[rng.Next(3)];
                             }
                             if (p == "Classy")
                                 return new string[] { "\"I know. Thank you for noticing.\"", "\"Always do. But thank you.\"", "\"I try. But yes, thank you.\"" }[rng.Next(3)];
@@ -2873,7 +2873,7 @@ namespace CinnamonCoffee
                             return coldLines[rng.Next(coldLines.Length)];
                         }
                         string[] notReadyLines = {
-                            "~r~\"I'm not ready for that kind of conversation.\"",
+                            "~r~\"我還沒準備好聊那種話題。\"",
                             "~r~\"It's too soon.\"",
                             "~r~\"We're not there yet.\"",
                             "~r~\"I need more time before we talk like this.\"",
@@ -3065,7 +3065,7 @@ namespace CinnamonCoffee
                                 if (p == "Sweet")        return new string[] { "~r~\"You already know. Nothing's changed.\"", "~r~\"I told you already. Ask me something new.\"" }[rng.Next(2)];
                                 if (p == "Cold")         return new string[] { "~r~\"I gave you one answer. That's it.\"", "~r~\"You already know.\"" }[rng.Next(2)];
                                 if (p == "Sarcastic")    return new string[] { "~r~\"You already asked. I'm still the same person.\"", "~r~\"We've been through this.\"" }[rng.Next(2)];
-                                return new string[] { "~r~\"You already asked me that.\"", "~r~\"We've been over this.\"" }[rng.Next(2)];
+                                return new string[] { "~r~\"你剛才已經問過我了。\"", "~r~\"We've been over this.\"" }[rng.Next(2)];
                             }
                             if (rel < 30) return "~r~\"I'm exactly what you see. Don't dig.\"";
                             if (p == "Mysterious") return "\"I'm still figuring that out myself.\"";
@@ -3109,7 +3109,7 @@ namespace CinnamonCoffee
                                 if (p == "Chaotic")      return new string[] { "~r~\"I already told you I don't plan that far. Still true.\"", "~r~\"Same answer. I don't think that far ahead.\"" }[rng.Next(2)];
                                 if (p == "Independent")  return new string[] { "~r~\"To not need anyone. I said that. Still feel it.\"", "~r~\"You already got my answer on that.\"" }[rng.Next(2)];
                                 if (p == "Sarcastic")    return new string[] { "~r~\"Same thing I said last time. Nothing's changed.\"", "~r~\"You already asked. Still figuring it out.\"" }[rng.Next(2)];
-                                return new string[] { "~r~\"You already asked me that.\"", "~r~\"I gave you my answer.\"" }[rng.Next(2)];
+                                return new string[] { "~r~\"你剛才已經問過我了。\"", "~r~\"I gave you my answer.\"" }[rng.Next(2)];
                             }
                             if (rel < 30) return "~r~\"Big question. Ask me when you actually know me.\"";
                             if (p == "Gold Digger")  return "\"Safety. The kind money buys.\"";
@@ -3138,7 +3138,7 @@ namespace CinnamonCoffee
                                 if (p == "Unstable")     return new string[] { "~r~\"You already know. Please don't bring that up again.\"", "~r~\"I shared that. It was enough. Let it be.\"" }[rng.Next(2)];
                                 if (p == "嫉妒")      return new string[] { "~r~\"Being left. You already know. Don't rub it in.\"", "~r~\"I told you. Don't make it weird.\"" }[rng.Next(2)];
                                 if (p == "Aggressive")   return new string[] { "~r~\"I said nothing. I meant it. Drop it.\"", "~r~\"You already got my answer on that.\"" }[rng.Next(2)];
-                                if (p == "Cold")         return new string[] { "~r~\"I said I'm fine. Still fine.\"", "~r~\"You already heard my answer.\"" }[rng.Next(2)];
+                                if (p == "Cold")         return new string[] { "~r~\"I said I'm fine. Still fine.\"", "~r~\"你剛才已經聽過我的答案了。\"" }[rng.Next(2)];
                                 if (p == "Sarcastic")    return new string[] { "~r~\"Still scared of the same things. Very interesting.\"", "~r~\"You already got that answer.\"" }[rng.Next(2)];
                                 return new string[] { "~r~\"I already told you.\"", "~r~\"I shared that once. That's enough.\"" }[rng.Next(2)];
                             }
@@ -3154,8 +3154,8 @@ namespace CinnamonCoffee
                                 if (p == "Cold")         return new string[] { "~r~\"I told you. Maybe. Still don't know.\"", "~r~\"You already have my answer on that.\"" }[rng.Next(2)];
                                 if (p == "嫉妒")      return new string[] { "~r~\"Once. I already said. Please don't.\"", "~r~\"I told you. It's not something I like talking about.\"" }[rng.Next(2)];
                                 if (p == "依賴")        return new string[] { "~r~\"I already told you. Every time they leave. Please don't make me say it again.\"", "~r~\"You already heard that. Please.\"" }[rng.Next(2)];
-                                if (p == "Sarcastic")    return new string[] { "~r~\"You already asked. Still the same answer.\"", "~r~\"That conversation happened already.\"" }[rng.Next(2)];
-                                return new string[] { "~r~\"I already answered that.\"", "~r~\"That conversation is done.\"" }[rng.Next(2)];
+                                if (p == "Sarcastic")    return new string[] { "~r~\"你已經問過了，答案還是一樣。\"", "~r~\"那個話題我們已經聊過了。\"" }[rng.Next(2)];
+                                return new string[] { "~r~\"我已經回答過那個問題了。\"", "~r~\"那個話題已經結束了。\"" }[rng.Next(2)];
                             }
                             if (rel < 30) return "~r~\"That's not a first-date question.\"";
                             if (p == "Romantic")   return "\"Yes. It ended badly. But I'd do it again.\"";
@@ -3220,17 +3220,17 @@ namespace CinnamonCoffee
                             if (d != null && (d.KnownTopics & (1 << 12)) != 0)
                             {
                                 if (mood == "Annoyed")   return new string[] { "~r~\"I said I'm not great. Stop asking.\"", "~r~\"You already know. Leave it.\"" }[rng.Next(2)];
-                                if (mood == "Alert")   return new string[] { "~r~\"Still alert. Still fine.\"", "~r~\"You already heard my answer.\"" }[rng.Next(2)];
-                                if (mood == "Playful")   return new string[] { "~r~\"Still good! You can stop checking.\"", "~r~\"You already asked. I'm great.\"" }[rng.Next(2)];
+                                if (mood == "Alert")   return new string[] { "~r~\"依然警惕，依然沒事。\"", "~r~\"你剛才已經聽過我的答案了。\"" }[rng.Next(2)];
+                                if (mood == "Playful")   return new string[] { "~r~\"依然很好！你可以不用一直確認了。\"", "~r~\"你已經問過了，我非常好。\"" }[rng.Next(2)];
                                 if (p == "Cold")         return new string[] { "~r~\"Same as I said.\"", "~r~\"I told you already.\"" }[rng.Next(2)];
                                 if (p == "Sarcastic")    return new string[] { "~r~\"Same feeling I had when you asked last time.\"", "~r~\"I told you how I feel.\"" }[rng.Next(2)];
-                                return new string[] { "~r~\"You already asked me that.\"", "~r~\"I told you how I feel.\"" }[rng.Next(2)];
+                                return new string[] { "~r~\"你剛才已經問過我了。\"", "~r~\"I told you how I feel.\"" }[rng.Next(2)];
                             }
-                            if (mood == "Annoyed")  return "~r~\"Honestly? Like I'd rather be somewhere else right now.\"";
-                            if (mood == "Alert")  return "\"Careful. You can't really trust anyone out here.\"";
-                            if (mood == "Playful")  return "\"Pretty good actually. You're not boring.\"";
-                            if (mood == "Needy")    return "\"...Okay. I just don't want to be alone.\"";
-                            if (mood == "Jealous")  return "~r~\"Fine. Why? Did something happen?\"";
+                            if (mood == "Annoyed")  return "~r~\"老實說？我現在寧可待在別的地方。\"";
+                            if (mood == "Alert")  return "\"小心點，在外面你不能真正信任任何人。\"";
+                            if (mood == "Playful")  return "\"其實挺不錯的，你這個人不算無聊。\"";
+                            if (mood == "Needy")    return "\"...好吧，我只是不想一個人待著。\"";
+                            if (mood == "Jealous")  return "~r~\"挺好的。怎麼了？出什麼事了嗎？\"";
                             // Fallback varies by time and weather
                             if (isRain)    return warm ? "\"A little damp but fine, honestly.\"" : "\"Cold. Wet. Could be better.\"";
                             if (isSnow)    return warm ? "\"Freezing. But kind of peaceful.\"" : "\"Like I've been standing in the cold too long.\"";
@@ -3239,55 +3239,55 @@ namespace CinnamonCoffee
                         case 1: // "You okay?"
                             if (d != null && (d.KnownTopics & (1 << 13)) != 0)
                             {
-                                if (mood == "Annoyed")   return new string[] { "~r~\"I said I'm fine. Stop checking.\"", "~r~\"You already asked. I'm handling it.\"" }[rng.Next(2)];
-                                if (mood == "Alert")   return new string[] { "~r~\"Still fine. Stop looking at me like that.\"", "~r~\"You already asked.\"" }[rng.Next(2)];
-                                if (mood == "Needy")     return new string[] { "~r~\"You already asked. Still better.\"", "~r~\"You don't have to keep checking on me.\"" }[rng.Next(2)];
+                                if (mood == "Annoyed")   return new string[] { "~r~\"我說過我沒事了，別再一直確認。\"", "~r~\"You already asked. I'm handling it.\"" }[rng.Next(2)];
+                                if (mood == "Alert")   return new string[] { "~r~\"依然很好，別那樣看著我。\"", "~r~\"You already asked.\"" }[rng.Next(2)];
+                                if (mood == "Needy")     return new string[] { "~r~\"你已經問過了，還是挺好的。\"", "~r~\"你不必一直關心我。\"" }[rng.Next(2)];
                                 if (p == "Cold")         return new string[] { "~r~\"You already asked. I'm still okay.\"", "~r~\"Asked. Answered.\"" }[rng.Next(2)];
-                                if (p == "Sarcastic")    return new string[] { "~r~\"Yes, still okay. You already asked.\"", "~r~\"I already answered that.\"" }[rng.Next(2)];
-                                return new string[] { "~r~\"Yes, still okay. You already asked.\"", "~r~\"I already answered that.\"" }[rng.Next(2)];
+                                if (p == "Sarcastic")    return new string[] { "~r~\"Yes, still okay. You already asked.\"", "~r~\"我已經回答過那個問題了。\"" }[rng.Next(2)];
+                                return new string[] { "~r~\"Yes, still okay. You already asked.\"", "~r~\"我已經回答過那個問題了。\"" }[rng.Next(2)];
                             }
-                            if (mood == "Annoyed")  return "~r~\"I'm fine. Just leave it.\"";
-                            if (mood == "Alert")  return "\"Why are you asking?\"";
-                            if (mood == "Needy")    return "\"Better now that you're here. Is that weird?\"";
+                            if (mood == "Annoyed")  return "~r~\"我很好，別管了。\"";
+                            if (mood == "Alert")  return "\"你幹嘛問這個？\"";
+                            if (mood == "Needy")    return "\"既然你來了，那現在好多了。這樣講會很奇怪嗎？\"";
                             return warm ? "\"Yeah. I'm good, thanks.\"" : "\"I'm always okay.\"";
                         case 2: // "You seem tense."
                             if (d != null && (d.KnownTopics & (1 << 14)) != 0)
                             {
-                                if (mood == "Annoyed")   return new string[] { "~r~\"You already said that. Yes. I'm tense. Moving on.\"", "~r~\"Still the same. You don't need to keep pointing it out.\"" }[rng.Next(2)];
-                                if (mood == "Alert")   return new string[] { "~r~\"I told you. Alert, not tense. Stop saying that.\"", "~r~\"We went over this.\"" }[rng.Next(2)];
+                                if (mood == "Annoyed")   return new string[] { "~r~\"你剛才說過了。是的，我現在很繃緊，換個話題吧。\"", "~r~\"依然老樣子，你不需要一直提。\"" }[rng.Next(2)];
+                                if (mood == "Alert")   return new string[] { "~r~\"我告訴過你，是警惕不是緊張，別再這麼說了。\"", "~r~\"我們已經討論過這個了。\"" }[rng.Next(2)];
                                 if (p == "Sarcastic")    return new string[] { "~r~\"You keep saying that. Noted. Still moving on.\"", "~r~\"You really like pointing that out.\"" }[rng.Next(2)];
                                 if (p == "Cold")         return new string[] { "~r~\"You already mentioned that.\"", "~r~\"You keep saying that.\"" }[rng.Next(2)];
                                 return new string[] { "~r~\"You keep saying that.\"", "~r~\"You already mentioned it.\"" }[rng.Next(2)];
                             }
-                            if (mood == "Annoyed")  return "\"Yeah. Something came up. I'll get over it.\"";
-                            if (mood == "Alert")  return "\"I'm just... aware. That's different from tense.\"";
-                            if (mood == "Relaxed")  return "\"Do I? I feel fine.\"";
+                            if (mood == "Annoyed")  return "\"是啊，出了點狀況，我會克服的。\"";
+                            if (mood == "Alert")  return "\"我只是... 比較警覺，這和緊張不同。\"";
+                            if (mood == "Relaxed")  return "\"我有嗎？我感覺挺好的。\"";
                             return "\"Maybe. I'll shake it off.\"";
                         case 3: // "You look happy."
                             if (d != null && (d.KnownTopics & (1 << 15)) != 0)
                             {
-                                if (mood == "Playful")   return new string[] { "~r~\"Yes, you said that. I'm still happy!\"", "~r~\"You noticed the first time too.\"" }[rng.Next(2)];
-                                if (mood == "Annoyed")   return new string[] { "~r~\"I told you I'm not. Why do you keep saying that?\"", "~r~\"Still not happy. Still annoyed. Stop commenting.\"" }[rng.Next(2)];
+                                if (mood == "Playful")   return new string[] { "~r~\"對，你說過了，我依然很高興！\"", "~r~\"你第一次就注意到了。\"" }[rng.Next(2)];
+                                if (mood == "Annoyed")   return new string[] { "~r~\"我告訴過你我沒有，你為什麼一直這麼說？\"", "~r~\"依然不高興，依然很煩，別再評論了。\"" }[rng.Next(2)];
                                 if (p == "Sarcastic")    return new string[] { "~r~\"We established that already.\"", "~r~\"Yes, you told me. I know.\"" }[rng.Next(2)];
                                 if (p == "Dominant")     return new string[] { "~r~\"You already said that. I heard you the first time.\"", "~r~\"Already noted.\"" }[rng.Next(2)];
-                                return new string[] { "~r~\"You already said that.\"", "~r~\"I know, you told me.\"" }[rng.Next(2)];
+                                return new string[] { "~r~\"你剛才說過了。\"", "~r~\"I know, you told me.\"" }[rng.Next(2)];
                             }
-                            if (mood == "Playful")  return "\"I am! Is it obvious?\"";
-                            if (mood == "Annoyed")  return "~r~\"I'm not, actually. But thanks.\"";
-                            if (mood == "Relaxed")  return isNight ? "\"I'm in a good place tonight.\"" : "\"I'm in a good place.\"";
+                            if (mood == "Playful")  return "\"我是啊！有那麼明顯嗎？\"";
+                            if (mood == "Annoyed")  return "~r~\"其實我沒有，但還是謝謝你。\"";
+                            if (mood == "Relaxed")  return isNight ? "\"我今晚狀態挺好的。\"" : "\"我現在狀態挺好的。\"";
                             return warm ? "\"Ha. You noticed.\"" : "\"I look the same as always.\"";
                         case 4: // "You seem distracted."
                             if (d != null && (d.KnownTopics & (1 << 16)) != 0)
                             {
-                                if (mood == "Alert")   return new string[] { "~r~\"I told you. Still thinking. Still fine.\"", "~r~\"You already noticed. I'm okay.\"" }[rng.Next(2)];
-                                if (mood == "Jealous")   return new string[] { "~r~\"Still the same thing on my mind. Drop it.\"", "~r~\"You already asked. I don't want to talk about it.\"" }[rng.Next(2)];
-                                if (mood == "Annoyed")   return new string[] { "~r~\"Yes. You keep pointing it out. That's not helping.\"", "~r~\"I know. You already told me.\"" }[rng.Next(2)];
-                                if (p == "Cold")         return new string[] { "~r~\"You already said that.\"", "~r~\"I heard you the first time.\"" }[rng.Next(2)];
+                                if (mood == "Alert")   return new string[] { "~r~\"我告訴過你，還在思考，依然沒事。\"", "~r~\"你已經注意到過了，我沒事。\"" }[rng.Next(2)];
+                                if (mood == "Jealous")   return new string[] { "~r~\"心裡想的還是同一件事，別再提了。\"", "~r~\"你已經問過了，我不想聊這個。\"" }[rng.Next(2)];
+                                if (mood == "Annoyed")   return new string[] { "~r~\"對，你一直提出來，這對事情沒有幫助。\"", "~r~\"我知道，你剛才已經告訴我了。\"" }[rng.Next(2)];
+                                if (p == "Cold")         return new string[] { "~r~\"你剛才說過了。\"", "~r~\"I heard you the first time.\"" }[rng.Next(2)];
                                 return new string[] { "~r~\"You already pointed that out.\"", "~r~\"You asked me that already.\"" }[rng.Next(2)];
                             }
-                            if (mood == "Alert")  return "\"Just thinking.\"";
-                            if (mood == "Jealous")  return "\"Something's on my mind. Forget it.\"";
-                            if (mood == "Annoyed")  return "\"Yeah. Something's bothering me but it's not worth explaining.\"";
+                            if (mood == "Alert")  return "\"只是在思考一些事。\"";
+                            if (mood == "Jealous")  return "\"心裡有些事，算了，別在意。\"";
+                            if (mood == "Annoyed")  return "\"是啊，有些事煩著我，但不值得多做解釋。\"";
                             return warm ? "\"Sorry. I was somewhere else for a second.\"" : "\"I'm here, aren't I?\"";
                     }
                     break;
@@ -3302,7 +3302,7 @@ namespace CinnamonCoffee
                                 if (p == "Sarcastic")    return new string[] { "~r~\"You already talked about the weather. New material please.\"", "~r~\"Still the same sky. Yes.\"" }[rng.Next(2)];
                                 if (p == "Cold")         return new string[] { "~r~\"We already covered the weather.\"", "~r~\"I know what it's doing outside.\"" }[rng.Next(2)];
                                 if (p == "Playful")      return new string[] { "~r~\"We already did this one! Step it up.\"", "~r~\"Ha, really? Weather again?\"" }[rng.Next(2)];
-                                if (p == "Romantic")     return new string[] { "~r~\"You already said that.\"", "~r~\"We already talked about this.\"" }[rng.Next(2)];
+                                if (p == "Romantic")     return new string[] { "~r~\"你剛才說過了。\"", "~r~\"We already talked about this.\"" }[rng.Next(2)];
                                 return isNight
                                     ? new string[] { "~r~\"You already commented on the night.\"", "~r~\"We've been through that one.\"" }[rng.Next(2)]
                                     : new string[] { "~r~\"Yea, I can see that. Thanks.\"", "~r~\"Yikes...\"" }[rng.Next(2)];
@@ -3344,9 +3344,9 @@ namespace CinnamonCoffee
                             {
                                 if (p == "Gold Digger")  return new string[] { "~r~\"You already asked. Offer first, then ask.\"", "~r~\"Same answer as before.\"" }[rng.Next(2)];
                                 if (p == "Playful")      return new string[] { "~r~\"Still hungry. Always hungry. You going to do something about it?\"", "~r~\"You already asked that!\"" }[rng.Next(2)];
-                                if (p == "Cold")         return new string[] { "~r~\"I already answered that.\"", "~r~\"No. Still no.\"" }[rng.Next(2)];
+                                if (p == "Cold")         return new string[] { "~r~\"我已經回答過那個問題了。\"", "~r~\"No. Still no.\"" }[rng.Next(2)];
                                 if (p == "Sarcastic")    return new string[] { "~r~\"You asked me that already. Still the same answer.\"", "~r~\"Bold follow-up.\"" }[rng.Next(2)];
-                                return new string[] { "~r~\"You already asked.\"", "~r~\"I already answered that.\"" }[rng.Next(2)];
+                                return new string[] { "~r~\"You already asked.\"", "~r~\"我已經回答過那個問題了。\"" }[rng.Next(2)];
                             }
                             if (p == "Gold Digger") return "\"Are you offering to buy?\"";
                             if (p == "Playful")     return "\"Always. What are you thinking?\"";
@@ -3359,7 +3359,7 @@ namespace CinnamonCoffee
                                 if (p == "Party Girl")   return new string[] { "~r~\"You already heard about it! Catch up.\"", "~r~\"I already told you how it's been.\"" }[rng.Next(2)];
                                 if (p == "Cold")         return new string[] { "~r~\"I already told you.\"", "~r~\"You know the answer.\"" }[rng.Next(2)];
                                 if (p == "Sarcastic")    return new string[] { "~r~\"We literally just covered this.\"", "~r~\"Busy. Same as I said.\"" }[rng.Next(2)];
-                                return new string[] { "~r~\"I already told you.\"", "~r~\"We went over this.\"" }[rng.Next(2)];
+                                return new string[] { "~r~\"I already told you.\"", "~r~\"我們已經討論過這個了。\"" }[rng.Next(2)];
                             }
                             if (p == "Street Smart") return isNight ? "\"It's been a night. Let's leave it at that.\"" : "\"It's been a day. Let's leave it at that.\"";
                             if (p == "Party Girl")   return isNight ? "\"Please yes. Just got here and I'm already tired.\"" : "\"It's barely started. Give it time.\"";
@@ -3383,9 +3383,9 @@ namespace CinnamonCoffee
                             if (d != null && (d.KnownTopics & (1 << 10)) != 0)
                             {
                                 if (p == "Sarcastic")    return new string[] { "~r~\"Still looks the same to you? Great. Moving on.\"", "~r~\"You already noticed that. I remember.\"" }[rng.Next(2)];
-                                if (p == "Cold")         return new string[] { "~r~\"Still not tired. Still don't care that you think so.\"", "~r~\"You already said that.\"" }[rng.Next(2)];
+                                if (p == "Cold")         return new string[] { "~r~\"Still not tired. Still don't care that you think so.\"", "~r~\"你剛才說過了。\"" }[rng.Next(2)];
                                 if (p == "依賴")        return new string[] { "~r~\"You already asked me that. I said I'm fine.\"", "~r~\"I know. You said.\"" }[rng.Next(2)];
-                                return new string[] { "~r~\"You already said that.\"", "~r~\"You really like repeating yourself, don't you?\"" }[rng.Next(2)];
+                                return new string[] { "~r~\"你剛才說過了。\"", "~r~\"You really like repeating yourself, don't you?\"" }[rng.Next(2)];
                             }
                             if (p == "依賴")      return "\"I am. I haven't been sleeping great.\"";
                             if (p == "Cold")       return "\"I'm not. I always look like this.\"";
@@ -3397,7 +3397,7 @@ namespace CinnamonCoffee
                                 if (p == "Party Girl")   return new string[] { "~r~\"Told you already. Same situation.\"", "~r~\"You already heard the story.\"" }[rng.Next(2)];
                                 if (p == "Mysterious")   return new string[] { "~r~\"I gave you what I give anyone. That's all you get.\"", "~r~\"Same as last time.\"" }[rng.Next(2)];
                                 if (p == "Sarcastic")    return new string[] { "~r~\"Same thing I said five minutes ago.\"", "~r~\"You already have the full picture.\"" }[rng.Next(2)];
-                                if (p == "Cold")         return new string[] { "~r~\"Still stuff. Still not your concern.\"", "~r~\"I already answered that.\"" }[rng.Next(2)];
+                                if (p == "Cold")         return new string[] { "~r~\"Still stuff. Still not your concern.\"", "~r~\"我已經回答過那個問題了。\"" }[rng.Next(2)];
                                 if (p == "Playful")      return new string[] { "~r~\"Ha, you already asked! Are you forgetting things?\"", "~r~\"I told you already. Keep up.\"" }[rng.Next(2)];
                                 return new string[] { "~r~\"I already told you.\"", "~r~\"Same as before.\"" }[rng.Next(2)];
                             }
@@ -3870,7 +3870,7 @@ namespace CinnamonCoffee
                                     ? new string[] { "Ha! I like that. Come on then.", "Smart man. Let's talk." }
                                     : new string[] { "That depends on what you say next. Go ahead.", "Don't prove me wrong." };
                                 return warm
-                                    ? new string[] { "Points for bravery. Still no thanks.", "I appreciate the effort. Not interested." }
+                                    ? new string[] { "Points for bravery. Still no thanks.", "I appreciate the effort. 沒興趣。" }
                                     : new string[] { "Then be an idiot. I'm busy.", "The outcome is the same either way." };
                             case 1: // "You're exactly my type."
                                 if (accepted) return warm
@@ -4069,7 +4069,7 @@ namespace CinnamonCoffee
             // Fallback
             return accepted
                 ? new string[] { "Sure." }
-                : new string[] { "Not interested." };
+                : new string[] { "沒興趣。" };
         }
 
         /// <summary>Return NPC response for Intimacy sub-branch dialogue (Ask Preferences or Test Waters).</summary>
@@ -4094,10 +4094,10 @@ namespace CinnamonCoffee
                             if (p == "Romantic")     return new string[] { "~r~\"You already asked. My answer hasn't changed.\"", "~r~\"I told you already.\"" }[rng.Next(2)];
                             if (p == "Playful")      return new string[] { "~r~\"You already asked that. Still maybe.\"", "~r~\"I already told you. Check back later.\"" }[rng.Next(2)];
                             if (p == "Sarcastic")    return new string[] { "~r~\"You already asked. My mood answer stands.\"", "~r~\"Still the same answer.\"" }[rng.Next(2)];
-                            return new string[] { "~r~\"I already told you.\"", "~r~\"You already asked me that.\"" }[rng.Next(2)];
+                            return new string[] { "~r~\"I already told you.\"", "~r~\"你剛才已經問過我了。\"" }[rng.Next(2)];
                         }
                         if (attachment >= 0.65) return "~r~\"Not with just anyone.\"";
-                        if (p == "Playful")     return "\"Depends on my mood. Right now? Maybe.\"";
+                        if (p == "Playful")     return "\"看我的心情，現在嗎？也許吧。\"";
                         if (p == "Cold")        return "~r~\"No.\"";
                         if (p == "Romantic")    return "\"If it feels right, yes.\"";
                         return warm ? "\"Sometimes. I'm picky about it.\"" : "~r~\"Not a default.\"";
@@ -4120,11 +4120,11 @@ namespace CinnamonCoffee
                         {
                             if (p == "Dominant")    return new string[] { "~r~\"I told you what I'm into. Don't make me repeat myself.\"", "~r~\"You already know.\"" }[rng.Next(2)];
                             if (p == "Cold")        return new string[] { "~r~\"You already know. Drop it.\"", "~r~\"I told you once.\"" }[rng.Next(2)];
-                            if (p == "Sarcastic")   return new string[] { "~r~\"Same list as last time. Try to retain information.\"", "~r~\"You already asked me that.\"" }[rng.Next(2)];
+                            if (p == "Sarcastic")   return new string[] { "~r~\"Same list as last time. Try to retain information.\"", "~r~\"你剛才已經問過我了。\"" }[rng.Next(2)];
                             if (p == "Shy")         return new string[] { "~r~\"I... you already asked me that.\"", "~r~\"I told you already.\"" }[rng.Next(2)];
                             if (p == "Playful")     return new string[] { "~r~\"You already asked! I told you.\"", "~r~\"Still the same answer.\"" }[rng.Next(2)];
                             if (p == "Aggressive")  return new string[] { "~r~\"You already know. Don't waste my time.\"", "~r~\"I said what I said.\"" }[rng.Next(2)];
-                            return new string[] { "~r~\"I already told you.\"", "~r~\"You already asked me that.\"" }[rng.Next(2)];
+                            return new string[] { "~r~\"I already told you.\"", "~r~\"你剛才已經問過我了。\"" }[rng.Next(2)];
                         }
                         if (p == "Dominant")    return "\"Taking charge, mostly. I don't like being told what to do.\"";
                         if (p == "Shy")         return "\"I... I'm not sure I want to talk about that.\"";
@@ -4146,8 +4146,8 @@ namespace CinnamonCoffee
                                 if (bjKnown) return new string[] { "~r~\"You already asked. Yes — I enjoy it.\"", "~r~\"Still yes. You don't forget things, do you?\"" }[rng.Next(2)];
                                 if (p == "Cold")        return new string[] { "~r~\"I answered that. Stop asking.\"", "~r~\"Same answer.\"" }[rng.Next(2)];
                                 if (p == "Shy")         return new string[] { "~r~\"Please don't make me say it again.\"", "~r~\"I told you already.\"" }[rng.Next(2)];
-                                if (p == "Sarcastic")   return new string[] { "~r~\"Still the same answer. Somehow you forgot.\"", "~r~\"You already asked me that.\"" }[rng.Next(2)];
-                                return new string[] { "~r~\"I already told you. No.\"", "~r~\"You already asked me that.\"" }[rng.Next(2)];
+                                if (p == "Sarcastic")   return new string[] { "~r~\"Still the same answer. Somehow you forgot.\"", "~r~\"你剛才已經問過我了。\"" }[rng.Next(2)];
+                                return new string[] { "~r~\"I already told you. No.\"", "~r~\"你剛才已經問過我了。\"" }[rng.Next(2)];
                             }
                             // Known from activity but never asked directly — she acknowledges it naturally
                             return bjKnown
@@ -4159,7 +4159,7 @@ namespace CinnamonCoffee
                             if (p == "Dominant")    return new string[] { "~r~\"You already have my answer on that.\"", "~r~\"I told you. Move on.\"" }[rng.Next(2)];
                             if (p == "Playful")     return new string[] { "~r~\"You already asked! The answer hasn't changed.\"", "~r~\"Still the same.\"" }[rng.Next(2)];
                             if (p == "Aggressive")  return new string[] { "~r~\"I said what I said. Move on.\"", "~r~\"You already know.\"" }[rng.Next(2)];
-                            return new string[] { "~r~\"I already told you.\"", "~r~\"You already asked me that.\"" }[rng.Next(2)];
+                            return new string[] { "~r~\"I already told you.\"", "~r~\"你剛才已經問過我了。\"" }[rng.Next(2)];
                         }
                         if (p == "Dominant")    return "\"On my terms. Not yours.\"";
                         if (p == "Shy")         return "~r~\"I'd... I'd rather not get into that.\"";
@@ -4181,10 +4181,10 @@ namespace CinnamonCoffee
                             if (roughAsked)
                             {
                                 if (roughKnown) return new string[] { "~r~\"You already asked. Yes — I'm into it.\"", "~r~\"Still yes. Nothing's changed.\"" }[rng.Next(2)];
-                                if (p == "Shy")         return new string[] { "~r~\"I... I already told you. Please.\"", "~r~\"You already asked me that.\"" }[rng.Next(2)];
+                                if (p == "Shy")         return new string[] { "~r~\"I... I already told you. Please.\"", "~r~\"你剛才已經問過我了。\"" }[rng.Next(2)];
                                 if (p == "Romantic")    return new string[] { "~r~\"You already know how I feel about that.\"", "~r~\"Same answer. Still no.\"" }[rng.Next(2)];
-                                if (p == "Sarcastic")   return new string[] { "~r~\"You already asked. Still the same answer.\"", "~r~\"Retention isn't your strong suit.\"" }[rng.Next(2)];
-                                return new string[] { "~r~\"I already told you. No.\"", "~r~\"You already asked me that.\"" }[rng.Next(2)];
+                                if (p == "Sarcastic")   return new string[] { "~r~\"你已經問過了，答案還是一樣。\"", "~r~\"Retention isn't your strong suit.\"" }[rng.Next(2)];
+                                return new string[] { "~r~\"I already told you. No.\"", "~r~\"你剛才已經問過我了。\"" }[rng.Next(2)];
                             }
                             // Known from activity but never asked directly
                             return roughKnown
@@ -4194,9 +4194,9 @@ namespace CinnamonCoffee
                         if (d != null && (d.KnownTopics & (1L << 28)) != 0)
                         {
                             if (p == "Aggressive")  return new string[] { "~r~\"I said what I said. Stop asking.\"", "~r~\"You already know.\"" }[rng.Next(2)];
-                            if (p == "Dominant")    return new string[] { "~r~\"My preference hasn't changed. Ask something else.\"", "~r~\"You already asked me that.\"" }[rng.Next(2)];
+                            if (p == "Dominant")    return new string[] { "~r~\"My preference hasn't changed. Ask something else.\"", "~r~\"你剛才已經問過我了。\"" }[rng.Next(2)];
                             if (p == "Cold")        return new string[] { "~r~\"Same answer as before.\"", "~r~\"I told you already.\"" }[rng.Next(2)];
-                            return new string[] { "~r~\"I already told you.\"", "~r~\"You already asked me that.\"" }[rng.Next(2)];
+                            return new string[] { "~r~\"I already told you.\"", "~r~\"你剛才已經問過我了。\"" }[rng.Next(2)];
                         }
                         if (p == "Dominant")    return "\"On my end, yes. Yours? We'll see.\"";
                         if (p == "Aggressive")  return "\"Yeah. Don't go soft on me.\"";
@@ -4215,10 +4215,10 @@ namespace CinnamonCoffee
                             if (p == "Dominant")    return new string[] { "~r~\"I already answered that. Obviously.\"", "~r~\"You already know I do.\"" }[rng.Next(2)];
                             if (p == "Shy")         return new string[] { "~r~\"You already asked me that...\"", "~r~\"I told you. No.\"" }[rng.Next(2)];
                             if (p == "Playful")     return new string[] { "~r~\"You already know my answer! Move on.\"", "~r~\"Still the same. Maybe.\"" }[rng.Next(2)];
-                            if (p == "Sarcastic")   return new string[] { "~r~\"Same answer. You really don't pay attention, do you?\"", "~r~\"You already asked me that.\"" }[rng.Next(2)];
+                            if (p == "Sarcastic")   return new string[] { "~r~\"Same answer. You really don't pay attention, do you?\"", "~r~\"你剛才已經問過我了。\"" }[rng.Next(2)];
                             if (p == "Cold")        return new string[] { "~r~\"You already know.\"", "~r~\"I answered that.\"" }[rng.Next(2)];
                             if (p == "Aggressive")  return new string[] { "~r~\"You already asked. You have your answer.\"", "~r~\"Same thing I said before.\"" }[rng.Next(2)];
-                            return new string[] { "~r~\"I already told you.\"", "~r~\"You already asked me that.\"" }[rng.Next(2)];
+                            return new string[] { "~r~\"I already told you.\"", "~r~\"你剛才已經問過我了。\"" }[rng.Next(2)];
                         }
                         if (p == "Dominant")    return "\"Always.\"";
                         if (p == "Aggressive")  return "\"If you can't keep up, yeah.\"";
@@ -4236,11 +4236,11 @@ namespace CinnamonCoffee
                             if (p == "Cold")        return new string[] { "~r~\"I said it once. That's it.\"", "~r~\"You already know my limits.\"" }[rng.Next(2)];
                             if (p == "Dominant")    return new string[] { "~r~\"You already know my limits. Don't push them.\"", "~r~\"I told you. You heard me.\"" }[rng.Next(2)];
                             if (p == "Shy")         return new string[] { "~r~\"You already know. Please don't make me repeat it.\"", "~r~\"I told you already.\"" }[rng.Next(2)];
-                            if (p == "Sarcastic")   return new string[] { "~r~\"Same things as before. Nothing's changed.\"", "~r~\"You already asked me that.\"" }[rng.Next(2)];
+                            if (p == "Sarcastic")   return new string[] { "~r~\"Same things as before. Nothing's changed.\"", "~r~\"你剛才已經問過我了。\"" }[rng.Next(2)];
                             if (p == "依賴")       return new string[] { "~r~\"You already asked. I told you.\"", "~r~\"Please don't make me say it again.\"" }[rng.Next(2)];
-                            if (p == "Romantic")    return new string[] { "~r~\"You already asked me that.\"", "~r~\"I told you. That hasn't changed.\"" }[rng.Next(2)];
+                            if (p == "Romantic")    return new string[] { "~r~\"你剛才已經問過我了。\"", "~r~\"I told you. That hasn't changed.\"" }[rng.Next(2)];
                             if (p == "Aggressive")  return new string[] { "~r~\"I told you what I won't do. Don't ask again.\"", "~r~\"You already know.\"" }[rng.Next(2)];
-                            return new string[] { "~r~\"I already told you.\"", "~r~\"You already asked me that.\"" }[rng.Next(2)];
+                            return new string[] { "~r~\"I already told you.\"", "~r~\"你剛才已經問過我了。\"" }[rng.Next(2)];
                         }
                         if (p == "Romantic")    return "\"Anything that doesn't feel real. Or rushed.\"";
                         if (p == "Shy")         return "\"Anything too... exposed. Or loud.\"";
@@ -4260,7 +4260,7 @@ namespace CinnamonCoffee
                             if (p == "Cold")         return new string[] { "~r~\"I said what I said.\"", "~r~\"Same answer.\"" }[rng.Next(2)];
                             if (p == "依賴")        return new string[] { "~r~\"You already know I don't want casual. Please stop asking.\"", "~r~\"I already told you.\"" }[rng.Next(2)];
                             if (p == "Sarcastic")    return new string[] { "~r~\"You already know how I answered that.\"", "~r~\"Same as last time.\"" }[rng.Next(2)];
-                            return new string[] { "~r~\"I already told you.\"", "~r~\"We went over this.\"" }[rng.Next(2)];
+                            return new string[] { "~r~\"I already told you.\"", "~r~\"我們已經討論過這個了。\"" }[rng.Next(2)];
                         }
                         if (attachment >= 0.70) return "~r~\"Not really. But I'll take what I can get.\"";
                         if (p == "Independent") return "\"Yes. Keep it clean.\"";
@@ -4387,13 +4387,13 @@ namespace CinnamonCoffee
                             case 1: // "You been out long?"
                                 if (p == "Aggressive")   return "~r~\"Why do you care?\"";
                                 if (p == "Cold")         return "~r~\"That's not your concern.\"";
-                                if (p == "Sarcastic")    return "~r~\"Long enough to be done with this conversation.\"";
+                                if (p == "Sarcastic")    return "~r~\"時間長到足夠結束這場對話了。\"";
                                 return "~r~\"I'd rather not talk right now.\"";
                             case 2: // "Anyone giving you trouble?"
                                 if (p == "Aggressive")   return "~r~\"Yeah. You, right now.\"";
                                 if (p == "Dominant")     return "~r~\"None of your concern. Back off.\"";
                                 if (p == "Sarcastic")    return "~r~\"You're testing that theory right now.\"";
-                                return "~r~\"Not looking for conversation.\"";
+                                return "~r~\"我可不是來聊天的。\"";
                             case 3: // "You working alone?"
                                 if (p == "Aggressive")   return "~r~\"Stop asking me questions.\"";
                                 if (p == "Cold")         return "~r~\"That's not something you need to know.\"";
@@ -4434,7 +4434,7 @@ namespace CinnamonCoffee
                                 if (p == "Aggressive")   return "~r~\"Then keep walking.\"";
                                 if (p == "Cold")         return "~r~\"Try harder.\"";
                                 if (p == "Sarcastic")    return "~r~\"Most people manage it. Try again.\"";
-                                if (p == "Dominant")     return "~r~\"Not interested. Move on.\"";
+                                if (p == "Dominant")     return "~r~\"沒興趣。 Move on.\"";
                                 return "~r~\"I'm not in the mood for that.\"";
                             case 1: // "I always look for you out here."
                                 if (p == "Aggressive")   return "~r~\"Stop doing that.\"";
@@ -4453,7 +4453,7 @@ namespace CinnamonCoffee
                                 if (p == "Cold")         return "~r~\"That's not my problem.\"";
                                 if (p == "Sarcastic")    return "~r~\"High praise. Still a no.\"";
                                 if (p == "Dominant")     return "~r~\"I don't need your approval to feel worth it.\"";
-                                return "~r~\"Not interested.\"";
+                                return "~r~\"沒興趣。\"";
                         }
                         break;
                 }
@@ -4488,10 +4488,10 @@ namespace CinnamonCoffee
                             if (d != null && (d.KnownTopics & (1 << 0)) != 0)
                             {
                                 if (p == "Sarcastic")    return new string[] { "~r~\"Still from the same place.\"", "~r~\"Already told you that.\"" }[rng.Next(2)];
-                                if (p == "Cold")         return new string[] { "~r~\"I already answered that.\"", "~r~\"You heard me.\"" }[rng.Next(2)];
+                                if (p == "Cold")         return new string[] { "~r~\"我已經回答過那個問題了。\"", "~r~\"You heard me.\"" }[rng.Next(2)];
                                 if (p == "Mysterious")   return new string[] { "~r~\"Still the same place.\"", "~r~\"My answer hasn't changed.\"" }[rng.Next(2)];
                                 if (p == "Street Smart") return new string[] { "~r~\"Said what I said.\"", "~r~\"You already heard this.\"" }[rng.Next(2)];
-                                return new string[] { "~r~\"You already asked me that.\"", "~r~\"We went over this.\"" }[rng.Next(2)];
+                                return new string[] { "~r~\"你剛才已經問過我了。\"", "~r~\"我們已經討論過這個了。\"" }[rng.Next(2)];
                             }
                             if (p == "Street Smart") return opensUp ? "\"South side, born and raised. I know every block.\"" : "\"Around. Why?\"";
                             if (p == "Mysterious")   return "\"Somewhere that doesn't really exist anymore.\"";
@@ -4505,7 +4505,7 @@ namespace CinnamonCoffee
                                 if (p == "Chaotic")      return new string[] { "~r~\"Still wherever I feel like.\"", "~r~\"You already know my answer.\"" }[rng.Next(2)];
                                 if (p == "Gold Digger")  return new string[] { "~r~\"Same as before.\"", "~r~\"I already told you.\"" }[rng.Next(2)];
                                 if (p == "Sarcastic")    return new string[] { "~r~\"Still the same stretch.\"", "~r~\"You really need to ask again?\"" }[rng.Next(2)];
-                                return new string[] { "~r~\"You already asked me that.\"", "~r~\"We covered that.\"" }[rng.Next(2)];
+                                return new string[] { "~r~\"你剛才已經問過我了。\"", "~r~\"We covered that.\"" }[rng.Next(2)];
                             }
                             if (p == "Street Smart") return "\"This and a couple other spots. Depends on the night.\"";
                             if (p == "Chaotic")      return "\"Wherever I feel like. I don't keep a schedule.\"";
@@ -4517,10 +4517,10 @@ namespace CinnamonCoffee
                             if (d != null && (d.KnownTopics & (1 << 2)) != 0)
                             {
                                 if (p == "Sarcastic")    return new string[] { "~r~\"Still as long as the last time you asked.\"", "~r~\"You already heard this.\"" }[rng.Next(2)];
-                                if (p == "Cold")         return new string[] { "~r~\"I told you. Move on.\"", "~r~\"I already answered that.\"" }[rng.Next(2)];
+                                if (p == "Cold")         return new string[] { "~r~\"I told you. Move on.\"", "~r~\"我已經回答過那個問題了。\"" }[rng.Next(2)];
                                 if (p == "Shy")          return new string[] { "~r~\"I... already said I don't want to talk about it.\"", "~r~\"Please stop asking.\"" }[rng.Next(2)];
-                                if (p == "Gold Digger")  return new string[] { "~r~\"Still the same answer.\"", "~r~\"We went over this.\"" }[rng.Next(2)];
-                                return new string[] { "~r~\"You already asked me that.\"", "~r~\"Same answer as before.\"" }[rng.Next(2)];
+                                if (p == "Gold Digger")  return new string[] { "~r~\"Still the same answer.\"", "~r~\"我們已經討論過這個了。\"" }[rng.Next(2)];
+                                return new string[] { "~r~\"你剛才已經問過我了。\"", "~r~\"Same answer as before.\"" }[rng.Next(2)];
                             }
                             if (p == "Gold Digger")  return opensUp ? "\"Long enough to know exactly what I'm worth.\"" : "\"Long enough. Why?\"";
                             if (p == "Street Smart") return "\"Long enough. I know the game.\"";
@@ -4542,7 +4542,7 @@ namespace CinnamonCoffee
                                 if (p == "Sarcastic")    return new string[] { "~r~\"Still the same answer it was last time.\"", "~r~\"Asked. Answered. Moving on?\"" }[rng.Next(2)];
                                 if (p == "Cold")         return new string[] { "~r~\"You know the answer.\"", "~r~\"Same as before.\"" }[rng.Next(2)];
                                 if (p == "Playful")      return new string[] { "~r~\"You already asked me that one.\"", "~r~\"Ha, running out of material?\"" }[rng.Next(2)];
-                                if (p == "Gold Digger")  return new string[] { "~r~\"Same answer. Bring something new.\"", "~r~\"I already answered that.\"" }[rng.Next(2)];
+                                if (p == "Gold Digger")  return new string[] { "~r~\"Same answer. Bring something new.\"", "~r~\"我已經回答過那個問題了。\"" }[rng.Next(2)];
                                 return isNight
                                     ? new string[] { "~r~\"You already asked about the night.\"", "~r~\"We covered that.\"" }[rng.Next(2)]
                                     : new string[] { "~r~\"You already asked that.\"", "~r~\"We covered that.\"" }[rng.Next(2)];
@@ -4560,7 +4560,7 @@ namespace CinnamonCoffee
                                 if (p == "Playful")      return new string[] { "~r~\"Ha, checking up on me already?\"", "~r~\"I told you. I'm not going anywhere yet.\"" }[rng.Next(2)];
                                 if (p == "Mysterious")   return new string[] { "~r~\"My plans haven't changed since you asked.\"", "~r~\"Still here. That answer enough?\"" }[rng.Next(2)];
                                 if (p == "Street Smart") return new string[] { "~r~\"Said what I said. Same answer.\"", "~r~\"You already know.\"" }[rng.Next(2)];
-                                return new string[] { "~r~\"I already answered that.\"", "~r~\"You already asked me this.\"" }[rng.Next(2)];
+                                return new string[] { "~r~\"我已經回答過那個問題了。\"", "~r~\"You already asked me this.\"" }[rng.Next(2)];
                             }
                             if (p == "Gold Digger")  return "\"As long as business keeps coming.\"";
                             if (p == "Playful")      return "\"Why, you got plans for me?\"";
@@ -4573,7 +4573,7 @@ namespace CinnamonCoffee
                                 if (p == "Aggressive")   return new string[] { "~r~\"Still handled. Still don't need help.\"", "~r~\"I told you — I've got it.\"" }[rng.Next(2)];
                                 if (p == "Dominant")     return new string[] { "~r~\"Still handled. Stop asking.\"", "~r~\"I gave you my answer.\"" }[rng.Next(2)];
                                 if (p == "Sarcastic")    return new string[] { "~r~\"Nope. Still the same answer.\"", "~r~\"You really need to hear it twice?\"" }[rng.Next(2)];
-                                if (p == "Shy")          return new string[] { "~r~\"I... already said no. Why do you keep asking?\"", "~r~\"You already asked me that.\"" }[rng.Next(2)];
+                                if (p == "Shy")          return new string[] { "~r~\"I... already said no. Why do you keep asking?\"", "~r~\"你剛才已經問過我了。\"" }[rng.Next(2)];
                                 if (p == "Manipulative") return new string[] { "~r~\"I said I handled it. Why are you so interested?\"", "~r~\"Already answered that.\"" }[rng.Next(2)];
                                 return new string[] { "~r~\"We covered that already.\"", "~r~\"I already told you.\"" }[rng.Next(2)];
                             }
@@ -4590,7 +4590,7 @@ namespace CinnamonCoffee
                             if (d != null && (d.KnownTopics & (1 << 9)) != 0)
                             {
                                 if (p == "Dominant")     return new string[] { "~r~\"I told you. Still alone. Still fine with that.\"", "~r~\"You already know my answer.\"" }[rng.Next(2)];
-                                if (p == "Independent")  return new string[] { "~r~\"Same answer as before.\"", "~r~\"You already asked me that.\"" }[rng.Next(2)];
+                                if (p == "Independent")  return new string[] { "~r~\"Same answer as before.\"", "~r~\"你剛才已經問過我了。\"" }[rng.Next(2)];
                                 if (p == "Mysterious")   return new string[] { "~r~\"I already gave you as much as I'm giving.\"", "~r~\"That question still has the same answer.\"" }[rng.Next(2)];
                                 if (p == "Sarcastic")    return new string[] { "~r~\"Yes, still alone. Like I said.\"", "~r~\"You checked already. Still yes.\"" }[rng.Next(2)];
                                 if (p == "Shy")          return new string[] { "~r~\"I... yes. I already said that.\"", "~r~\"You already asked.\"" }[rng.Next(2)];
@@ -4612,54 +4612,54 @@ namespace CinnamonCoffee
                         case 0: // "How you holding up?"
                             if (d != null && (d.KnownTopics & (1L << 12)) != 0)
                             {
-                                if (mood == "Annoyed")  return new string[] { "~r~\"I already told you. Not great.\"", "~r~\"Same answer. Still not better.\"" }[rng.Next(2)];
+                                if (mood == "Annoyed")  return new string[] { "~r~\"我已經告訴過你了，狀況不太好。\"", "~r~\"一樣的答案，依然沒有好轉。\"" }[rng.Next(2)];
                                 if (p == "Sarcastic")   return new string[] { "~r~\"You really asking again?\"", "~r~\"Still the same as when you asked.\"" }[rng.Next(2)];
-                                if (p == "Cold")        return new string[] { "~r~\"I already answered that.\"", "~r~\"We covered that.\"" }[rng.Next(2)];
-                                return new string[] { "~r~\"You already asked me that.\"", "~r~\"Same answer as before.\"" }[rng.Next(2)];
+                                if (p == "Cold")        return new string[] { "~r~\"我已經回答過那個問題了。\"", "~r~\"We covered that.\"" }[rng.Next(2)];
+                                return new string[] { "~r~\"你剛才已經問過我了。\"", "~r~\"Same answer as before.\"" }[rng.Next(2)];
                             }
-                            if (mood == "Annoyed")  return "~r~\"Been better. Let's just get to it.\"";
-                            if (mood == "Alert")  return isNight ? "\"Careful out here tonight. That's how I'm holding up.\"" : "\"Careful out here. That's how I'm holding up.\"";
-                            if (mood == "Playful")  return "\"Good actually. You showed up at the right time.\"";
-                            if (mood == "Needy")    return "\"...I'm okay. Are you okay?\"";
-                            if (mood == "Jealous")  return "\"Fine. Why? Did something happen?\"";
+                            if (mood == "Annoyed")  return "~r~\"過得去吧，我們直接進入正題。\"";
+                            if (mood == "Alert")  return isNight ? "\"今晚在外頭要小心，我就是這麼過過來的。\"" : "\"在外頭要小心，我就是這麼過來的。\"";
+                            if (mood == "Playful")  return "\"其實挺好的，你來的正是時候。\"";
+                            if (mood == "Needy")    return "\"...我沒事，你還好嗎？\"";
+                            if (mood == "Jealous")  return "\"挺好的。怎麼了？出什麼事了嗎？\"";
                             return (warm || opensUp) ? "\"Can't complain.\"" : "\"I'm here, aren't I?\"";
                         case 1: // "You okay?"
                             if (d != null && (d.KnownTopics & (1L << 13)) != 0)
                             {
-                                if (mood == "Annoyed")  return new string[] { "~r~\"I said I'm fine. Still fine. Stop asking.\"", "~r~\"You already asked me that.\"" }[rng.Next(2)];
+                                if (mood == "Annoyed")  return new string[] { "~r~\"我說過我沒事了，依然很好，別再問了。\"", "~r~\"你剛才已經問過我了。\"" }[rng.Next(2)];
                                 if (p == "Sarcastic")   return new string[] { "~r~\"You asked. I answered. Moving on?\"", "~r~\"Still okay. Same as before.\"" }[rng.Next(2)];
                                 if (p == "Cold")        return new string[] { "~r~\"Already told you. Yes.\"", "~r~\"We covered that.\"" }[rng.Next(2)];
-                                return new string[] { "~r~\"You already asked me that.\"", "~r~\"Still the same answer.\"" }[rng.Next(2)];
+                                return new string[] { "~r~\"你剛才已經問過我了。\"", "~r~\"Still the same answer.\"" }[rng.Next(2)];
                             }
-                            if (mood == "Annoyed")  return "~r~\"I said I'm fine. Don't push it.\"";
-                            if (mood == "Alert")  return "\"Why? I look like something's wrong?\"";
-                            if (mood == "Needy")    return "\"Better now.\"";
-                            if (mood == "Playful")  return "\"Better than okay. You here for business or just conversation?\"";
+                            if (mood == "Annoyed")  return "~r~\"我說過我很好，別逼我。\"";
+                            if (mood == "Alert")  return "\"怎麼了？我看起來有哪裡不對勁嗎？\"";
+                            if (mood == "Needy")    return "\"現在好多了。\"";
+                            if (mood == "Playful")  return "\"好得不能再好了。你是來辦正事的，還是只想聊天？\"";
                             return (warm || opensUp) ? "\"Yeah. You?\"" : "\"Always.\"";
                         case 2: // "You seem stressed."
                             if (d != null && (d.KnownTopics & (1L << 14)) != 0)
                             {
-                                if (mood == "Annoyed")  return new string[] { "~r~\"I told you — I'm handling it.\"", "~r~\"You already said that.\"" }[rng.Next(2)];
-                                if (p == "Sarcastic")   return new string[] { "~r~\"Still 'stressed' apparently. You covered that.\"", "~r~\"We went over this.\"" }[rng.Next(2)];
+                                if (mood == "Annoyed")  return new string[] { "~r~\"我告訴過你——我自己會處理。\"", "~r~\"你剛才說過了。\"" }[rng.Next(2)];
+                                if (p == "Sarcastic")   return new string[] { "~r~\"Still 'stressed' apparently. You covered that.\"", "~r~\"我們已經討論過這個了。\"" }[rng.Next(2)];
                                 if (p == "Cold")        return new string[] { "~r~\"I already addressed that.\"", "~r~\"I told you. It passes.\"" }[rng.Next(2)];
-                                return new string[] { "~r~\"You already said that.\"", "~r~\"You mentioned that already.\"" }[rng.Next(2)];
+                                return new string[] { "~r~\"你剛才說過了。\"", "~r~\"You mentioned that already.\"" }[rng.Next(2)];
                             }
-                            if (mood == "Annoyed")  return "\"It's been a night. I'll handle it.\"";
-                            if (mood == "Alert")  return "\"I'm not stressed. I'm alert. Different thing.\"";
-                            if (mood == "Relaxed")  return "\"I'm good. Not everything means something.\"";
-                            if (mood == "Jealous")  return "\"Something's on my mind. Forget it.\"";
+                            if (mood == "Annoyed")  return "\"真是漫長的一夜，我自己會搞定。\"";
+                            if (mood == "Alert")  return "\"我不是壓力大，我是保持警惕，這是兩碼子事。\"";
+                            if (mood == "Relaxed")  return "\"我很好，不是每件事都有深層含義的。\"";
+                            if (mood == "Jealous")  return "\"心裡有些事，算了，別在意。\"";
                             return "\"Maybe. It passes.\"";
                         case 3: // "You look good tonight." / "You look good today."
                             if (d != null && (d.KnownTopics & (1L << 15)) != 0)
                             {
                                 if (p == "Sarcastic")   return new string[] { "~r~\"You said that already.\"", "~r~\"Heard it. Thanks. Moving on?\"" }[rng.Next(2)];
                                 if (p == "Dominant")    return new string[] { "~r~\"You mentioned that. I know.\"", "~r~\"I heard you the first time.\"" }[rng.Next(2)];
-                                if (mood == "Annoyed")  return new string[] { "~r~\"Still not the night for it.\"", "~r~\"I said not now.\"" }[rng.Next(2)];
-                                return new string[] { "~r~\"You already said that.\"", "~r~\"I heard you the first time.\"" }[rng.Next(2)];
+                                if (mood == "Annoyed")  return new string[] { "~r~\"今晚依然不適合。\"", "~r~\"我說了現在不行。\"" }[rng.Next(2)];
+                                return new string[] { "~r~\"你剛才說過了。\"", "~r~\"I heard you the first time.\"" }[rng.Next(2)];
                             }
-                            if (mood == "Playful")  return "\"I know. But thanks for saying it.\"";
-                            if (mood == "Annoyed")  return "~r~\"Not the night for compliments.\"";
-                            if (mood == "Alert")  return "\"That supposed to get you somewhere?\"";
+                            if (mood == "Playful")  return "\"我知道，但還是謝謝你這麼說。\"";
+                            if (mood == "Annoyed")  return "~r~\"今晚可不是適合聽恭維話的時候。\"";
+                            if (mood == "Alert")  return "\"這話是想討好我嗎？\"";
                             if (p == "Dominant")    return "\"I know. Is that all?\"";
                             if (p == "Sarcastic")   return "\"High praise from a man on a corner.\"";
                             if (p == "Shy")         return "\"...Thank you.\"";
@@ -4676,9 +4676,9 @@ namespace CinnamonCoffee
                             {
                                 if (p == "Sarcastic")   return new string[] { "~r~\"You said that last time too.\"", "~r~\"Running out of lines?\"" }[rng.Next(2)];
                                 if (p == "Playful")     return new string[] { "~r~\"Ha, you used that one already.\"", "~r~\"Still true, but you said it.\"" }[rng.Next(2)];
-                                if (p == "Cold")        return new string[] { "~r~\"You already said that.\"", "~r~\"I heard you.\"" }[rng.Next(2)];
+                                if (p == "Cold")        return new string[] { "~r~\"你剛才說過了。\"", "~r~\"I heard you.\"" }[rng.Next(2)];
                                 if (p == "Dominant")    return new string[] { "~r~\"You mentioned that. Moving on?\"", "~r~\"I know. You said that.\"" }[rng.Next(2)];
-                                return new string[] { "~r~\"You already said that.\"", "~r~\"You used that one already.\"" }[rng.Next(2)];
+                                return new string[] { "~r~\"你剛才說過了。\"", "~r~\"You used that one already.\"" }[rng.Next(2)];
                             }
                             if (p == "Dominant")    return "\"Then don't. You made the right call.\"";
                             if (p == "Shy")         return "\"Oh... that's sweet.\"";
@@ -4691,7 +4691,7 @@ namespace CinnamonCoffee
                             if (d != null && (d.KnownTopics & (1L << 18)) != 0)
                             {
                                 if (p == "依賴")        return new string[] { "~r~\"You already told me that. I remember.\"", "~r~\"You said that before.\"" }[rng.Next(2)];
-                                if (p == "嫉妒")      return new string[] { "~r~\"You mentioned that. And the other girls?\"", "~r~\"You already said that.\"" }[rng.Next(2)];
+                                if (p == "嫉妒")      return new string[] { "~r~\"You mentioned that. And the other girls?\"", "~r~\"你剛才說過了。\"" }[rng.Next(2)];
                                 if (p == "Sarcastic")    return new string[] { "~r~\"You said that already. I remember.\"", "~r~\"I heard you the first time.\"" }[rng.Next(2)];
                                 if (p == "Cold")         return new string[] { "~r~\"You said that.\"", "~r~\"I know. You mentioned it.\"" }[rng.Next(2)];
                                 return new string[] { "~r~\"You already told me that.\"", "~r~\"I heard you the first time.\"" }[rng.Next(2)];
@@ -4709,7 +4709,7 @@ namespace CinnamonCoffee
                                 if (p == "Mysterious")  return new string[] { "~r~\"You already noticed. I appreciated it.\"", "~r~\"You mentioned that.\"" }[rng.Next(2)];
                                 if (p == "Sarcastic")   return new string[] { "~r~\"'A way.' Still the same way.\"", "~r~\"You said that before.\"" }[rng.Next(2)];
                                 if (p == "Playful")     return new string[] { "~r~\"Ha, you already used that one.\"", "~r~\"I know! You said that.\"" }[rng.Next(2)];
-                                return new string[] { "~r~\"You already said that.\"", "~r~\"I heard you the first time.\"" }[rng.Next(2)];
+                                return new string[] { "~r~\"你剛才說過了。\"", "~r~\"I heard you the first time.\"" }[rng.Next(2)];
                             }
                             if (p == "Mysterious")  return "\"Most people notice but can't explain it. I like that you tried.\"";
                             if (p == "Sarcastic")   return "\"'A way.' That's one word for it.\"";
@@ -4725,7 +4725,7 @@ namespace CinnamonCoffee
                                 if (p == "Sarcastic")   return new string[] { "~r~\"High praise. Still the same praise.\"", "~r~\"You said that already.\"" }[rng.Next(2)];
                                 if (p == "依賴")       return new string[] { "~r~\"You already said that. Keep saying it though.\"", "~r~\"I heard you. Still true?\"" }[rng.Next(2)];
                                 if (p == "Cold")        return new string[] { "~r~\"You said that.\"", "~r~\"I heard you.\"" }[rng.Next(2)];
-                                return new string[] { "~r~\"You already said that.\"", "~r~\"I heard you the first time.\"" }[rng.Next(2)];
+                                return new string[] { "~r~\"你剛才說過了。\"", "~r~\"I heard you the first time.\"" }[rng.Next(2)];
                             }
                             if (p == "Gold Digger") return "\"That's the whole plan.\"";
                             if (p == "Romantic")    return "\"That's... actually really nice to hear.\"";
