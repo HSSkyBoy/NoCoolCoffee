@@ -1,4 +1,4 @@
-﻿using System;
+using System;
 using System.Collections.Generic;
 using System.IO;
 using System.Net;
@@ -13259,5 +13259,1512 @@ namespace CinnamonCoffee
 
         
 
+        /// <summary>Draw the selection menu on screen.</summary>
+        private void DrawMenu()
+        {
+            // Clamp menuIndex when dynamic items disappear (e.g. vehicle drives away)
+            int maxIdx = GetCurrentMenuItemCount() - 1;
+            if (maxIdx < 0) maxIdx = 0;
+            if (menuIndex > maxIdx) menuIndex = maxIdx;
+
+            const float PX     = 0.025f;
+            const float TOP    = 0.045f;
+            const float W      = 0.216f;
+            const float HDR_H  = 0.047f;
+            const float PAD    = 0.007f;
+            const float LH     = 0.034f;
+
+            // ── Pass 1: measure actual content height by drawing items ──────────
+            // Items are drawn here but will be immediately covered by the background
+            // rect in Pass 2, then redrawn correctly on top in Pass 3.
+            float yMeasure = TOP + HDR_H + 0.016f;
+            DispatchDrawMenu(PX, ref yMeasure, LH);
+
+            bool showSwipe = IsInServiceSubMenu() && !sandboxMode;
+            bool showAmt   = menuLevel == MenuLevel.GiveMoney;
+            float FOOT_H   = (showSwipe || showAmt) ? 0.042f : 0.029f;
+
+            float footY   = yMeasure;
+            float totalH  = (footY + FOOT_H) - TOP;
+
+            // ── Pass 2: draw correctly-sized background and header (covers pass 1) ──
+            DrawMenuRect(PX, TOP, W, totalH, 0, 0, 0, 190);
+            DrawMenuRect(PX, TOP, W, HDR_H, 79, 38, 142, 230);
+
+            // ── Header title "Cinnamon Coffee" — vertically centered in the header bar ──
+            float hdrTextY = TOP + (HDR_H * 0.5f) - 0.014f;
+            DrawMenuText("Cinnamon Coffee", PX + PAD, hdrTextY, W - PAD * 2f, 0.50f, true, 210, 125, 45, 255, 7);
+
+            // ── Pass 3: redraw items on top of background ────────────────────────
+            float y = TOP + HDR_H + 0.016f;
+            DispatchDrawMenu(PX, ref y, LH);
+
+            // ── Dark footer bar ────────────────────────────────────────────────────
+            DrawMenuRect(PX, footY, W, FOOT_H, 30, 30, 30, 210);
+            string footLine = "[" + MenuUpDisplay + "/" + MenuDownDisplay + "] Move  ["
+                            + MenuSelectDisplay + "] 選擇 [" + MenuBackDisplay + "] Back  ["
+                            + MasterDisplay + "] 關閉";
+            if (showSwipe)
+                footLine += "\n[" + SpeedDownDisplay + "/" + SpeedUpDisplay + "] Swipe";
+            else if (showAmt)
+                footLine += "\n[" + SpeedDownDisplay + "/" + SpeedUpDisplay + "] Amt";
+            DrawMenuText(footLine, PX + PAD, footY + 0.006f, W - PAD * 2f, 0.19f, false, 200, 200, 200, 255);
+        }
+
+        private void DispatchDrawMenu(float x, ref float y, float lh)
+        {
+            if      (menuLevel == MenuLevel.Main)               DrawMainMenu(x, ref y, lh);
+            else if (menuLevel == MenuLevel.SandboxCar)         DrawSandboxCarMenu(x, ref y, lh);
+            else if (menuLevel == MenuLevel.Services)           DrawServicesMenu(x, ref y, lh);
+            else if (menuLevel == MenuLevel.SitDownSub)         DrawSitDownSubMenu(x, ref y, lh);
+            else if (IsInServiceSubMenu())                      DrawStreetServiceSubMenu(x, ref y, lh);
+            else if (menuLevel == MenuLevel.Compatibility)      DrawCompatibilityMenu(x, ref y, lh);
+            else if (menuLevel == MenuLevel.Settings)           DrawSettingsMenu(x, ref y, lh);
+            else if (menuLevel == MenuLevel.Approach)           DrawApproachMenu(x, ref y, lh);
+            else if (menuLevel == MenuLevel.ApproachLine)       DrawApproachLineMenu(x, ref y, lh);
+            else if (menuLevel == MenuLevel.Actions)            DrawActionsMenu(x, ref y, lh);
+            else if (menuLevel == MenuLevel.GiveMoney)         DrawGiveMoneyMenu(x, ref y, lh);
+            else if (menuLevel == MenuLevel.InviteToVehicle)    DrawInviteToVehicleMenu(x, ref y, lh);
+            else if (menuLevel == MenuLevel.Conversation)       DrawConversationMenu(x, ref y, lh);
+            else if (menuLevel == MenuLevel.ConvSub)            DrawConvSubMenu(x, ref y, lh);
+            else if (menuLevel == MenuLevel.Intimacy)           DrawIntimacyMenu(x, ref y, lh);
+            else if (menuLevel == MenuLevel.IntimacySub)        DrawIntimacySubMenu(x, ref y, lh);
+            else if (menuLevel == MenuLevel.Escalate)           DrawEscalateMenu(x, ref y, lh);
+            else if (menuLevel == MenuLevel.Leave)              DrawLeaveMenu(x, ref y, lh);
+            else if (menuLevel == MenuLevel.LeaveLine)          DrawLeaveLineMenu(x, ref y, lh);
+            else if (menuLevel == MenuLevel.Finish)             DrawFinishMenu(x, ref y, lh);
+        }
+
+        /// <summary>Estimate the extra vertical space (beyond selectable items) needed per menu level.</summary>
+        private float GetMenuInfoHeight()
+        {
+            const float LH = 0.038f;
+            const float SH = 0.034f; // DrawSectionHeader height
+
+            // Every menu has at least one section header (SH).
+            // Extra info lines (name/rep/personality/mood) each add LH.
+            // Gaps (y += lh * 0.3f) add ~0.011f each.
+
+            if (menuLevel == MenuLevel.Main)
+                // 4 section headers + 3 thin-divider sequences (lh*0.3 + lh*0.8 each) + extra slack
+                return SH * 4 + (LH * 1.1f) * 3 + LH * 1.5f;
+            if (menuLevel == MenuLevel.Actions)
+                // SH + name + rep + personality + mood + gap
+                return SH + LH * 4 + LH * 0.3f;
+            if (menuLevel == MenuLevel.Conversation)
+                return SH + LH * 4 + LH * 0.3f;
+            if (menuLevel == MenuLevel.Leave)
+                // SH + name + rep + personality + gap
+                return SH + LH * 3 + LH * 0.3f;
+            if (menuLevel == MenuLevel.Intimacy)
+                // SH + name + rep + bj/rough line + gap
+                return SH + LH * 3 + LH * 0.3f;
+            if (menuLevel == MenuLevel.Escalate)
+                // SH + name + (optional pref lines) + gap
+                return SH + LH * 2 + LH * 0.3f;
+            if (menuLevel == MenuLevel.InviteToVehicle)
+                // SH + name + rep + gap
+                return SH + LH * 2 + LH * 0.3f;
+            if (menuLevel == MenuLevel.Approach)
+                // SH + known info block (3 lines + gap) + pre-item gap
+                return SH + LH * 3 + LH * 0.6f;
+            if (menuLevel == MenuLevel.Finish)
+                // SH + name line + gaps
+                return SH + LH * 1.5f;
+            if (menuLevel == MenuLevel.Services)
+                // SH + optional name line + gap
+                return SH + LH * 2.0f;
+            if (IsInServiceSubMenu())
+                return SH + LH * 2.0f;
+            // ApproachLine, ConvSub, IntimacySub, LeaveLine, SandboxCar, Settings, Compatibility
+            return SH + LH * 0.5f;
+        }
+
+        private void DrawFinishMenu(float x, ref float y, float lh)
+        {
+            DrawSectionHeader("完成", x, ref y);
+
+            // ── Sandbox (non-A-Life): simple 2-item menu ──
+            if (!aLifeMode)
+            {
+                y += lh * 0.3f;
+                DrawMenuItem("Finish (Pull out)", 0, x, ref y, lh);
+                y += lh * 0.3f;
+                DrawMenuItem("Finish (Inside Her)", 1, x, ref y, lh);
+                return;
+            }
+
+            // ── A-Life: full info + Ask + price display ──
+            ALifePedData dFin = null;
+            if (_currentGirlKey != null)
+                _aLifePeds.TryGetValue(_currentGirlKey, out dFin);
+
+            if (dFin != null)
+            {
+                // name display removed
+            }
+
+            if (!_finishAsked)
+            {
+                DrawMenuItem("Ask to finish inside", 0, x, ref y, lh);
+                y += lh * 0.1f;
+            }
+            // After Ask the items shift: Finish → 0, Finish inside her → 1
+            int drawFinish      = _finishAsked ? 0 : 1;
+            int drawFinishInside = _finishAsked ? 1 : 2;
+            DrawMenuItem("Finish (Pull out)", drawFinish, x, ref y, lh);
+            y += lh * 0.3f;
+
+            // Show the quoted price after she's agreed — works for both exclusive hooker and Prost A-Life
+            if (_aLifeFinishInsidePrice > 0)
+                DrawMenuItem("Finish (Inside Her)  ~g~($" + _aLifeFinishInsidePrice + ")~s~", drawFinishInside, x, ref y, lh);
+            else
+                DrawMenuItem("Finish (Inside Her)", drawFinishInside, x, ref y, lh);
+        }
+
+        private void DrawApproachMenu(float x, ref float y, float lh)
+        {
+            if (_approachCandidate == null || !_approachCandidate.Exists())
+            {
+                DrawSectionHeader("接近", x, ref y);
+                DrawTextOnScreen("~r~Target lost.~s~", x, y); y += lh;
+                return;
+            }
+
+            string fp = GetPedFingerprint(_approachCandidate);
+            ALifePedData d = null;
+            bool known = fp != null && _aLifePeds.TryGetValue(ALifeKey(fp), out d);
+            string headerName = (known && d != null && d.NameKnown && d.Name != null && d.Name.Length > 0) ? " " + d.Name.ToUpper() : "";
+            DrawSectionHeader("接近" + headerName, x, ref y);
+
+            y += lh * 0.3f;
+            DrawMenuItem("Gentle ~b~[>]~s~",     0, x, ref y, lh);
+            DrawMenuItem("Confident ~b~[>]~s~",  1, x, ref y, lh);
+            DrawMenuItem("Cool ~b~[>]~s~",       2, x, ref y, lh);
+            DrawMenuItem("Flattering ~b~[>]~s~", 3, x, ref y, lh);
+            DrawMenuItem("Playful ~b~[>]~s~",    4, x, ref y, lh);
+        }
+
+        private void DrawApproachLineMenu(float x, ref float y, float lh)
+        {
+            string[] clusterNames = { "Gentle", "Confident", "Cool", "Flattering", "玩鬧" };
+            string clusterName = (_approachSelectedCluster >= 0 && _approachSelectedCluster < clusterNames.Length)
+                ? clusterNames[_approachSelectedCluster] : "?";
+
+            DrawSectionHeader(clusterName.ToUpper(), x, ref y);
+
+            if (_approachCandidate == null || !_approachCandidate.Exists())
+            {
+                DrawTextOnScreen("~r~Target lost.~s~", x, y); y += lh;
+                return;
+            }
+
+            string fp = GetPedFingerprint(_approachCandidate);
+            ALifePedData d = null;
+            bool known = fp != null && _aLifePeds.TryGetValue(ALifeKey(fp), out d);
+            bool firstEncounter = d == null || !d.HasMet;
+            string name = DisplayName(d);
+
+            y += lh * 0.3f;
+
+            if (!sandboxMode)
+            {
+                // Prost A-Life: prostitution-specific approach lines
+                string[][][] prostLines = new string[][][] {
+                    // Gentle
+                    new string[][] {
+                        new string[] {
+                            "\"Hey... you working?\"",
+                            "\"Sorry — I don't really know how to ask this. You available?\"",
+                            "\"I'm not trying to be weird. How much for your time?\"",
+                            "\"Excuse me. Looking for company. Is that something you do?\""
+                        },
+                        new string[] {
+                            "\"Hey, it's me again. You remember me?\"",
+                            "\"Good to see you. You free right now?\"",
+                            "\"I was hoping I'd find you here.\""
+                        }
+                    },
+                    // Confident
+                    new string[][] {
+                        new string[] {
+                            "\"You working? How much?\"",
+                            "\"I've got cash. What are you offering?\"",
+                            "\"Name your rate. I'm not here to haggle.\"",
+                            "\"Let's skip the small talk. What do you charge?\""
+                        },
+                        new string[] {
+                            "\"Back again. Same deal as last time?\"",
+                            "\"You free right now? I've got money.\"",
+                            "\"Let's not waste time. What's it gonna be?\""
+                        }
+                    },
+                    // Cool
+                    new string[][] {
+                        new string[] {
+                            "\"You available?\"",
+                            "\"What's your rate?\"",
+                            "\"Looking for a date. You working?\"",
+                            "\"You got time for me?\""
+                        },
+                        new string[] {
+                            "\"You again. Good.\"",
+                            "\"Still working this spot?\"",
+                            "\"Figured I'd swing by.\""
+                        }
+                    },
+                    // Flattering
+                    new string[][] {
+                        new string[] {
+                            "\"Best-looking one out here. What do you charge?\"",
+                            "\"Whatever your rate is, you're worth every penny.\"",
+                            "\"Seriously — how much for a girl like you?\"",
+                            "\"You look incredible. You working?\""
+                        },
+                        new string[] {
+                            "\"You look even better than last time. You free?\"",
+                            "\"I've been thinking about coming back. You available?\"",
+                            "\"Still the best out here. What do you say?\""
+                        }
+                    },
+                    // Playful
+                    new string[][] {
+                        new string[] {
+                            "\"Alright, I'll just ask — how much?\"",
+                            "\"Tell me you're free. Please.\"",
+                            "\"I've got money and I know what I want. You interested?\"",
+                            "\"You look like exactly the kind of trouble I'm paying for.\""
+                        },
+                        new string[] {
+                            "\"Miss me?\"",
+                            "\"Back again. I know, I know. You free?\"",
+                            "\"Ready for round two?\""
+                        }
+                    }
+                };
+                int pC = (_approachSelectedCluster >= 0 && _approachSelectedCluster < prostLines.Length)
+                    ? _approachSelectedCluster : 0;
+                string[] pLines = firstEncounter ? prostLines[pC][0] : prostLines[pC][1];
+                int pIdx = 0;
+                foreach (string pl in pLines)
+                { DrawMenuItemWrapped(pl, pIdx, x, ref y, lh); pIdx++; }
+                return;
+            }
+
+            string[][][] allLines = new string[][][] {
+                // Gentle
+                new string[][] {
+                    new string[] {
+                        "\"Excuse me, I hope I'm not bothering you.\"",
+                        "\"You have a really warm smile.\"",
+                        "\"I couldn't walk past without saying hi.\"",
+                        "\"Mind if I keep you company for a bit?\""
+                    },
+                    new string[] {
+                        "\"Hey " + name + ", good to see you again.\"",
+                        "\"I kept thinking about you. Want to hang out?\"",
+                        "\"Come with me.\""
+                    }
+                },
+                // Confident
+                new string[][] {
+                    new string[] {
+                        "\"Excuse me. You caught my attention.\"",
+                        "\"I'm not going to pretend I didn't notice you.\"",
+                        "\"You look like you know what you want.\"",
+                        "\"Got a minute?\""
+                    },
+                    new string[] {
+                        "\"Hey " + name + ". Let's not waste time.\"",
+                        "\"You free?\"",
+                        "\"Come with me.\""
+                    }
+                },
+                // Cool
+                new string[][] {
+                    new string[] {
+                        "\"You look like you have better things to do. Same.\"",
+                        "\"Interesting. You're hard to read.\"",
+                        "\"I'll keep it short: you're stunning.\"",
+                        "\"Not many people carry themselves like that.\""
+                    },
+                    new string[] {
+                        "\"" + name + ". Good.\"",
+                        "\"Still as hard to read as ever.\"",
+                        "\"Don't make me ask twice.\""
+                    }
+                },
+                // Flattering
+                new string[][] {
+                    new string[] {
+                        "\"I'd be an idiot not to say something.\"",
+                        "\"You're exactly my type.\"",
+                        "\"Don't take this the wrong way, but you're gorgeous.\"",
+                        "\"You deserve someone paying attention.\""
+                    },
+                    new string[] {
+                        "\"Hey " + name + ", I've been thinking about you.\"",
+                        "\"You look even better than I remembered.\"",
+                        "\"You're coming with me, right?\""
+                    }
+                },
+                // Playful
+                new string[][] {
+                    new string[] {
+                        "\"Hey, I bet you get this a lot, but damn.\"",
+                        "\"You look like trouble. I like that.\"",
+                        "\"Tell me you're not as fun as you look.\"",
+                        "\"Can I steal five minutes of your time?\""
+                    },
+                    new string[] {
+                        "\"Hey " + name + ", ready to cause some trouble?\"",
+                        "\"Miss me?\"",
+                        "\"Come on, let's go.\""
+                    }
+                }
+            };
+
+            int c = (_approachSelectedCluster >= 0 && _approachSelectedCluster < allLines.Length)
+                ? _approachSelectedCluster : 0;
+            string[] lines = firstEncounter ? allLines[c][0] : allLines[c][1];
+            int idx = 0;
+            foreach (string line in lines)
+            { DrawMenuItemWrapped(line, idx, x, ref y, lh); idx++; }
+        }
+
+        private void DrawActionsMenu(float x, ref float y, float lh)
+        {
+            DrawSectionHeader("互動", x, ref y);
+
+            ALifePedData dAct = null;
+            if (_currentGirlKey != null) _aLifePeds.TryGetValue(_currentGirlKey, out dAct);
+            int idx = 0;
+            if (ShowInviteVehicleItem())
+                DrawMenuItem("Invite to Vehicle ~b~[>]~s~", idx++, x, ref y, lh);
+            DrawMenuItem("對話交流 ~b~[>]~s~", idx++, x, ref y, lh);
+            bool isHookerAct = (dAct != null && (dAct.IsHooker || dAct.ALifeMode == "Prostitute"));
+            DrawMenuItem(isHookerAct ? "服務項目 ~b~[>]~s~" : "親密互動 ~b~[>]~s~", idx++, x, ref y, lh);
+            // "Give Her Money" — A-Life only
+            if (aLifeMode && _currentGirlKey != null)
+                DrawMenuItem("Give Her Money ~b~[>]~s~", idx++, x, ref y, lh);
+            // "Move to seat" — prostitution/hooker girls when vehicle available
+            if (ShowSeatSwapInActions())
+                DrawMenuItem(GetSeatItemLabel(), idx, x, ref y, lh);
+        }
+
+        private void DrawGiveMoneyMenu(float x, ref float y, float lh)
+        {
+            DrawSectionHeader("給予金錢", x, ref y);
+
+            string[] denomLabels = { "$1", "$10", "$100", "$1,000", "$10,000", "$100,000", "$1,000,000", "$10,000,000", "$100,000,000" };
+            int[] mults = { 1, 10, 100, 1000, 10000, 100000, 1000000, 10000000, 100000000 };
+            long total = 0;
+            for (int i = 0; i < 9; i++)
+            {
+                long rowVal = (long)_giveMoneyAmounts[i] * mults[i];
+                total += rowVal;
+                string rowText = denomLabels[i] + "  x" + _giveMoneyAmounts[i];
+                DrawMenuItem(rowText, i, x, ref y, lh);
+            }
+            if (total > 999999999) total = 999999999;
+            y += lh * 0.3f;
+            DrawMenuItem("CONFIRM ~s~(Total: ~g~$" + total.ToString("N0") + "~s~)", 9, x, ref y, lh);
+        }
+
+        private void DrawInviteToVehicleMenu(float x, ref float y, float lh)
+        {
+            DrawSectionHeader("邀請上車", x, ref y);
+
+            ALifePedData dInvDraw = null;
+            if (_currentGirlKey != null) _aLifePeds.TryGetValue(_currentGirlKey, out dInvDraw);
+            DrawMenuItem("\"How about a ride?\"",              0, x, ref y, lh);
+            DrawMenuItem("\"Hop in, I'll drive us around.\"", 1, x, ref y, lh);
+            DrawMenuItem("\"Come on, let's go.\"",            2, x, ref y, lh);
+        }
+
+        private void DrawIntimacyMenu(float x, ref float y, float lh)
+        {
+            DrawSectionHeader("親密互動", x, ref y);
+
+            ALifePedData dI = null;
+            if (_currentGirlKey != null) _aLifePeds.TryGetValue(_currentGirlKey, out dI);
+
+
+            DrawMenuItem("Ask Preferences ~b~[>]~s~", 0, x, ref y, lh);
+            DrawMenuItem("Test Waters ~b~[>]~s~",      1, x, ref y, lh);
+            DrawMenuItem("Make it Sexual ~b~[>]~s~",      2, x, ref y, lh);
+            if (_escalateConsented && FindBackseatVehicle() != null)
+                DrawMenuItem(GetSeatItemLabel(), 3, x, ref y, lh);
+        }
+
+        private void DrawIntimacySubMenu(float x, ref float y, float lh)
+        {
+            ALifePedData dI = null;
+            if (_currentGirlKey != null) _aLifePeds.TryGetValue(_currentGirlKey, out dI);
+            string[] branchNames = { "Ask Preferences", "Test Waters" };
+            string bName = (_intimacySelectedBranch >= 0 && _intimacySelectedBranch < branchNames.Length)
+                ? branchNames[_intimacySelectedBranch] : "?";
+            DrawSectionHeader(bName.ToUpper(), x, ref y);
+            y += lh * 0.3f;
+
+            string[][] branches = new string[][] {
+                // 0: Ask Preferences
+                new string[] {
+                    "\"Do you kiss?\"",
+                    "\"Public or private?\"",
+                    "\"What are you into?\"",
+                    "\"Do you like doing... that with your mouth?\"",
+                    "\"Are you into it rough?\"",
+                    "\"Would you ever take control?\"",
+                    "\"What do you absolutely not want?\"",
+                    "\"Do you want this casual?\""
+                },
+                // 1: Test Waters
+                new string[] {
+                    "\"You look hard to resist.\"",
+                    "\"I want to be closer to you.\"",
+                    "\"Do you want this too?\""
+                }
+            };
+
+            int b = (_intimacySelectedBranch >= 0 && _intimacySelectedBranch < branches.Length)
+                ? _intimacySelectedBranch : 0;
+            string[] items = branches[b];
+            for (int i = 0; i < items.Length; i++)
+                DrawMenuItem(items[i], i, x, ref y, lh);
+        }
+
+        private void DrawEscalateMenu(float x, ref float y, float lh)
+        {
+            DrawSectionHeader("親密模式", x, ref y);
+
+            ALifePedData dE = null;
+            if (_currentGirlKey != null) _aLifePeds.TryGetValue(_currentGirlKey, out dE);
+
+
+            if (!_escalateConsented)
+            {
+                bool isNight = IsNight();
+                DrawMenuItem(isNight ? "\"Stay with me tonight. What do you say?\""  : "\"Let's have some fun.\"", 0, x, ref y, lh);
+                DrawMenuItem("\"Mind if I... come closer?..\"",                                                1, x, ref y, lh);
+                DrawMenuItem("\"Wanna fuck?\"",                                         2, x, ref y, lh);
+            }
+            else
+            {
+                bool isCar = (mode == Mode.Car);
+                if (!isCar)
+                {
+                    // Street: show Standing Services + Sit Down hub
+                    DrawMenuItem("站姿服務 ~b~[>]~s~", 0, x, ref y, lh);
+                    DrawMenuItem("Sit Down ~b~[>]~s~",          1, x, ref y, lh);
+                }
+                else
+                {
+                    string[] items = carServiceItems;
+                    bool backseatEsc = IsBackseatCarMode();
+                    for (int i = 0; i < items.Length; i++)
+                    {
+                        if (backseatEsc && i != 1) continue; // backseat: only Sex
+                        string label = items[i];
+                        if (dE != null && dE.PrefBJ == false && IsEscalateBJItem(isCar, i))
+                            label = "~c~" + label + "  ~r~(N/A)~s~";
+                        else if (dE != null && dE.PrefRough == false && IsEscalateRoughItem(isCar, i))
+                            label = "~c~" + label + "  ~r~(N/A)~s~";
+                        DrawMenuItem(label, backseatEsc ? 0 : i, x, ref y, lh);
+                    }
+                }
+            }
+        }
+
+        private void DrawConversationMenu(float x, ref float y, float lh)
+        {
+            DrawSectionHeader("對話", x, ref y);
+
+            ALifePedData dAct = null;
+            if (_currentGirlKey != null) _aLifePeds.TryGetValue(_currentGirlKey, out dAct);
+            // Prostitution A-Life: stripped-down conversation — no romantic/arrangement branches
+            if (dAct != null && dAct.ALifeMode == "Prostitute")
+            {
+                DrawMenuItem("Get to Know Her ~b~[>]~s~", 0, x, ref y, lh);
+                DrawMenuItem("Small Talk ~b~[>]~s~",      1, x, ref y, lh);
+                DrawMenuItem("查看心情 ~b~[>]~s~",      2, x, ref y, lh);
+                DrawMenuItem("Flirt ~b~[>]~s~",           3, x, ref y, lh);
+                return;
+            }
+
+            DrawMenuItem("Get to Know Her ~b~[>]~s~",   0, x, ref y, lh);
+            DrawMenuItem("Small Talk ~b~[>]~s~",         1, x, ref y, lh);
+            DrawMenuItem("查看心情 ~b~[>]~s~",         2, x, ref y, lh);
+            DrawMenuItem("Flirt ~b~[>]~s~",              3, x, ref y, lh);
+            bool isGf4 = (dAct != null && dAct.Relationship == "Girlfriend");
+            DrawMenuItem((isGf4 ? "Break Up ~b~[>]~s~" : "Make Her Mine ~b~[>]~s~"), 4, x, ref y, lh);
+            DrawMenuItem("Ask Personal Stuff ~b~[>]~s~", 5, x, ref y, lh);
+            // Business is hidden when she's a girlfriend or obsessed — no arrangement needed
+            bool hideBusinessMenu = (dAct != null && (dAct.Relationship == "Girlfriend" || dAct.Relationship == "Obsessed"));
+            if (!hideBusinessMenu)
+                DrawMenuItem("Business ~b~[>]~s~", 6, x, ref y, lh);
+        }
+
+        private void DrawConvSubMenu(float x, ref float y, float lh)
+        {
+            ALifePedData dAct = null;
+            if (_currentGirlKey != null) _aLifePeds.TryGetValue(_currentGirlKey, out dAct);
+            bool isGfBranch = (_convSelectedBranch == 4 && dAct != null && dAct.Relationship == "Girlfriend");
+            string branch4Name = isGfBranch ? "Break Up" : "Make Her Mine";
+            string[] branchNames = { "Get to Know Her", "Small Talk", "查看心情", "Flirt", branch4Name, "Ask Personal Stuff", "Business" };
+            string branchName = (_convSelectedBranch >= 0 && _convSelectedBranch < branchNames.Length)
+                ? branchNames[_convSelectedBranch] : "?";
+            DrawSectionHeader(branchName.ToUpper(), x, ref y);
+
+            // Prostitution A-Life: completely different items for branches 0-3
+            if (dAct != null && dAct.ALifeMode == "Prostitute" && _convSelectedBranch >= 0 && _convSelectedBranch <= 3)
+            {
+                bool nightDraw = IsNight();
+                string[][] prostBranches = new string[][] {
+                    // 0: Get to Know Her
+                    new string[] {
+                        "\"What do I call you?\"",
+                        "\"Where you from?\"",
+                        "\"You always work this area?\"",
+                        "\"How long you been doing this?\""
+                    },
+                    // 1: Small Talk
+                    new string[] {
+                        nightDraw ? "\"Slow night?\"" : "\"Slow day?\"",
+                        nightDraw ? "\"You staying out late?\"" : "\"You been out long?\"",
+                        "\"Anyone giving you trouble?\"",
+                        "\"You working alone?\""
+                    },
+                    // 2: Check Mood
+                    new string[] {
+                        "\"How you holding up?\"",
+                        "\"You okay?\"",
+                        "\"You seem stressed.\"",
+                        nightDraw ? "\"You look good tonight.\"" : "\"You look good today.\""
+                    },
+                    // 3: Flirt
+                    new string[] {
+                        "\"You're hard to walk past.\"",
+                        "\"I always look for you out here.\"",
+                        "\"You've got a way about you.\"",
+                        nightDraw ? "\"You make this worth coming back for tonight.\"" : "\"You make this worth coming back for.\""
+                    },
+                };
+                string[] prostItems = prostBranches[_convSelectedBranch];
+                for (int pi = 0; pi < prostItems.Length; pi++)
+                    DrawMenuItemWrapped(prostItems[pi], pi, x, ref y, lh);
+                return;
+            }
+
+            string[][] branches = new string[][] {
+                // 0: Get to Know Her
+                new string[] {
+                    "\"What's your name?\"",
+                    "\"What do you do for fun?\"",
+                    "\"You from around here?\"",
+                    "\"What kind of guys do you like?\"",
+                    "\"What are you looking for?\"",
+                    "\"You seeing anyone?\"",
+                    "\"What's your story?\""
+                },
+                // 1: Small Talk
+                new string[] {
+                    "\"Nice weather.\"",
+                    "\"You hungry?\"",
+                    IsNight() ? "\"Been busy tonight?\"" : "\"Been busy today?\"",
+                    "\"You like this city?\"",
+                    "\"You seem tired.\"",
+                    "\"What have you been up to?\""
+                },
+                // 2: Check Mood
+                new string[] {
+                    "\"How are you feeling?\"",
+                    "\"You okay?\"",
+                    "\"You seem tense.\"",
+                    "\"You look happy.\"",
+                    "\"You seem distracted.\""
+                },
+                // 3: Flirt
+                new string[] {
+                    "\"You look incredible.\"",
+                    "\"There's something about you I can't ignore.\"",
+                    "\"I want you.\"",
+                    (dAct != null && dAct.HasMetSecondTime) ? "\"I think about you more than I should.\"" : "~c~\"I think about you more than I should.\" ~r~(2nd meet+)~s~",
+                    "\"You're trouble, aren't you?\"",
+                    (dAct != null && dAct.HasMetSecondTime) ? "\"Did you miss me?\"" : "~c~\"Did you miss me?\" ~r~(2nd meet+)~s~",
+                    IsNight() ? "\"You look good tonight.\"" : "\"You look good today.\"",
+                    "\"I love you.\""
+                },
+                // 4: Make Her Mine / Break Up
+                isGfBranch ? new string[] {
+                    "\"I need some space.\"",
+                    "\"This isn't working.\"",
+                    "\"I think we should end this.\"",
+                    "\"I don't feel the same anymore.\"",
+                    "\"I'm sorry. I can't do this.\"",
+                    "\"It's not you, it's me.\"",
+                    "\"I think we rushed into this.\""
+                } : new string[] {
+                    "\"I want more than this.\"",
+                    "\"Would you be mine?\"",
+                    "\"I've been thinking about us.\"",
+                    "\"Let me take you somewhere nice.\"",
+                    "\"You're different from everyone else.\"",
+                    "\"What would it take to make this real?\"",
+                    "\"I think I'm falling for you.\""
+                },
+                // 5: Ask Personal Stuff
+                new string[] {
+                    "\"What are you really like?\"",
+                    "\"Why are you out here alone?\"",
+                    "\"What's your family like?\"",
+                    "\"What do you want out of life?\"",
+                    "\"What's your biggest regret?\"",
+                    "\"What scares you?\"",
+                    "\"Have you ever been in love?\""
+                },
+                // 6: Business — dynamic based on IsHooker / WasHooker state
+                new string[] {
+                    (dAct != null && dAct.IsHooker)
+                        ? "\"I think we should stop seeing each other like this.\""
+                        : (dAct != null && dAct.WasHooker)
+                            ? "\"You still interested to spend time with me? I'd make it worth your while again.\""
+                            : "\"I'll pay you to spend time with me.\""
+                }
+            };
+
+            int b = (_convSelectedBranch >= 0 && _convSelectedBranch < branches.Length) ? _convSelectedBranch : 0;
+            string[] items = branches[b];
+            for (int i = 0; i < items.Length; i++)
+                DrawMenuItemWrapped(items[i], i, x, ref y, lh);
+        }
+
+        private void DrawLeaveMenu(float x, ref float y, float lh)
+        {
+            DrawSectionHeader("離開", x, ref y);
+
+            ALifePedData dLeaveH = null;
+            if (_currentGirlKey != null) _aLifePeds.TryGetValue(_currentGirlKey, out dLeaveH);
+            // ── Prostitution A-Life: street-tone goodbye clusters ─────────────────
+            if (dLeaveH != null && dLeaveH.ALifeMode == "Prostitute")
+            {
+                DrawMenuItem("Short & Sweet ~b~[>]~s~", 0, x, ref y, lh);
+                DrawMenuItem("Smooth ~b~[>]~s~",        1, x, ref y, lh);
+                DrawMenuItem("Real ~b~[>]~s~",          2, x, ref y, lh);
+                DrawMenuItem("Warm ~b~[>]~s~",          3, x, ref y, lh);
+                DrawMenuItem("Flirty ~b~[>]~s~",        4, x, ref y, lh);
+                return;
+            }
+
+            DrawMenuItem("Gentle ~b~[>]~s~",     0, x, ref y, lh);
+            DrawMenuItem("Confident ~b~[>]~s~",  1, x, ref y, lh);
+            DrawMenuItem("Cool ~b~[>]~s~",       2, x, ref y, lh);
+            DrawMenuItem("Flattering ~b~[>]~s~", 3, x, ref y, lh);
+            DrawMenuItem("Playful ~b~[>]~s~",    4, x, ref y, lh);
+        }
+
+        private void DrawLeaveLineMenu(float x, ref float y, float lh)
+        {
+            ALifePedData dLeaveD = null;
+            if (_currentGirlKey != null) _aLifePeds.TryGetValue(_currentGirlKey, out dLeaveD);
+
+            // ── Prostitution A-Life: street-tone leave lines ──────────────────────
+            if (dLeaveD != null && dLeaveD.ALifeMode == "Prostitute")
+            {
+                string[] prostClusterNames = { "Short & Sweet", "Smooth", "Real", "Warm", "Flirty" };
+                string prostClusterName = (_leaveSelectedCluster >= 0 && _leaveSelectedCluster < prostClusterNames.Length)
+                    ? prostClusterNames[_leaveSelectedCluster] : "?";
+                DrawSectionHeader(prostClusterName.ToUpper(), x, ref y);
+                y += lh * 0.3f;
+                string[][] prostLeaveLines = {
+                    // Short & Sweet
+                    new string[] {
+                        "\"Aight, I'm out.\"",
+                        "\"Later.\"",
+                        "\"Stay up.\""
+                    },
+                    // Smooth
+                    new string[] {
+                        "\"Always good with you.\"",
+                        "\"You make it easy to come back.\"",
+                        "\"I'll be seeing you.\""
+                    },
+                    // Real
+                    new string[] {
+                        "\"You're solid. For real.\"",
+                        "\"I always know what I'm getting with you.\"",
+                        "\"No games. I respect that.\""
+                    },
+                    // Warm
+                    new string[] {
+                        "\"Watch yourself out here.\"",
+                        "\"I mean it \u2014 take care.\"",
+                        "\"You deserve better than this corner.\""
+                    },
+                    // Flirty
+                    new string[] {
+                        "\"Now I gotta walk away from that. Not fair.\"",
+                        "\"Every time gets harder to leave.\"",
+                        "\"You know you're trouble, right?\""
+                    }
+                };
+                int pc = (_leaveSelectedCluster >= 0 && _leaveSelectedCluster < prostLeaveLines.Length)
+                    ? _leaveSelectedCluster : 0;
+                string[] plines = prostLeaveLines[pc];
+                for (int i = 0; i < plines.Length; i++)
+                    DrawMenuItemWrapped(plines[i], i, x, ref y, lh);
+                return;
+            }
+
+            // ── Casual A-Life ─────────────────────────────────────────────────────
+            string[] clusterNames = { "Gentle", "Confident", "Cool", "Flattering", "玩鬧" };
+            string clusterName = (_leaveSelectedCluster >= 0 && _leaveSelectedCluster < clusterNames.Length)
+                ? clusterNames[_leaveSelectedCluster] : "?";
+
+            DrawSectionHeader(clusterName.ToUpper(), x, ref y);
+            y += lh * 0.3f;
+
+            string[][] leaveLines = {
+                // Gentle
+                new string[] {
+                    "\"This meant something to me.\"",
+                    "\"I have to go, but I'm glad we met.\"",
+                    "\"Stay safe out there, yeah?\""
+                },
+                // Confident
+                new string[] {
+                    "\"I'll see you around.\"",
+                    "\"You know where I'll be.\"",
+                    "\"This was good. Let's not wait too long.\""
+                },
+                // Cool
+                new string[] {
+                    "\"I'll let myself out.\"",
+                    "\"No big thing. Later.\"",
+                    "\"Don't make it weird. See you.\""
+                },
+                // Flattering
+                new string[] {
+                    "\"You're hard to walk away from.\"",
+                    "\"I'm already thinking about next time.\"",
+                    "\"Best part of my day. By far.\"",
+                    "\"I love you.\""
+                },
+                // Playful
+                new string[] {
+                    "\"Alright, before I do something I don't regret.\"",
+                    "\"You're dangerous, you know that?\"",
+                    "\"Don't miss me. Actually, no \u2014 miss me.\""
+                }
+            };
+
+            int c = (_leaveSelectedCluster >= 0 && _leaveSelectedCluster < leaveLines.Length)
+                ? _leaveSelectedCluster : 0;
+            string[] lines = leaveLines[c];
+            for (int i = 0; i < lines.Length; i++)
+            { DrawMenuItemWrapped(lines[i], i, x, ref y, lh); }
+        }
+
+
+        private void DrawSandboxCarMenu(float x, ref float y, float lh)
+        {
+            DrawSectionHeader("互動", x, ref y);
+            DrawMenuItem("服務項目 ~b~[>]~s~", 0, x, ref y, lh);
+            if (FindBackseatVehicle() != null)
+                DrawMenuItem(GetSeatItemLabel(), 1, x, ref y, lh);
+        }
+
+        private void DrawMainMenu(float x, ref float y, float lh)
+        {
+            int idx = 0;
+
+            // ── ACTIONS ─────────────────────────────────────────────
+            DrawSectionHeader("動作", x, ref y);
+            if (hasGirl)
+            {
+                ALifePedData _teleDat = null;
+                if (_currentGirlKey != null) _aLifePeds.TryGetValue(_currentGirlKey, out _teleDat);
+                bool _teleIsHooker = !sandboxMode || _aLifeHookerServices || (_teleDat != null && _teleDat.IsHooker);
+                string _teleLabel  = _teleIsHooker ? "Teleport Hooker to Player" : "Teleport Woman to Player";
+                if (aLifeMode)
+                {
+                    DrawMenuItem("Interact ~b~[>]~s~", idx, x, ref y, lh); idx++;
+                    DrawMenuItem("離開 ~b~[>]~s~",   idx, x, ref y, lh); idx++;
+                    DrawMenuItem(_teleLabel,           idx, x, ref y, lh); idx++;
+                }
+                else
+                {
+                    DrawMenuItem("Interact ~b~[>]~s~", idx, x, ref y, lh); idx++;
+                    DrawMenuItem("Dismiss Her",        idx, x, ref y, lh); idx++;
+                    DrawMenuItem(_teleLabel,           idx, x, ref y, lh); idx++;
+                }
+            }
+            else
+            {
+                string searchLabel = aLifeMode
+                    ? (sandboxMode ? "Approach the Woman ~b~[>]~s~" : "Approach the Hooker ~b~[>]~s~")
+                    : (sandboxMode ? "Search for Nearest Woman" : "Search for Nearest Hooker");
+                DrawMenuItem(searchLabel, idx, x, ref y, lh); idx++;
+            }
+
+            // ── OPTIONS ──────────────────────────────────────────
+            y += lh * 0.3f;
+            DrawMenuRect(x, y + lh * 0.4f, 0.216f, 0.002f, 79, 38, 142, 160);
+            y += lh * 0.8f;
+            DrawSectionHeader("選項", x, ref y);
+            string aiModeLabel = hasGirl
+                ? "~c~AI Mode: " + (aLifeMode ? "A-Life" : "Sandbox") + "~s~"
+                : "AI 模式：" + (aLifeMode ? "~p~A-Life~s~" : "~b~Sandbox~s~");
+            DrawMenuItem(aiModeLabel, idx, x, ref y, lh); idx++;
+            string gameModeLabel = (hasGirl && aLifeMode)
+                ? "~c~Game Mode: " + (sandboxMode ? "普通" : "交易") + "~s~"
+                : "遊戲模式：" + (sandboxMode ? "~b~Casual~s~" : "~o~Prostitution~s~");
+            DrawMenuItem(gameModeLabel, idx, x, ref y, lh); idx++;
+            DrawMenuItem("設定 ~b~[>]~s~", idx, x, ref y, lh); idx++;
+
+            // ── ADDONS ─────────────────────────────────────────────
+            y += lh * 0.3f;
+            DrawMenuRect(x, y + lh * 0.4f, 0.216f, 0.002f, 79, 38, 142, 160);
+            y += lh * 0.8f;
+            DrawSectionHeader("附加功能", x, ref y);
+            string sinkraLabel;
+            if (_sinkraCowgirlAvailable)
+                sinkraLabel = "Cowgirl Anim by Sinkra: ~g~INSTALLED! ~b~[CLICK FOR MORE]~s~";
+            else
+                sinkraLabel = "Cowgirl Anim by Sinkra: ~r~未安裝！~s~";
+            DrawMenuItemCentered(sinkraLabel, idx, x, ref y, lh, 0.24f); idx++;
+
+            // ── AUTOBLOW DEVICE ────────────────────────────────────
+            y += lh * 0.3f;
+            DrawMenuRect(x, y + lh * 0.4f, 0.216f, 0.002f, 79, 38, 142, 160);
+            y += lh * 0.8f;
+            DrawSectionHeader("Autoblow 裝置", x, ref y);
+            string tokenDisplay;
+            if (tokenKeyboardOpen)
+                tokenDisplay = "Token：~y~（鍵盤輸入中……）~s~";
+            else if (deviceToken.Length > 0)
+                tokenDisplay = "Token：~w~" + deviceToken + "~s~";
+            else
+                tokenDisplay = "Token：~r~（未設定 — 按下 " + MenuSelectDisplay + " to enter)~s~";
+            DrawMenuItem(tokenDisplay, idx, x, ref y, lh); idx++;
+
+            string bridgeStatus = _telemetry.IsHardDisconnected ? "~r~未連接！"
+                : !_telemetry.IsConnected && pingPendingTime <= 0 ? "~r~EXE OFFLINE!"
+                : !_telemetry.IsConnected ? "~y~CONNECTING..."
+                : _telemetry.IsDeviceOnline ? "~g~CONNECTED!"
+                : "~r~未連接！";
+            DrawMenuItem("裝置狀態：" + bridgeStatus, idx, x, ref y, lh); idx++;
+        }
+
+        private void DrawSettingsMenu(float x, ref float y, float lh)
+        {
+            DrawSectionHeader("設定", x, ref y);
+            int idx = 0;
+
+            string tutorialLabel = "Show Tutorial Messages: " + (showTutorialMessages ? "~g~ON" : "~r~OFF") + "~s~";
+            DrawMenuItem(tutorialLabel, idx, x, ref y, lh); idx++;
+            string dickLabel = "Male Nudity: " + (dildoEnabled ? "~g~ON" : "~r~OFF") + "~s~";
+            DrawMenuItem(dickLabel, idx, x, ref y, lh); idx++;
+
+            string svcVoiceLabel = "Female Voice for ''Services'': " + (femaleServiceVoice ? "~g~ON" : "~r~OFF") + "~s~";
+            DrawMenuItem(svcVoiceLabel, idx, x, ref y, lh); idx++;
+
+            string moanVoiceLabel = "Female Moaning: " + (femaleMoanVoice ? "~g~ON" : "~r~OFF") + "~s~";
+            DrawMenuItem(moanVoiceLabel, idx, x, ref y, lh); idx++;
+
+            string voiceLabel = "Female Voice on Finish: " + (femaleEndVoice ? "~g~ON" : "~r~OFF") + "~s~";
+            DrawMenuItem(voiceLabel, idx, x, ref y, lh); idx++;
+
+            string bjSoundsLabel = "Explicit BJ Sounds: " + (bjSoundsEnabled ? "~g~ON" : "~r~OFF") + "~s~";
+            DrawMenuItem(bjSoundsLabel, idx, x, ref y, lh); idx++;
+
+            string slapSoundsLabel = "Explicit Sex Sounds: " + (slapSoundsEnabled ? "~g~ON" : "~r~OFF") + "~s~";
+            DrawMenuItem(slapSoundsLabel, idx, x, ref y, lh); idx++;
+
+            string sitAnimLabel = "Street Intro/Outro Animation: " + (streetSitAnimEnabled ? "~g~ON" : "~r~OFF") + "~s~";
+            DrawMenuItem(sitAnimLabel, idx, x, ref y, lh); idx++;
+
+            string lightLabel = "Car Interior Light: " + (interiorLightEnabled ? "~g~ON" : "~r~OFF") + "~s~";
+            DrawMenuItem(lightLabel, idx, x, ref y, lh); idx++;
+
+            string engineLabel = "Car Engine: " + (carEngineEnabled ? "~g~ON" : "~r~OFF") + "~s~";
+            DrawMenuItem(engineLabel, idx, x, ref y, lh); idx++;
+
+            string driveLabel = !carEngineEnabled
+                ? "~c~Driveable Car During Animation: " + (driveableCar ? "開啟" : "關閉") + "~s~"
+                : "Driveable Car During Animation: " + (driveableCar ? "~g~ON" : "~r~OFF") + "~s~";
+            DrawMenuItem(driveLabel, idx, x, ref y, lh); idx++;
+        }
+
+        private void DrawServicesMenu(float x, ref float y, float lh)
+        {
+            bool isCar = (mode == Mode.Car);
+
+            DrawSectionHeader("服務", x, ref y);
+
+            // Street mode: show 2 top-level items
+            if (!isCar)
+            {
+                // A-Life exclusive hooker name header
+                if (_aLifeHookerServices && aLifeMode && sandboxMode && _currentGirlFp != null)
+                {
+                    ALifePedData dSvc = null;
+                    _aLifePeds.TryGetValue(_currentGirlKey, out dSvc);
+                    if (dSvc != null)
+                    {
+                        // name display removed
+                    }
+                }
+                DrawMenuItem("站姿服務 ~b~[>]~s~", 0, x, ref y, lh);
+                DrawMenuItem("Sit Down ~b~[>]~s~",          1, x, ref y, lh);
+                return;
+            }
+
+            // Car mode: flat list
+            string[] items = carServiceItems;
+            bool backseatSvc = IsBackseatCarMode();
+
+            // A-Life exclusive hooker (Casual/sandbox only): show her personal prices
+            if (_aLifeHookerServices && aLifeMode && sandboxMode && _currentGirlFp != null)
+            {
+                ALifePedData dSvc = null;
+                _aLifePeds.TryGetValue(_currentGirlKey, out dSvc);
+                if (dSvc != null)
+                {
+                    for (int i = 0; i < items.Length; i++)
+                    {
+                        if (backseatSvc && i != 1) continue; // backseat: only Sex
+                        int drawIdx = backseatSvc ? 0 : i;
+                        string label = items[i];
+                        int price = GetALifeHookerPrice(dSvc, isCar, i);
+                        if (drawIdx == menuIndex && negotiateMode)
+                            label += "  ~o~(Negotiate $" + price + ")~s~";
+                        else
+                            label += "  ~g~($" + price + ")~s~";
+                        DrawMenuItem(label, drawIdx, x, ref y, lh);
+                    }
+                    return;
+                }
+            }
+
+            for (int i = 0; i < items.Length; i++)
+            {
+                if (backseatSvc && i != 1) continue; // backseat: only Sex
+                int drawIdx = backseatSvc ? 0 : i;
+                string label = items[i];
+                if (!sandboxMode)
+                {
+                    int price;
+                    ALifePedData dDraw = null;
+                    if (aLifeMode && _currentGirlKey != null && _aLifePeds.TryGetValue(_currentGirlKey, out dDraw) && dDraw != null)
+                        price = GetProstHookerPrice(dDraw, isCar, i);
+                    else
+                        price = GetServicePrice(isCar, i);
+
+                    if (drawIdx == menuIndex && negotiateMode)
+                        label += "  ~o~(Negotiate $" + price + ")~s~";
+                    else
+                        label += "  ~g~($" + price + ")~s~";
+                }
+                else if (aLifeMode)
+                {
+                    // Sandbox A-Life: grey out services blocked by personality traits
+                    if (!IsServiceAvailable(isCar, i))
+                        label = "~c~" + label + "  ~r~(N/A)~s~";
+                }
+                DrawMenuItem(label, drawIdx, x, ref y, lh);
+            }
+        }
+
+        private void DrawSitDownSubMenu(float x, ref float y, float lh)
+        {
+            DrawSectionHeader("服務", x, ref y);
+            for (int i = 0; i < sitDownSubItems.Length; i++)
+                DrawMenuItem(sitDownSubItems[i] + " ~b~[>]~s~", i, x, ref y, lh);
+        }
+
+        private void DrawStreetServiceSubMenu(float x, ref float y, float lh)
+        {
+            string[] labels;
+            int[] map;
+            GetSubMenuArrays(out labels, out map);
+
+            string catName;
+            if (menuLevel == MenuLevel.StandingServices) catName = "Standing Services";
+            else if (menuLevel == MenuLevel.SittingServices) catName = "坐姿服務";
+            else catName = "Laying Services";
+            DrawSectionHeader(catName.ToUpper(), x, ref y);
+
+            // A-Life exclusive hooker name header
+            ALifePedData dSub = null;
+            if (_aLifeHookerServices && aLifeMode && sandboxMode && _currentGirlFp != null)
+            {
+                _aLifePeds.TryGetValue(_currentGirlKey, out dSub);
+                if (dSub != null)
+                {
+                    // name display removed
+                }
+            }
+
+            bool isEscalateParent = (_serviceSubParent == MenuLevel.Escalate);
+
+            for (int i = 0; i < labels.Length; i++)
+            {
+                string label = labels[i];
+                int flatIdx = map[i];
+
+                if (isEscalateParent)
+                {
+                    // Escalate: grey out BJ/Rough prefs
+                    ALifePedData dE = null;
+                    if (aLifeMode && _currentGirlKey != null)
+                        _aLifePeds.TryGetValue(_currentGirlKey, out dE);
+                    if (dE != null && dE.PrefBJ == false && IsEscalateBJItem(false, flatIdx))
+                        label = "~c~" + label + "  ~r~(N/A)~s~";
+                    else if (dE != null && dE.PrefRough == false && IsEscalateRoughItem(false, flatIdx))
+                        label = "~c~" + label + "  ~r~(N/A)~s~";
+                }
+                else
+                {
+                    // Services parent: show prices or availability
+                    if (!sandboxMode)
+                    {
+                        int price;
+                        ALifePedData dDraw = null;
+                        if (aLifeMode && _currentGirlKey != null && _aLifePeds.TryGetValue(_currentGirlKey, out dDraw) && dDraw != null)
+                            price = GetProstHookerPrice(dDraw, false, flatIdx);
+                        else
+                            price = GetServicePrice(false, flatIdx);
+
+                        if (i == menuIndex && negotiateMode)
+                            label += "  ~o~(Negotiate $" + price + ")~s~";
+                        else
+                            label += "  ~g~($" + price + ")~s~";
+                    }
+                    else if (_aLifeHookerServices && aLifeMode && dSub != null)
+                    {
+                        int price = GetALifeHookerPrice(dSub, false, flatIdx);
+                        if (i == menuIndex && negotiateMode)
+                            label += "  ~o~(Negotiate $" + price + ")~s~";
+                        else
+                            label += "  ~g~($" + price + ")~s~";
+                    }
+                    else if (aLifeMode)
+                    {
+                        if (!IsServiceAvailable(false, flatIdx))
+                            label = "~c~" + label + "  ~r~(N/A)~s~";
+                    }
+                }
+                DrawMenuItem(label, i, x, ref y, lh);
+            }
+        }
+
+        private void DrawCompatibilityMenu(float x, ref float y, float lh)
+        {
+            DrawSectionHeader("COWGIRL ANIM BY SINKRA", x, ref y);
+
+            string faceLabel, layLabel, revLabel;
+            if (!_sinkraCowgirlAvailable)
+            {
+                // Addon not installed — force all shown as OFF
+                faceLabel = "Replace Facesitting: ~r~關閉（附加模組未安裝）~s~";
+                layLabel  = "Replace Laying Cowgirl: ~r~關閉（附加模組未安裝）~s~";
+                revLabel  = "Replace Laying Reversed Cowgirl: ~r~關閉（附加模組未安裝）~s~";
+            }
+            else
+            {
+                faceLabel = "替換坐姿動畫："             + (sinkraReplaceFacesitting ? "~g~ON" : "~r~OFF") + "~s~";
+                layLabel  = "Replace Laying Cowgirl: "          + (sinkraReplaceLaying      ? "~g~ON" : "~r~OFF") + "~s~";
+                revLabel  = "Replace Laying Reversed Cowgirl: " + (sinkraReplaceRevLaying   ? "~g~ON" : "~r~OFF") + "~s~";
+            }
+
+            DrawMenuItem(faceLabel, 0, x, ref y, lh);
+            DrawMenuItem(layLabel,  1, x, ref y, lh);
+            DrawMenuItem(revLabel,  2, x, ref y, lh);
+        }
+
+        private void DrawSectionHeader(string title, float x, ref float y)
+        {
+            const float W = 0.216f;
+            const float H = 0.027f;
+            DrawMenuText(title, x, y + 0.005f, W, 0.27f, true, 255, 210, 0, 255);
+            y += H + 0.016f;
+        }
+
+        private void DrawMenuRect(float x, float y, float w, float h, int r, int g, int b, int a)
+        {
+            Function.Call(Hash.DRAW_RECT, x + w * 0.5f, y + h * 0.5f, w, h, r, g, b, a, false);
+        }
+
+        private void DrawMenuText(string text, float x, float y, float w, float scale, bool centered, int r, int g, int b, int a)
+        {
+            DrawMenuText(text, x, y, w, scale, centered, r, g, b, a, 0);
+        }
+
+        private void DrawMenuText(string text, float x, float y, float w, float scale, bool centered, int r, int g, int b, int a, int font)
+        {
+            Function.Call(Hash.SET_TEXT_FONT, font);
+            Function.Call(Hash.SET_TEXT_SCALE, scale, scale);
+            Function.Call(Hash.SET_TEXT_COLOUR, r, g, b, a);
+            Function.Call(Hash.SET_TEXT_WRAP, x, x + w);
+            Function.Call(Hash.SET_TEXT_CENTRE, centered);
+            Function.Call(Hash.SET_TEXT_DROPSHADOW, 2, 2, 0, 0, 0);
+            Function.Call(Hash.BEGIN_TEXT_COMMAND_DISPLAY_TEXT, "STRING");
+            for (int i = 0; i < text.Length; i += 99)
+                Function.Call(Hash.ADD_TEXT_COMPONENT_SUBSTRING_PLAYER_NAME, text.Substring(i, Math.Min(99, text.Length - i)));
+            // When centered, GTA centers around the x passed here — use the mid-point of the wrap range
+            float drawX = centered ? x + w * 0.5f : x;
+            Function.Call(Hash.END_TEXT_COMMAND_DISPLAY_TEXT, drawX, y, 0);
+        }
+
+        private void DrawMenuItem(string text, int itemIdx, float x, ref float y, float lh)
+        {
+            DrawMenuItem(text, itemIdx, x, ref y, lh, 0.31f);
+        }
+
+        private void DrawMenuItem(string text, int itemIdx, float x, ref float y, float lh, float scale)
+        {
+            // constants matching JewsStrike panel layout
+            const float W    = 0.216f;
+            const float PAD  = 0.007f;
+            const float ITEM_H = 0.034f;
+
+            if (itemIdx == menuIndex)
+                DrawMenuRect(x, y, W, ITEM_H, 79, 38, 142, 210);   // purple highlight
+
+            DrawMenuText(text, x + PAD, y + 0.005f, W - PAD * 2f, scale, false, 255, 255, 255, 255);
+            y += lh;
+        }
+
+        private void DrawMenuItemCentered(string text, int itemIdx, float x, ref float y, float lh, float scale = 0.31f)
+        {
+            const float W          = 0.216f;
+            const float PAD        = 0.007f;
+            const float ITEM_H     = 0.034f;
+            const float BASE_SCALE = 0.31f;
+            const float BASE_YOFF  = 0.005f;
+            // Vertically center smaller text: as scale shrinks, push text down proportionally
+            float textH  = scale / BASE_SCALE * (ITEM_H - BASE_YOFF * 2f);
+            float yOff   = (ITEM_H - textH) / 2f;
+
+            if (itemIdx == menuIndex)
+                DrawMenuRect(x, y, W, ITEM_H, 79, 38, 142, 210);
+
+            DrawMenuText(text, x + PAD, y + yOff, W - PAD * 2f, scale, false, 255, 255, 255, 255);
+            y += lh;
+        }
+
+        /// <summary>Like DrawMenuItem but scales the row height to fit wrapped text.</summary>
+        private void DrawMenuItemWrapped(string text, int itemIdx, float x, ref float y, float lh, float scale = 0.31f)
+        {
+            const float W   = 0.216f;
+            const float PAD = 0.007f;
+            // Strip GTA color codes (~x~) for length estimation
+            string plain = System.Text.RegularExpressions.Regex.Replace(text, "~[^~]+~", "");
+            // At scale 0.31 inside W=0.202, roughly 36 chars fit per line (scale * 0.018 per char)
+            int charsPerLine = (int)(0.202f / (scale * 0.016f));
+            if (charsPerLine < 1) charsPerLine = 1;
+            int lines = (plain.Length + charsPerLine - 1) / charsPerLine;
+            if (lines < 1) lines = 1;
+            float rowH = lh * lines;
+
+            if (itemIdx == menuIndex)
+                DrawMenuRect(x, y, W, rowH, 79, 38, 142, 210);
+
+            DrawMenuText(text, x + PAD, y + 0.005f, W - PAD * 2f, scale, false, 255, 255, 255, 255);
+            y += rowH;
+        }
+
+        /// <summary>Draw text on screen using GTA V natives.</summary>
+        private void DrawTextOnScreen(string text, float x, float y)
+        {
+            Function.Call(Hash.SET_TEXT_FONT, 0);
+            Function.Call(Hash.SET_TEXT_SCALE, 0.4f, 0.4f);
+            Function.Call(Hash.SET_TEXT_COLOUR, 255, 255, 255, 255);
+            Function.Call(Hash.SET_TEXT_WRAP, 0.0f, 1.0f);
+            Function.Call(Hash.SET_TEXT_CENTRE, false);
+            Function.Call(Hash.SET_TEXT_DROPSHADOW, 2, 2, 0, 0, 0);
+            Function.Call(Hash.SET_TEXT_EDGE, 1, 0, 0, 0, 205);
+            Function.Call(Hash.BEGIN_TEXT_COMMAND_DISPLAY_TEXT, "STRING");
+            // Split into 99-char chunks to avoid native string limit
+            for (int i = 0; i < text.Length; i += 99)
+            {
+                string chunk = text.Substring(i, Math.Min(99, text.Length - i));
+                Function.Call(Hash.ADD_TEXT_COMPONENT_SUBSTRING_PLAYER_NAME, chunk);
+            }
+            Function.Call(Hash.END_TEXT_COMMAND_DISPLAY_TEXT, x, y, 0);
+        }
+
+        private void DrawTextOnScreen(string text, float x, float y, float scale, bool centered)
+        {
+            Function.Call(Hash.SET_TEXT_FONT, 0);
+            Function.Call(Hash.SET_TEXT_SCALE, scale, scale);
+            Function.Call(Hash.SET_TEXT_COLOUR, 255, 255, 255, 255);
+            Function.Call(Hash.SET_TEXT_WRAP, 0.0f, 1.0f);
+            Function.Call(Hash.SET_TEXT_CENTRE, centered);
+            Function.Call(Hash.SET_TEXT_DROPSHADOW, 2, 2, 0, 0, 0);
+            Function.Call(Hash.SET_TEXT_EDGE, 1, 0, 0, 0, 205);
+            Function.Call(Hash.BEGIN_TEXT_COMMAND_DISPLAY_TEXT, "STRING");
+            for (int i = 0; i < text.Length; i += 99)
+            {
+                string chunk = text.Substring(i, Math.Min(99, text.Length - i));
+                Function.Call(Hash.ADD_TEXT_COMPONENT_SUBSTRING_PLAYER_NAME, chunk);
+            }
+            Function.Call(Hash.END_TEXT_COMMAND_DISPLAY_TEXT, x, y, 0);
+        }
+
+        /// <summary>Show a timed HUD status message (non-dialogue system notifications).</summary>
+        private void ShowHudStatus(string text, int durationMs)
+        {
+            if (!showTutorialMessages) return;
+            _hudStatusText    = text;
+            _hudStatusExpireAt = Game.GameTime + durationMs;
+        }
+
+        /// <summary>Show a timed subtitle (NPC/player dialogue only).</summary>
+        private void ShowSubtitle(string text, int duration)
+        {
+            GTA.UI.Screen.ShowSubtitle(text != null ? text.Replace("\"", "") : text, duration);
+        }
+    }
+
+    /// <summary>
+    /// Fire-and-forget UDP telemetry sender for external device intensity control.
+    /// Sends UTF-8 JSON messages (including device token) to 127.0.0.1:28777.
+    /// Rate-limited to 8 Hz; dead-zone of 0.03 suppresses redundant updates.
+    ///
+    /// Pong replies from the bridge on port 28778 are read in Poll(), which is
+    /// called from OnTick — everything stays on the SHVDN script thread, no
+    /// thread-pool callbacks, no cross-thread access.
+    /// </summary>
+    /// 
+    internal sealed class TelemetrySender : IDisposable
+    {
+        private const int   SendPort    = 28777;
+        private const int   RecvPort    = 28778;
+        private const float DeadZone    = 0.03f;
+        private const int   RateLimitMs = 125;   // 8 Hz max
+        private const int   PongTimeout          = 60000; // ms — no pong within this window = bridge gone
+        private const int   DeviceOnlineTimeout  = 12000; // ms — device online status expires without refresh (just above ping interval)
+
+        private readonly UdpClient  _udp;   // unbound send socket
+        private readonly UdpClient  _recv;  // non-blocking, bound to RecvPort
+        private readonly IPEndPoint _ep;    // 127.0.0.1:28777
+
+        private string _token = "";
+        private int _strokeMin = 5;
+        private int _strokeMax = 65;
+        private int _parkDelay = 2000;
+
+        private float _lastV      = -99f;          // sentinel — first send always goes through
+        private int   _lastSentMs = int.MinValue;
+
+        private bool _everPonged = false;
+        private int  _lastPongMs = 0;
+        private bool _deviceOnline = false;
+        private int  _deviceOnlineMs = 0;         // TickCount of last pong with deviceOnline:true
+        private bool _hardDisconnected = false; // set by user "disconnect" action; gates all sends
+
+        /// <summary>True if a pong was received within the last 8 seconds.</summary>
+        public bool IsConnected
+        {
+            get { return _everPonged && (Environment.TickCount - _lastPongMs < PongTimeout); }
+        }
+
+        /// <summary>True if the last pong indicated device is online AND that confirmation is fresh (< 35s).</summary>
+        public bool IsDeviceOnline
+        {
+            get { return _deviceOnline && (Environment.TickCount - _deviceOnlineMs < DeviceOnlineTimeout); }
+        }
+
+        /// <summary>True if the user manually disconnected. All sends except SendPing are blocked.</summary>
+        public bool IsHardDisconnected
+        {
+            get { return _hardDisconnected; }
+        }
+
+        public TelemetrySender()
+        {
+            try
+            {
+                _ep  = new IPEndPoint(IPAddress.Loopback, SendPort);
+                _udp = new UdpClient();
+            }
+            catch { }
+
+            try
+            {
+                _recv = new UdpClient(new IPEndPoint(IPAddress.Loopback, RecvPort));
+                _recv.Client.Blocking = false; // Poll() will never block the game thread
+            }
+            catch { /* port 28778 already in use — pong status unavailable */ }
+        }
+
+        /// <summary>Set the device token included in all outgoing UDP messages.</summary>
+        public void SetToken(string token) { _token = token ?? ""; }
+
+        /// <summary>Set stroke position bounds and finish delay sent in every UDP motion message for the bridge to use.</summary>
+        public void SetStrokeRange(int min, int max, int parkDelay) { _strokeMin = min; _strokeMax = max; _parkDelay = parkDelay; }
+
+        /// <summary>Discard any datagrams already sitting in the receive socket buffer so stale pongs
+        /// cannot immediately satisfy the next <see cref="IsConnected"/> / <see cref="IsDeviceOnline"/> check.</summary>
+        private void FlushRecvBuffer()
+        {
+            if (_recv == null) return;
+            try
+            {
+                while (_recv.Available > 0)
+                {
+                    IPEndPoint ep = new IPEndPoint(IPAddress.Any, 0);
+                    _recv.Receive(ref ep); // discard
+                }
+            }
+            catch { }
+        }
+
+        /// <summary>Clear pong state so <see cref="IsConnected"/> only turns true when a new pong arrives.</summary>
+        public void ResetPong() { _everPonged = false; _lastPongMs = 0; _deviceOnline = false; FlushRecvBuffer(); }
+
+        /// <summary>Manually disconnect: block all sends and clear pong state.</summary>
+        public void HardDisconnect() { _hardDisconnected = true; _everPonged = false; _lastPongMs = 0; _deviceOnline = false; FlushRecvBuffer(); }
+
+        /// <summary>Re-enable sends and ping the bridge to reconnect.</summary>
+        public void Reconnect() { _hardDisconnected = false; _everPonged = false; _lastPongMs = 0; _deviceOnline = false; FlushRecvBuffer(); SendPing(); }
+
+        // Appends ,"min":...,"max":...,"finishDelay":...,"token":"..." (token only when set).
+        private string TokenJson()
+        {
+            string extra = ",\"min\":" + _strokeMin + ",\"max\":" + _strokeMax + ",\"parkDelay\":" + _parkDelay;
+            return extra + (_token.Length > 0 ? ",\"token\":\"" + _token + "\"" : "");
+        }
+
+        /// <summary>
+        /// Call from OnTick. Drains all pending pong datagrams without ever blocking.
+        /// Safe to call every frame — returns immediately when no data is available.
+        /// </summary>
+        public void Poll()
+        {
+            if (_recv == null) return;
+            try
+            {
+                while (_recv.Available > 0)
+                {
+                    IPEndPoint remote = new IPEndPoint(IPAddress.Any, 0);
+                    byte[] data = _recv.Receive(ref remote);
+                    if (Encoding.UTF8.GetString(data).Contains("\"pong\""))
+                    {
+                        _lastPongMs = Environment.TickCount;
+                        _everPonged = true;
+                        bool devOnline = Encoding.UTF8.GetString(data).Contains("\"deviceOnline\":true");
+                        _deviceOnline = devOnline;
+                        if (devOnline) _deviceOnlineMs = Environment.TickCount; // stamp freshness
+                    }
+                }
+            }
+            catch { }
+        }
+
+        /// <summary>Send a ping; <see cref="IsConnected"/> updates on the next Poll() that receives a pong.</summary>
+        public void SendPing()
+        {
+            if (_udp == null) return;
+            string json = "{\"type\":\"ping\"" + TokenJson() + "}";
+            byte[] buf = Encoding.UTF8.GetBytes(json);
+            try { _udp.Send(buf, buf.Length, _ep); } catch { }
+        }
+
+        /// <summary>
+        /// Send an intensity update. Silently dropped when BOTH the rate-limit AND
+        /// the dead-zone conditions are met. <paramref name="v"/> is clamped to [0, 1].
+        /// </summary>
+        public void SendIntensity(float v)
+        {
+            if (_udp == null || _hardDisconnected) return;
+            v = Math.Max(0f, Math.Min(1f, v));
+
+            int  now         = Environment.TickCount;
+            bool rateLimited = (now - _lastSentMs) < RateLimitMs;
+            bool inDeadZone  = Math.Abs(v - _lastV) < DeadZone;
+            if (rateLimited && inDeadZone) return;
+
+            _lastV      = v;
+            _lastSentMs = now;
+
+            string json = "{\"type\":\"intensity\",\"v\":"
+                        + v.ToString("0.000", System.Globalization.CultureInfo.InvariantCulture)
+                        + TokenJson() + "}";
+            byte[] buf = Encoding.UTF8.GetBytes(json);
+            try { _udp.Send(buf, buf.Length, _ep); } catch { }
+        }
+
+        /// <summary>
+        /// Same as <see cref="SendIntensity"/> but bypasses the dead-zone check.
+        /// Use when the player explicitly changes speed so the device responds immediately.
+        /// </summary>
+        public void ForceSendIntensity(float v)
+        {
+            if (_hardDisconnected) return;
+            _lastV      = -99f;           // reset deadzone so the change always registers
+            _lastSentMs = int.MinValue;   // reset rate-limit too
+            SendIntensity(v);
+        }
+
+        /// <summary>
+        /// Send a finish message (natural completion). Bridge will park the device
+        /// at the 0 position before halting. Also resets rate-limit state.
+        /// </summary>
+        public void SendFinish()
+        {
+            if (_udp == null || _hardDisconnected) return;
+            _lastV      = -99f;
+            _lastSentMs = int.MinValue;
+            string json = "{\"type\":\"finish\"" + TokenJson() + "}";
+            byte[] buf = Encoding.UTF8.GetBytes(json);
+            try { _udp.Send(buf, buf.Length, _ep); } catch { }
+        }
+
+        /// <summary>
+        /// Send a stop message and reset rate-limit / dead-zone state so that
+        /// the next <see cref="SendIntensity"/> call always fires unconditionally.
+        /// </summary>
+        public void SendStop()
+        {
+            if (_udp == null) return;
+            _lastV      = -99f;
+            _lastSentMs = int.MinValue;
+            string json = "{\"type\":\"stop\"" + TokenJson() + "}";
+            byte[] buf = Encoding.UTF8.GetBytes(json);
+            try { _udp.Send(buf, buf.Length, _ep); } catch { }
+        }
+
+        /// <summary>
+        /// Send a ready message — bridge will goToPosition(strokeMax) so the device parks at the top/retracted position.
+        /// </summary>
+        public void SendReady()
+        {
+            if (_udp == null || _hardDisconnected) return;
+            string json = "{\"type\":\"ready\"" + TokenJson() + "}";
+            byte[] buf = Encoding.UTF8.GetBytes(json);
+            try { _udp.Send(buf, buf.Length, _ep); } catch { }
+        }
+
+        /// <summary>
+        /// Send a goto message — bridge will call PUT /autoblow/goto to move device to <paramref name="position"/> at <paramref name="speed"/>.
+        /// position: 0–100 (0 = fully extended/deep, 100 = fully retracted/top).
+        /// speed: 1–100.
+        /// </summary>
+        public void SendGoto(int position, int speed)
+        {
+            if (_udp == null || _hardDisconnected) return;
+            string json = "{\"type\":\"goto\",\"pos\":" + position + ",\"spd\":" + speed + TokenJson() + "}";
+            byte[] buf = Encoding.UTF8.GetBytes(json);
+            try { _udp.Send(buf, buf.Length, _ep); } catch { }
+        }
+
+        public void Dispose()
+        {
+            try { if (_udp  != null) _udp.Close();  } catch { }
+            try { if (_recv != null) _recv.Close(); } catch { }
+        }
     }
 }
