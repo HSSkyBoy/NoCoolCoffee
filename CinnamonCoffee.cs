@@ -75,7 +75,7 @@ namespace CinnamonCoffee
             public bool   HookerPermaReject; // 永久拒絕商業提議時設為 true
             public bool   NameKnown;    // 向玩家透露姓名後設為 true
             public string LastPositiveRelationship; // 好感度降至 -1 前保存的關係狀態
-            public string Mood;          // transient: "Relaxed","Happy","Alert","Playful","Annoyed","Needy","Jealous"
+            public string Mood;          // transient: "Relaxed","Happy","Alert","玩鬧","Annoyed","Needy","Jealous"
             public bool?  PrefBJ;       // null=未知, true=願意, false=不願意
             public bool?  PrefRough;    // null=未知, true=願意, false=不願意
             public int[]  HookerPrices;  // [0]=Kissing [1]=Blowjob [2]=Facesitting [3]=Cowgirl [4]=Doggy — 對應 PriceGroup 枚舉，null 表示尚未設定
@@ -268,7 +268,7 @@ namespace CinnamonCoffee
 
         private readonly string[] sitDownSubItems = {
             "坐姿服務",
-            "Laying Services"
+            "躺姿服務"
         };
 
         // Standing Services: sub-menu index → flat streetActionIdx
@@ -2627,7 +2627,7 @@ namespace CinnamonCoffee
                 int finishIdx      = _finishAsked ? 0 : 1;
                 int finishInsideIdx = _finishAsked ? 1 : 2;
 
-                if (!_finishAsked && menuIndex == 0) // "Ask to finish inside" — gets her answer, no finish yet
+                if (!_finishAsked && menuIndex == 0) // "要求內射" — gets her answer, no finish yet
                 {
                     _finishAsked = true;
                     // CimPreference NPCs always accept — bypass the roll entirely
@@ -3672,7 +3672,7 @@ namespace CinnamonCoffee
                         if      (menuIndex == 3 && dInt.PrefBJ    == null) { dInt.PrefBJ    = intPositive; SaveALife(); }
                         else if (menuIndex == 4 && dInt.PrefRough == null) { dInt.PrefRough = intPositive; SaveALife(); }
                     }
-                    // Track first-ask bits for "Do you kiss?" / "Public or private?" / "Do you want this casual?" (set regardless of positive/negative)
+                    // Track first-ask bits for "妳接吻嗎？" / "公共場合還是私密點？" / "妳想隨便玩玩嗎？" (set regardless of positive/negative)
                     if (menuIndex == 0 && (dInt.KnownTopics & (1 << 25)) == 0) { dInt.KnownTopics |= (1 << 25); SaveALife(); }
                     if (menuIndex == 1 && (dInt.KnownTopics & (1 << 27)) == 0) { dInt.KnownTopics |= (1 << 27); SaveALife(); }
                     if (menuIndex == 7 && (dInt.KnownTopics & (1 << 30)) == 0) { dInt.KnownTopics |= (1 << 30); SaveALife(); }
@@ -3692,7 +3692,7 @@ namespace CinnamonCoffee
                 }
                 else if (_intimacySelectedBranch == 1 && dInt != null) // Test Waters
                 {
-                    if (menuIndex == 0) // "You look hard to resist." — high risk, high reward
+                    if (menuIndex == 0) // "妳看起來讓人難以抗拒。" — high risk, high reward
                     {
                         string rel = dInt.Relationship;
                         PersonalityProfile profInt = GetProfile(dInt.Personality);
@@ -3831,7 +3831,7 @@ namespace CinnamonCoffee
                     else if (escRel == "Familiar")     acceptChance = 0.08 + escRisk * 0.20;  // 0.08–0.28
                     else if (escRel == "Acquaintance") acceptChance = 0.03 + escRisk * 0.12;  // 0.03–0.15
                     else                               acceptChance = 0.01 + escRisk * 0.07;  // 0.01–0.08  (Stranger — most likely no)
-                    // Line modifier: blunt "Wanna fuck?" helps risky personalities, hurts reserved ones
+                    // Line modifier: blunt "想做愛嗎？" helps risky personalities, hurts reserved ones
                     //                romantic line gives slight warmth bonus regardless
                     if      (menuIndex == 2) acceptChance += (escRisk - 0.50) * 0.22;
                     else if (menuIndex == 0) acceptChance += escRisk * 0.05;
@@ -4013,7 +4013,7 @@ namespace CinnamonCoffee
                     }
                     else
                     {
-                        string[] leaveClusters = { "gentle", "confident", "cool", "flattering", "playful" };
+                        string[] leaveClusters = { "溫柔", "自信", "高冷", "奉承", "玩鬧" };
                         string picked   = (_leaveSelectedCluster >= 0 && _leaveSelectedCluster < leaveClusters.Length) ? leaveClusters[_leaveSelectedCluster] : null;
                         string expected = GetApproachCluster(dLeave.Personality);
                         if (picked != null && expected != null && picked == expected)
@@ -11283,7 +11283,7 @@ namespace CinnamonCoffee
                 {
                     if      (mRoll < 30) data.Mood = "Relaxed";
                     else if (mRoll < 52) data.Mood = "Happy";
-                    else if (mRoll < 70) data.Mood = "Playful";
+                    else if (mRoll < 70) data.Mood = "玩鬧";
                     else if (mRoll < 82) data.Mood = "Alert";
                     else if (mRoll < 92) data.Mood = "Needy";
                     else                 data.Mood = "Annoyed";
@@ -11294,7 +11294,7 @@ namespace CinnamonCoffee
                     else if (mRoll < 33) data.Mood = "Happy";
                     else if (mRoll < 55) data.Mood = "Alert";
                     else if (mRoll < 75) data.Mood = "Annoyed";
-                    else if (mRoll < 88) data.Mood = "Playful";
+                    else if (mRoll < 88) data.Mood = "玩鬧";
                     else if (mRoll < 96) data.Mood = "Needy";
                     else                 data.Mood = "Jealous";
                 }
@@ -11304,7 +11304,7 @@ namespace CinnamonCoffee
                     else if (mRoll < 69) data.Mood = "Annoyed";
                     else if (mRoll < 82) data.Mood = "Relaxed";
                     else if (mRoll < 90) data.Mood = "Jealous";
-                    else if (mRoll < 97) data.Mood = "Playful";
+                    else if (mRoll < 97) data.Mood = "玩鬧";
                     else                 data.Mood = "Happy";
                 }
 
@@ -11364,7 +11364,7 @@ namespace CinnamonCoffee
                 {
                     if      (mRoll < 30) data.Mood = "Relaxed";
                     else if (mRoll < 52) data.Mood = "Happy";
-                    else if (mRoll < 70) data.Mood = "Playful";
+                    else if (mRoll < 70) data.Mood = "玩鬧";
                     else if (mRoll < 82) data.Mood = "Alert";
                     else if (mRoll < 92) data.Mood = "Needy";
                     else                 data.Mood = "Annoyed";
@@ -11375,7 +11375,7 @@ namespace CinnamonCoffee
                     else if (mRoll < 33) data.Mood = "Happy";
                     else if (mRoll < 55) data.Mood = "Alert";
                     else if (mRoll < 75) data.Mood = "Annoyed";
-                    else if (mRoll < 88) data.Mood = "Playful";
+                    else if (mRoll < 88) data.Mood = "玩鬧";
                     else if (mRoll < 96) data.Mood = "Needy";
                     else                 data.Mood = "Jealous";
                 }
@@ -11385,7 +11385,7 @@ namespace CinnamonCoffee
                     else if (mRoll < 69) data.Mood = "Annoyed";
                     else if (mRoll < 82) data.Mood = "Relaxed";
                     else if (mRoll < 90) data.Mood = "Jealous";
-                    else if (mRoll < 97) data.Mood = "Playful";
+                    else if (mRoll < 97) data.Mood = "玩鬧";
                     else                 data.Mood = "Happy";
                 }
             }
@@ -12055,7 +12055,7 @@ namespace CinnamonCoffee
             else if (mood == "Alert")    animName = "mood_aiming_1";
             else if (mood == "Needy")    animName = "mood_injured_1";
             else if (mood == "Jealous")  animName = "mood_stressed_1";
-            else if (mood == "Happy" || mood == "Playful") animName = "mood_happy_1";
+            else if (mood == "Happy" || mood == "玩鬧") animName = "mood_happy_1";
             else animName = "mood_normal_1";
             Function.Call(Hash.SET_FACIAL_IDLE_ANIM_OVERRIDE, ped, animName, (string)null);
         }
@@ -12645,7 +12645,7 @@ namespace CinnamonCoffee
                 return;
             }
 
-            string[] clusterNames = { "gentle", "confident", "cool", "flattering", "playful" };
+            string[] clusterNames = { "溫柔", "自信", "高冷", "奉承", "玩鬧" };
             string picked   = (leaveCluster >= 0 && leaveCluster < clusterNames.Length) ? clusterNames[leaveCluster] : null;
             string expected = GetApproachCluster(d.Personality);
             bool matched    = picked != null && expected != null && picked == expected;
@@ -12954,7 +12954,7 @@ namespace CinnamonCoffee
                 // High chance — adventurous / expressive types
                 case "Chaotic":     chance = isProst ? 0.65 : 0.75; break;
                 case "Party Girl":  chance = isProst ? 0.60 : 0.72; break;
-                case "Playful":     chance = isProst ? 0.55 : 0.68; break;
+                case "玩鬧":     chance = isProst ? 0.55 : 0.68; break;
                 case "Flirty":      chance = isProst ? 0.55 : 0.65; break;
                 case "Unstable":    chance = isProst ? 0.50 : 0.62; break;
 
@@ -13291,9 +13291,9 @@ namespace CinnamonCoffee
             DrawMenuRect(PX, TOP, W, totalH, 0, 0, 0, 190);
             DrawMenuRect(PX, TOP, W, HDR_H, 79, 38, 142, 230);
 
-            // ── Header title "Cinnamon Coffee" — vertically centered in the header bar ──
+            // ── Header title "肉桂情事" — vertically centered in the header bar ──
             float hdrTextY = TOP + (HDR_H * 0.5f) - 0.014f;
-            DrawMenuText("Cinnamon Coffee", PX + PAD, hdrTextY, W - PAD * 2f, 0.50f, true, 210, 125, 45, 255, 7);
+            DrawMenuText("肉桂情事", PX + PAD, hdrTextY, W - PAD * 2f, 0.50f, true, 210, 125, 45, 255, 7);
 
             // ── Pass 3: redraw items on top of background ────────────────────────
             float y = TOP + HDR_H + 0.016f;
@@ -13301,13 +13301,13 @@ namespace CinnamonCoffee
 
             // ── Dark footer bar ────────────────────────────────────────────────────
             DrawMenuRect(PX, footY, W, FOOT_H, 30, 30, 30, 210);
-            string footLine = "[" + MenuUpDisplay + "/" + MenuDownDisplay + "] Move  ["
-                            + MenuSelectDisplay + "] 選擇 [" + MenuBackDisplay + "] Back  ["
+            string footLine = "[" + MenuUpDisplay + "/" + MenuDownDisplay + "] 移動  ["
+                            + MenuSelectDisplay + "] 選擇 [" + MenuBackDisplay + "] 返回  ["
                             + MasterDisplay + "] 關閉";
             if (showSwipe)
-                footLine += "\n[" + SpeedDownDisplay + "/" + SpeedUpDisplay + "] Swipe";
+                footLine += "\n[" + SpeedDownDisplay + "/" + SpeedUpDisplay + "] 滑動";
             else if (showAmt)
-                footLine += "\n[" + SpeedDownDisplay + "/" + SpeedUpDisplay + "] Amt";
+                footLine += "\n[" + SpeedDownDisplay + "/" + SpeedUpDisplay + "] 金額";
             DrawMenuText(footLine, PX + PAD, footY + 0.006f, W - PAD * 2f, 0.19f, false, 200, 200, 200, 255);
         }
 
@@ -13388,9 +13388,9 @@ namespace CinnamonCoffee
             if (!aLifeMode)
             {
                 y += lh * 0.3f;
-                DrawMenuItem("Finish (Pull out)", 0, x, ref y, lh);
+                DrawMenuItem("完成 (外射)", 0, x, ref y, lh);
                 y += lh * 0.3f;
-                DrawMenuItem("Finish (Inside Her)", 1, x, ref y, lh);
+                DrawMenuItem("完成 (內射)", 1, x, ref y, lh);
                 return;
             }
 
@@ -13406,20 +13406,20 @@ namespace CinnamonCoffee
 
             if (!_finishAsked)
             {
-                DrawMenuItem("Ask to finish inside", 0, x, ref y, lh);
+                DrawMenuItem("要求內射", 0, x, ref y, lh);
                 y += lh * 0.1f;
             }
             // After Ask the items shift: Finish → 0, Finish inside her → 1
             int drawFinish      = _finishAsked ? 0 : 1;
             int drawFinishInside = _finishAsked ? 1 : 2;
-            DrawMenuItem("Finish (Pull out)", drawFinish, x, ref y, lh);
+            DrawMenuItem("完成 (外射)", drawFinish, x, ref y, lh);
             y += lh * 0.3f;
 
             // Show the quoted price after she's agreed — works for both exclusive hooker and Prost A-Life
             if (_aLifeFinishInsidePrice > 0)
                 DrawMenuItem("Finish (Inside Her)  ~g~($" + _aLifeFinishInsidePrice + ")~s~", drawFinishInside, x, ref y, lh);
             else
-                DrawMenuItem("Finish (Inside Her)", drawFinishInside, x, ref y, lh);
+                DrawMenuItem("完成 (內射)", drawFinishInside, x, ref y, lh);
         }
 
         private void DrawApproachMenu(float x, ref float y, float lh)
@@ -13438,16 +13438,16 @@ namespace CinnamonCoffee
             DrawSectionHeader("接近" + headerName, x, ref y);
 
             y += lh * 0.3f;
-            DrawMenuItem("Gentle ~b~[>]~s~",     0, x, ref y, lh);
-            DrawMenuItem("Confident ~b~[>]~s~",  1, x, ref y, lh);
-            DrawMenuItem("Cool ~b~[>]~s~",       2, x, ref y, lh);
-            DrawMenuItem("Flattering ~b~[>]~s~", 3, x, ref y, lh);
-            DrawMenuItem("Playful ~b~[>]~s~",    4, x, ref y, lh);
+            DrawMenuItem("溫柔 ~b~[>]~s~",     0, x, ref y, lh);
+            DrawMenuItem("自信 ~b~[>]~s~",  1, x, ref y, lh);
+            DrawMenuItem("高冷 ~b~[>]~s~",       2, x, ref y, lh);
+            DrawMenuItem("奉承 ~b~[>]~s~", 3, x, ref y, lh);
+            DrawMenuItem("玩鬧 ~b~[>]~s~",    4, x, ref y, lh);
         }
 
         private void DrawApproachLineMenu(float x, ref float y, float lh)
         {
-            string[] clusterNames = { "Gentle", "Confident", "Cool", "Flattering", "玩鬧" };
+            string[] clusterNames = { "溫柔", "自信", "高冷", "奉承", "玩鬧" };
             string clusterName = (_approachSelectedCluster >= 0 && _approachSelectedCluster < clusterNames.Length)
                 ? clusterNames[_approachSelectedCluster] : "?";
 
@@ -13474,71 +13474,71 @@ namespace CinnamonCoffee
                     // Gentle
                     new string[][] {
                         new string[] {
-                            "\"Hey... you working?\"",
-                            "\"Sorry — I don't really know how to ask this. You available?\"",
-                            "\"I'm not trying to be weird. How much for your time?\"",
-                            "\"Excuse me. Looking for company. Is that something you do?\""
+                            "\"嘿... 在工作嗎？\"",
+                            "\"抱歉—我不知道該怎麼問。妳有空嗎？\"",
+                            "\"我不是想套近乎。妳的時間怎麼算？\"",
+                            "\"打擾一下。我想找人陪陪。妳做這行嗎？\""
                         },
                         new string[] {
-                            "\"Hey, it's me again. You remember me?\"",
-                            "\"Good to see you. You free right now?\"",
-                            "\"I was hoping I'd find you here.\""
+                            "\"嘿，又是我。還記得我嗎？\"",
+                            "\"見到妳真好。現在有空嗎？\"",
+                            "\"我就希望能遇到妳。\""
                         }
                     },
                     // Confident
                     new string[][] {
                         new string[] {
-                            "\"You working? How much?\"",
-                            "\"I've got cash. What are you offering?\"",
-                            "\"Name your rate. I'm not here to haggle.\"",
-                            "\"Let's skip the small talk. What do you charge?\""
+                            "\"在工作嗎？多少錢？\"",
+                            "\"我有現金。妳能提供什麼服務？\"",
+                            "\"開個價吧。我不是來討價還價的。\"",
+                            "\"別廢話了。妳收費多少？\""
                         },
                         new string[] {
-                            "\"Back again. Same deal as last time?\"",
-                            "\"You free right now? I've got money.\"",
-                            "\"Let's not waste time. What's it gonna be?\""
+                            "\"我又來了。和上次一樣？\"",
+                            "\"妳現在有空嗎？我有錢。\"",
+                            "\"別浪費時間了。怎麼算？\""
                         }
                     },
                     // Cool
                     new string[][] {
                         new string[] {
-                            "\"You available?\"",
-                            "\"What's your rate?\"",
-                            "\"Looking for a date. You working?\"",
-                            "\"You got time for me?\""
+                            "\"有空嗎？\"",
+                            "\"怎麼收費？\"",
+                            "\"想找個伴。在接客嗎？\"",
+                            "\"妳有時間陪我嗎？\""
                         },
                         new string[] {
-                            "\"You again. Good.\"",
-                            "\"Still working this spot?\"",
-                            "\"Figured I'd swing by.\""
+                            "\"又見面了。很好。\"",
+                            "\"還在這裡接客？\"",
+                            "\"我想說順便過來看看。\""
                         }
                     },
                     // Flattering
                     new string[][] {
                         new string[] {
-                            "\"Best-looking one out here. What do you charge?\"",
-                            "\"Whatever your rate is, you're worth every penny.\"",
-                            "\"Seriously — how much for a girl like you?\"",
-                            "\"You look incredible. You working?\""
+                            "\"這附近最漂亮的就妳了。怎麼收費？\"",
+                            "\"不管妳收費多少，妳都值得。\"",
+                            "\"說真的—像妳這樣的女孩要多少錢？\"",
+                            "\"妳看起來棒極了。在工作嗎？\""
                         },
                         new string[] {
-                            "\"You look even better than last time. You free?\"",
-                            "\"I've been thinking about coming back. You available?\"",
-                            "\"Still the best out here. What do you say?\""
+                            "\"妳比上次更美了。有空嗎？\"",
+                            "\"I've been thinking about coming back. 有空嗎？\"",
+                            "\"妳依然是這最棒的。妳覺得呢？\""
                         }
                     },
                     // Playful
                     new string[][] {
                         new string[] {
-                            "\"Alright, I'll just ask — how much?\"",
-                            "\"Tell me you're free. Please.\"",
-                            "\"I've got money and I know what I want. You interested?\"",
-                            "\"You look like exactly the kind of trouble I'm paying for.\""
+                            "\"好吧，我就直接問了—多少錢？\"",
+                            "\"告訴我妳有空。拜託。\"",
+                            "\"我有錢而且我知道我想要什麼。有興趣嗎？\"",
+                            "\"妳看起來正是我花錢想找的那種麻煩。\""
                         },
                         new string[] {
-                            "\"Miss me?\"",
-                            "\"Back again. I know, I know. You free?\"",
-                            "\"Ready for round two?\""
+                            "\"想我了嗎？\"",
+                            "\"又來了。我知道，我知道。有空嗎？\"",
+                            "\"準備好第二回合了嗎？\""
                         }
                     }
                 };
@@ -13555,71 +13555,71 @@ namespace CinnamonCoffee
                 // Gentle
                 new string[][] {
                     new string[] {
-                        "\"Excuse me, I hope I'm not bothering you.\"",
-                        "\"You have a really warm smile.\"",
-                        "\"I couldn't walk past without saying hi.\"",
-                        "\"Mind if I keep you company for a bit?\""
+                        "\"打擾一下，希望沒有妨礙到妳。\"",
+                        "\"妳的笑容真的很溫暖。\"",
+                        "\"我無法就這樣走過去而不打招呼。\"",
+                        "\"介意我陪妳一會兒嗎？\""
                     },
                     new string[] {
-                        "\"Hey " + name + ", good to see you again.\"",
-                        "\"I kept thinking about you. Want to hang out?\"",
-                        "\"Come with me.\""
+                        "\"Hey " + name + ", 很高興又見到妳。\"",
+                        "\"我一直想著妳。想一起去逛逛嗎？\"",
+                        "\"跟我來。\""
                     }
                 },
                 // Confident
                 new string[][] {
                     new string[] {
-                        "\"Excuse me. You caught my attention.\"",
-                        "\"I'm not going to pretend I didn't notice you.\"",
-                        "\"You look like you know what you want.\"",
-                        "\"Got a minute?\""
+                        "\"打擾了。妳吸引了我的注意。\"",
+                        "\"我不想假裝沒注意到妳。\"",
+                        "\"妳看起來知道自己想要什麼。\"",
+                        "\"有時間嗎？\""
                     },
                     new string[] {
-                        "\"Hey " + name + ". Let's not waste time.\"",
-                        "\"You free?\"",
-                        "\"Come with me.\""
+                        "\"Hey " + name + ". 我們別浪費時間了。\"",
+                        "\"有空嗎？\"",
+                        "\"跟我來。\""
                     }
                 },
                 // Cool
                 new string[][] {
                     new string[] {
-                        "\"You look like you have better things to do. Same.\"",
-                        "\"Interesting. You're hard to read.\"",
-                        "\"I'll keep it short: you're stunning.\"",
-                        "\"Not many people carry themselves like that.\""
+                        "\"妳看起來好像有更好的事要做。我也一樣。\"",
+                        "\"有意思。妳很難懂。\"",
+                        "\"長話短說：妳美極了。\"",
+                        "\"沒多少人有妳這種氣質。\""
                     },
                     new string[] {
                         "\"" + name + ". Good.\"",
-                        "\"Still as hard to read as ever.\"",
-                        "\"Don't make me ask twice.\""
+                        "\"還是一樣難懂。\"",
+                        "\"別讓我問兩次。\""
                     }
                 },
                 // Flattering
                 new string[][] {
                     new string[] {
-                        "\"I'd be an idiot not to say something.\"",
-                        "\"You're exactly my type.\"",
-                        "\"Don't take this the wrong way, but you're gorgeous.\"",
-                        "\"You deserve someone paying attention.\""
+                        "\"如果我不說點什麼那就是白痴了。\"",
+                        "\"妳完全是我的菜。\"",
+                        "\"別誤會，但妳真的很美。\"",
+                        "\"妳值得別人的關注。\""
                     },
                     new string[] {
-                        "\"Hey " + name + ", I've been thinking about you.\"",
-                        "\"You look even better than I remembered.\"",
-                        "\"You're coming with me, right?\""
+                        "\"Hey " + name + ", 我一直想著妳。\"",
+                        "\"妳看起來比我記憶中還要美。\"",
+                        "\"妳會跟我走，對吧？\""
                     }
                 },
                 // Playful
                 new string[][] {
                     new string[] {
-                        "\"Hey, I bet you get this a lot, but damn.\"",
-                        "\"You look like trouble. I like that.\"",
-                        "\"Tell me you're not as fun as you look.\"",
-                        "\"Can I steal five minutes of your time?\""
+                        "\"嘿，我打賭妳常聽到這句話，但是該死，妳真美。\"",
+                        "\"妳看起來像個麻煩。我喜歡。\"",
+                        "\"告訴我妳不像外表看起來那麼有趣。\"",
+                        "\"能耽誤妳五分鐘嗎？\""
                     },
                     new string[] {
-                        "\"Hey " + name + ", ready to cause some trouble?\"",
-                        "\"Miss me?\"",
-                        "\"Come on, let's go.\""
+                        "\"Hey " + name + ", 準備好惹點麻煩了嗎？\"",
+                        "\"想我了嗎？\"",
+                        "\"來吧，我們走。\""
                     }
                 }
             };
@@ -13640,13 +13640,13 @@ namespace CinnamonCoffee
             if (_currentGirlKey != null) _aLifePeds.TryGetValue(_currentGirlKey, out dAct);
             int idx = 0;
             if (ShowInviteVehicleItem())
-                DrawMenuItem("Invite to Vehicle ~b~[>]~s~", idx++, x, ref y, lh);
+                DrawMenuItem("邀請上車 ~b~[>]~s~", idx++, x, ref y, lh);
             DrawMenuItem("對話交流 ~b~[>]~s~", idx++, x, ref y, lh);
             bool isHookerAct = (dAct != null && (dAct.IsHooker || dAct.ALifeMode == "Prostitute"));
             DrawMenuItem(isHookerAct ? "服務項目 ~b~[>]~s~" : "親密互動 ~b~[>]~s~", idx++, x, ref y, lh);
             // "Give Her Money" — A-Life only
             if (aLifeMode && _currentGirlKey != null)
-                DrawMenuItem("Give Her Money ~b~[>]~s~", idx++, x, ref y, lh);
+                DrawMenuItem("給予金錢 ~b~[>]~s~", idx++, x, ref y, lh);
             // "Move to seat" — prostitution/hooker girls when vehicle available
             if (ShowSeatSwapInActions())
                 DrawMenuItem(GetSeatItemLabel(), idx, x, ref y, lh);
@@ -13677,9 +13677,9 @@ namespace CinnamonCoffee
 
             ALifePedData dInvDraw = null;
             if (_currentGirlKey != null) _aLifePeds.TryGetValue(_currentGirlKey, out dInvDraw);
-            DrawMenuItem("\"How about a ride?\"",              0, x, ref y, lh);
-            DrawMenuItem("\"Hop in, I'll drive us around.\"", 1, x, ref y, lh);
-            DrawMenuItem("\"Come on, let's go.\"",            2, x, ref y, lh);
+            DrawMenuItem("\"要搭便車嗎？\"",              0, x, ref y, lh);
+            DrawMenuItem("\"上車吧，我載我們去兜風。\"", 1, x, ref y, lh);
+            DrawMenuItem("\"來吧，我們走。\"",            2, x, ref y, lh);
         }
 
         private void DrawIntimacyMenu(float x, ref float y, float lh)
@@ -13690,9 +13690,9 @@ namespace CinnamonCoffee
             if (_currentGirlKey != null) _aLifePeds.TryGetValue(_currentGirlKey, out dI);
 
 
-            DrawMenuItem("Ask Preferences ~b~[>]~s~", 0, x, ref y, lh);
-            DrawMenuItem("Test Waters ~b~[>]~s~",      1, x, ref y, lh);
-            DrawMenuItem("Make it Sexual ~b~[>]~s~",      2, x, ref y, lh);
+            DrawMenuItem("詢問喜好 ~b~[>]~s~", 0, x, ref y, lh);
+            DrawMenuItem("試探 ~b~[>]~s~",      1, x, ref y, lh);
+            DrawMenuItem("進一步發展 ~b~[>]~s~",      2, x, ref y, lh);
             if (_escalateConsented && FindBackseatVehicle() != null)
                 DrawMenuItem(GetSeatItemLabel(), 3, x, ref y, lh);
         }
@@ -13710,20 +13710,20 @@ namespace CinnamonCoffee
             string[][] branches = new string[][] {
                 // 0: Ask Preferences
                 new string[] {
-                    "\"Do you kiss?\"",
-                    "\"Public or private?\"",
-                    "\"What are you into?\"",
-                    "\"Do you like doing... that with your mouth?\"",
-                    "\"Are you into it rough?\"",
-                    "\"Would you ever take control?\"",
-                    "\"What do you absolutely not want?\"",
-                    "\"Do you want this casual?\""
+                    "\"妳接吻嗎？\"",
+                    "\"公共場合還是私密點？\"",
+                    "\"妳喜歡什麼？\"",
+                    "\"妳喜歡用... 嘴巴做那個嗎？\"",
+                    "\"妳喜歡粗暴點嗎？\"",
+                    "\"妳想不想主導一次？\"",
+                    "\"妳絕對不想要什麼？\"",
+                    "\"妳想隨便玩玩嗎？\""
                 },
                 // 1: Test Waters
                 new string[] {
-                    "\"You look hard to resist.\"",
-                    "\"I want to be closer to you.\"",
-                    "\"Do you want this too?\""
+                    "\"妳看起來讓人難以抗拒。\"",
+                    "\"我想更靠近妳。\"",
+                    "\"妳也想要這個嗎？\""
                 }
             };
 
@@ -13745,9 +13745,9 @@ namespace CinnamonCoffee
             if (!_escalateConsented)
             {
                 bool isNight = IsNight();
-                DrawMenuItem(isNight ? "\"Stay with me tonight. What do you say?\""  : "\"Let's have some fun.\"", 0, x, ref y, lh);
-                DrawMenuItem("\"Mind if I... come closer?..\"",                                                1, x, ref y, lh);
-                DrawMenuItem("\"Wanna fuck?\"",                                         2, x, ref y, lh);
+                DrawMenuItem(isNight ? "\"今晚留下來陪我。妳覺得呢？\""  : "\"我們來找點樂子吧。\"", 0, x, ref y, lh);
+                DrawMenuItem("\"介意我... 靠近一點嗎？..\"",                                                1, x, ref y, lh);
+                DrawMenuItem("\"想做愛嗎？\"",                                         2, x, ref y, lh);
             }
             else
             {
@@ -13785,20 +13785,20 @@ namespace CinnamonCoffee
             // Prostitution A-Life: stripped-down conversation — no romantic/arrangement branches
             if (dAct != null && dAct.ALifeMode == "Prostitute")
             {
-                DrawMenuItem("Get to Know Her ~b~[>]~s~", 0, x, ref y, lh);
-                DrawMenuItem("Small Talk ~b~[>]~s~",      1, x, ref y, lh);
+                DrawMenuItem("認識她 ~b~[>]~s~", 0, x, ref y, lh);
+                DrawMenuItem("閒聊 ~b~[>]~s~",      1, x, ref y, lh);
                 DrawMenuItem("查看心情 ~b~[>]~s~",      2, x, ref y, lh);
-                DrawMenuItem("Flirt ~b~[>]~s~",           3, x, ref y, lh);
+                DrawMenuItem("調情 ~b~[>]~s~",           3, x, ref y, lh);
                 return;
             }
 
-            DrawMenuItem("Get to Know Her ~b~[>]~s~",   0, x, ref y, lh);
-            DrawMenuItem("Small Talk ~b~[>]~s~",         1, x, ref y, lh);
+            DrawMenuItem("認識她 ~b~[>]~s~",   0, x, ref y, lh);
+            DrawMenuItem("閒聊 ~b~[>]~s~",         1, x, ref y, lh);
             DrawMenuItem("查看心情 ~b~[>]~s~",         2, x, ref y, lh);
-            DrawMenuItem("Flirt ~b~[>]~s~",              3, x, ref y, lh);
+            DrawMenuItem("調情 ~b~[>]~s~",              3, x, ref y, lh);
             bool isGf4 = (dAct != null && dAct.Relationship == "Girlfriend");
-            DrawMenuItem((isGf4 ? "Break Up ~b~[>]~s~" : "Make Her Mine ~b~[>]~s~"), 4, x, ref y, lh);
-            DrawMenuItem("Ask Personal Stuff ~b~[>]~s~", 5, x, ref y, lh);
+            DrawMenuItem((isGf4 ? "分手 ~b~[>]~s~" : "讓她成為我的 ~b~[>]~s~"), 4, x, ref y, lh);
+            DrawMenuItem("詢問私人問題 ~b~[>]~s~", 5, x, ref y, lh);
             // Business is hidden when she's a girlfriend or obsessed — no arrangement needed
             bool hideBusinessMenu = (dAct != null && (dAct.Relationship == "Girlfriend" || dAct.Relationship == "Obsessed"));
             if (!hideBusinessMenu)
@@ -13956,11 +13956,11 @@ namespace CinnamonCoffee
                 return;
             }
 
-            DrawMenuItem("Gentle ~b~[>]~s~",     0, x, ref y, lh);
-            DrawMenuItem("Confident ~b~[>]~s~",  1, x, ref y, lh);
-            DrawMenuItem("Cool ~b~[>]~s~",       2, x, ref y, lh);
-            DrawMenuItem("Flattering ~b~[>]~s~", 3, x, ref y, lh);
-            DrawMenuItem("Playful ~b~[>]~s~",    4, x, ref y, lh);
+            DrawMenuItem("溫柔 ~b~[>]~s~",     0, x, ref y, lh);
+            DrawMenuItem("自信 ~b~[>]~s~",  1, x, ref y, lh);
+            DrawMenuItem("高冷 ~b~[>]~s~",       2, x, ref y, lh);
+            DrawMenuItem("奉承 ~b~[>]~s~", 3, x, ref y, lh);
+            DrawMenuItem("玩鬧 ~b~[>]~s~",    4, x, ref y, lh);
         }
 
         private void DrawLeaveLineMenu(float x, ref float y, float lh)
@@ -14017,7 +14017,7 @@ namespace CinnamonCoffee
             }
 
             // ── Casual A-Life ─────────────────────────────────────────────────────
-            string[] clusterNames = { "Gentle", "Confident", "Cool", "Flattering", "玩鬧" };
+            string[] clusterNames = { "溫柔", "自信", "高冷", "奉承", "玩鬧" };
             string clusterName = (_leaveSelectedCluster >= 0 && _leaveSelectedCluster < clusterNames.Length)
                 ? clusterNames[_leaveSelectedCluster] : "?";
 
@@ -14290,9 +14290,9 @@ namespace CinnamonCoffee
             GetSubMenuArrays(out labels, out map);
 
             string catName;
-            if (menuLevel == MenuLevel.StandingServices) catName = "Standing Services";
+            if (menuLevel == MenuLevel.StandingServices) catName = "站姿服務";
             else if (menuLevel == MenuLevel.SittingServices) catName = "坐姿服務";
-            else catName = "Laying Services";
+            else catName = "躺姿服務";
             DrawSectionHeader(catName.ToUpper(), x, ref y);
 
             // A-Life exclusive hooker name header
@@ -14768,3 +14768,4 @@ namespace CinnamonCoffee
         }
     }
 }
+
