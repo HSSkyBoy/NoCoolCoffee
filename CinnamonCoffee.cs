@@ -13257,8 +13257,7 @@ namespace CinnamonCoffee
             _approachCandidate = null;
         }
 
-        /// <summary>Draw the selection menu on screen.</summary>
-                private void DrawMenu()
+        private void ProcessMenuBack()
         {
             if (menuLevel == MenuLevel.None) return;
 
@@ -13267,6 +13266,7 @@ namespace CinnamonCoffee
             float lh = 0.038f;
 
             if (menuLevel == MenuLevel.Main)
+            {
                     // Back to cluster selection
                     menuLevel = MenuLevel.Approach;
                     menuIndex = _approachSelectedCluster >= 0 ? _approachSelectedCluster : 0;
@@ -24979,4 +24979,6 @@ namespace CinnamonCoffee
             return SH + LH * 0.5f;
         }
 
+}
+    }
 }
