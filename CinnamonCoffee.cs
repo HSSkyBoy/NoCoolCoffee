@@ -5269,6 +5269,23 @@ namespace CinnamonCoffee
                     // 46 = AlwaysFight (she will fight enemies instead of fleeing instantly, if armed)
                     Function.Call(Hash.SET_PED_COMBAT_ATTRIBUTES, girl, 46, true);
                     Function.Call(Hash.SET_PED_COMBAT_ATTRIBUTES, girl, 5, false); // Don't fight armed peds when unarmed
+
+                    // Active counter-attack: if she is armed, actively target anyone who attacks the player or her
+                    bool hasWep = girl.Weapons.HasWeapon(WeaponHash.MicroSMG) || girl.Weapons.HasWeapon(WeaponHash.CombatPistol);
+                    if (hasWep && !girl.IsInVehicle())
+                    {
+                        Ped attacker = player.Attacker;
+                        if (attacker == null || !attacker.Exists() || attacker.IsDead)
+                            attacker = girl.Attacker;
+
+                        if (attacker != null && attacker.Exists() && !attacker.IsDead && attacker != player && attacker != girl)
+                        {
+                            if (!girl.IsInCombat)
+                            {
+                                girl.Task.FightAgainst(attacker);
+                            }
+                        }
+                    }
                 }
 
                 // Prostitution mode: if she's too far away, she leaves
