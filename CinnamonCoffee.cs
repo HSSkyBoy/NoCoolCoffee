@@ -4718,36 +4718,50 @@ namespace CinnamonCoffee
             bool pInV = player.IsInVehicle();
             bool gInV = girl.IsInVehicle();
 
-            // Player is in an unsuitable vehicle (bike, boat, heli, plane)
+            // Player is in a vehicle — ensure vehicle is valid for entry
             if (pInV)
             {
                 Vehicle car = player.CurrentVehicle;
-                if (car != null && !IsSuitableVehicle(car))
+                if (car != null && !CanGirlEnterVehicle(car))
                 {
-                    ShowHudStatus("~r~CAN'T DO THAT IN THIS VEHICLE!", 3000);
+                    ShowHudStatus("~r~無法進入該載具！", 3000);
                     return;
                 }
             }
 
             if (pInV && gInV && girl.CurrentVehicle == player.CurrentVehicle)
             {
+                Vehicle car = player.CurrentVehicle;
                 mode = Mode.Car;
                 PlayServiceVoice();
                 _telemetry.SendReady(); // warm up device at up/retracted position
-                if (carPropActive && carPropPhase == 1)
+
+                if (IsSexSuitableVehicle(car))
                 {
-                    // Already looping — open immediately
-                    menuLevel = MenuLevel.Services;
-                    menuIndex = 0;
+                    if (carPropActive && carPropPhase == 1)
+                    {
+                        // Already looping — open immediately
+                        menuLevel = MenuLevel.Services;
+                        menuIndex = 0;
+                    }
+                    else
+                    {
+                        // Hide menu until the enter anim finishes and the loop starts
+                        menuLevel = MenuLevel.None;
+                        menuIndex = 0;
+                        _carPropPendingMenu = MenuLevel.Services;
+                        if (!carPropActive)
+                            EnterCarProposition(player);
+                    }
                 }
                 else
                 {
-                    // Hide menu until the enter anim finishes and the loop starts
-                    menuLevel = MenuLevel.None;
-                    menuIndex = 0;
-                    _carPropPendingMenu = MenuLevel.Services;
-                    if (!carPropActive)
-                        EnterCarProposition(player);
+                    // 非普通轎車載具（摩托車、腳踏車、直升機、飛機、船隻）：不觸發性愛前戲，保持在對話/動作選單，允許正常搭乘與聊天
+                    if (menuLevel == MenuLevel.None)
+                    {
+                        menuLevel = aLifeMode ? MenuLevel.Actions : MenuLevel.Main;
+                        menuIndex = 0;
+                    }
                 }
             }
             else if (!pInV && !gInV)
@@ -8241,16 +8255,32 @@ namespace CinnamonCoffee
             }
         }
 
-        /// <summary>檢查是否 a vehicle is suitable (not a bike/boat/aircraft).</summary>
-        private bool IsSuitableVehicle(Vehicle car)
+        /// <summary>檢查女性 NPC 是否可進入該載具（有乘客座與空位，支援所有摩托車、單車、直升機、飛機、船隻與汽車）。</summary>
+        private bool CanGirlEnterVehicle(Vehicle car)
         {
-            if (car == null) return false;
+            if (car == null || !car.Exists() || car.IsDead) return false;
+            if (Function.Call<int>(Hash.GET_VEHICLE_MAX_NUMBER_OF_PASSENGERS, car) <= 0) return false;
+            VehicleSeat targetSeat = GetBestSeatForGirl(car);
+            Ped occupant = car.GetPedOnSeat(targetSeat);
+            return occupant == null || occupant == girl;
+        }
+
+        /// <summary>檢查載具是否支援性愛服務動畫（僅限封閉式四輪轎車/SUV，不支援摩托車、自行車、船隻、飛行器等）。</summary>
+        private bool IsSexSuitableVehicle(Vehicle car)
+        {
+            if (car == null || !car.Exists()) return false;
             var cls = car.ClassType;
             return cls != VehicleClass.Motorcycles &&
                    cls != VehicleClass.Cycles &&
                    cls != VehicleClass.Boats &&
                    cls != VehicleClass.Helicopters &&
                    cls != VehicleClass.Planes;
+        }
+
+        /// <summary>相容舊呼叫：檢查載具是否可供 NPC 進入與跟隨乘坐。</summary>
+        private bool IsSuitableVehicle(Vehicle car)
+        {
+            return CanGirlEnterVehicle(car);
         }
 
         // ═══════════
@@ -8265,6 +8295,13 @@ namespace CinnamonCoffee
             Vehicle car = player.CurrentVehicle;
             if (car == null) return;
             if (!girl.IsInVehicle() || girl.CurrentVehicle != car) return;
+
+            if (!IsSexSuitableVehicle(car))
+            {
+                ShowHudStatus("~r~該載具不支援性愛服務！（僅限普通轎車/SUV）", 3000);
+                menuLevel = aLifeMode ? MenuLevel.Actions : MenuLevel.Main;
+                return;
+            }
 
             // ── Backseat car sex: uses random@drunk_driver_2 animations ──
             if (IsPlayerInBackSeat(car))
@@ -14346,7 +14383,16 @@ namespace CinnamonCoffee
                     }
                 }
                 DrawMenuItem("站姿服務 ~b~[>]~s~", 0, x, ref y, lh);
-                DrawMenuItem("Sit Down ~b~[>]~s~",          1, x, ref y, lh);
+                DrawMenuItem("坐姿服務 ~b~[>]~s~", 1, x, ref y, lh);
+                return;
+            }
+
+            // Car mode: check if vehicle supports sex
+            Ped player = Game.Player.Character;
+            Vehicle currentVeh = player != null && player.IsInVehicle() ? player.CurrentVehicle : null;
+            if (isCar && currentVeh != null && !IsSexSuitableVehicle(currentVeh))
+            {
+                DrawMenuItemCentered("~r~（此載具不支援性愛服務，僅供乘坐與聊天）~s~", 0, x, ref y, lh, 0.24f);
                 return;
             }
 
