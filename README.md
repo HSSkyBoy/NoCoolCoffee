@@ -21,6 +21,13 @@
 * [Script Hook V](https://www.gta5-mods.com/tools/script-hook-v)
 * [ScriptHookV .NET (Legacy)](https://www.gta5-mods.com/tools/scripthookv-net) 或 [ScriptHookV .NET (Enhanced)](https://www.gta5-mods.com/tools/script-hook-v-net-enhanced)
 
+### 🔌 選配推薦動畫包 (Optional Recommendation)
+
+* **自定義女牛仔高品質動畫包**：
+  * [COWGIRL Sexy Loop Animation with movement | SP and FiveM | [Add-on]](https://www.gta5-mods.com/player/cowgirl-loop-animation-with-movement-sp-and-fivem-add-on) (由 Sinkra 製作)
+  * *說明：安裝此動畫包後，本模組將自動在選單中解鎖並啟用高品質的平躺女牛仔 (Laying Cowgirl)、平躺反向女牛仔及顏面騎乘動作，取代原版的醉酒防禦動畫。*
+
+
 ---
 
 ## 🎮 模組特色與最新優化
