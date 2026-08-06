@@ -5,6 +5,7 @@ using System.Net;
 using System.Net.Sockets;
 using System.Runtime.InteropServices;
 using System.Text;
+using System.Threading.Tasks;
 using System.Windows.Forms;
 using GTA;
 using GTA.Native;
@@ -283,6 +284,11 @@ namespace CinnamonCoffee
 
         private const string SETTINGS_FILE = "scripts\\CinnamonCoffee.cfg";
         private const string ALIFE_FILE = "scripts\\CinnamonCoffeeALife.ini";
+
+        private const string MOD_VERSION      = "v1.2";
+        private const string UPDATE_API_URL   = "https://api.github.com/repos/HSSkyBoy/NoCoolCoffee/releases/latest";
+        private string _updateAvailableMsg    = null; // non-null 時在 HUD 顯示更新提示
+        private bool   _updateMsgShown        = false;
 
         private static readonly Dictionary<int, int[]> priceCache = new Dictionary<int, int[]>();
         // pedHandle → locks[5] per group — true = won't go lower
@@ -642,6 +648,9 @@ namespace CinnamonCoffee
             _telemetry.SetStrokeRange(strokeMin, strokeMax, readyAndFinishDelay);
             LoadBjSounds();
 
+            // 背景非同步更新檢測（不阻塞主線程）
+            Task.Run(() => CheckForUpdate());
+
             // Detect optional modded animation dict for Laying Cowgirl / Laying Reversed Cowgirl.
             // Falls back to vanilla random@drunk_driver_2 if the dict is absent.
             _sinkraCowgirlAvailable = Function.Call<bool>(Hash.DOES_ANIM_DICT_EXIST, "cowgirl@sinkra");
@@ -664,6 +673,34 @@ namespace CinnamonCoffee
                     player.Task.ClearAll();
                     player.IsPositionFrozen = false;
                     Function.Call(Hash.SET_ENTITY_COLLISION, player, true, true);
+                }
+            }
+            catch { }
+        }
+
+        private void CheckForUpdate()
+        {
+            try
+            {
+                string url = UPDATE_API_URL;
+                using (WebClient wc = new WebClient())
+                {
+                    wc.Headers.Add("User-Agent", "NoCoolCoffee-Mod");
+                    string json = wc.DownloadString(url);
+                    // 簡單解析 "tag_name": "vX.X" ，不引入额外依賴
+                    int idx = json.IndexOf("\"tag_name\"", StringComparison.Ordinal);
+                    if (idx < 0) return;
+                    int colon = json.IndexOf(':', idx);
+                    if (colon < 0) return;
+                    int q1 = json.IndexOf('"', colon);
+                    if (q1 < 0) return;
+                    int q2 = json.IndexOf('"', q1 + 1);
+                    if (q2 < 0) return;
+                    string latest = json.Substring(q1 + 1, q2 - q1 - 1);
+                    if (!string.IsNullOrEmpty(latest) && latest != MOD_VERSION)
+                    {
+                        _updateAvailableMsg = "~y~[NoCoolCoffee] ~w~發現新版本: " + latest + " (當前: " + MOD_VERSION + ") https://github.com/HSSkyBoy/NoCoolCoffee";
+                    }
                 }
             }
             catch { }
@@ -4204,7 +4241,6 @@ namespace CinnamonCoffee
                     NegotiatePrice();
                     return;
                 }
-
                 // ── A-Life personality gates (street-mode only; applies in all A-Life sub-modes) ──────
                 if (aLifeMode && !isCar && _currentGirlFp != null)
                 {
@@ -4734,6 +4770,13 @@ namespace CinnamonCoffee
         {
             _telemetry.Poll(); // drain pong datagrams on the game thread (non-blocking)
             TickPostSexVoice(); // post-sex voice: poll IS_AMBIENT_SPEECH_PLAYING → 1s delay → HOOKER_OFFER_AGAIN + reopen menu
+
+            // 更新通知：CheckForUpdate 背景執行完成後顯示一次提示字幕（進入遊戲 15 秒後）
+            if (!_updateMsgShown && _updateAvailableMsg != null && Game.GameTime > 15000)
+            {
+                ShowSubtitle(_updateAvailableMsg, 8000);
+                _updateMsgShown = true;
+            }
 
             // Auto-ping: silently re-ping the bridge every 30s so IsConnected stays fresh.
             // Skip when hard-disconnected (user chose to disconnect). No ResetPong here — avoids
