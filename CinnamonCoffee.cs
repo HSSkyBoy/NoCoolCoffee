@@ -2154,7 +2154,9 @@ namespace CinnamonCoffee
             }
             else if (menuLevel == MenuLevel.SandboxCar)
             {
-                return FindBackseatVehicle() != null ? 2 : 1; // Services [>], [Enter/swap seat if vehicle available]
+                int count = 2; // Services [>], 給予/收回防衛武器
+                if (FindBackseatVehicle() != null) count++;
+                return count;
             }
             else if (menuLevel == MenuLevel.Actions)
             {
@@ -2362,7 +2364,7 @@ namespace CinnamonCoffee
                 }
                 else
                 {
-                    // 0: Search, 1: AI Mode, 2: Game Mode, 3: Settings>, 4: Sinkra, 5: Token, 6: Device Bridge
+                    // 0: Search, 1: AI Mode, 2: Hypnosis Mode, 3: Settings>, 4: Sinkra, 5: Token, 6: Device Bridge
                     switch (menuIndex)
                     {
                         case 0: // Search for Nearest Woman/Hooker
@@ -2422,7 +2424,20 @@ namespace CinnamonCoffee
                     case 0: // Services [>]
                         OpenServicesMenu();
                         break;
-                    case 1: // Get into the back/front seat
+                    case 1: // Give / Take Weapon
+                        bool hasWep = girl != null && (girl.Weapons.HasWeapon(WeaponHash.MicroSMG) || girl.Weapons.HasWeapon(WeaponHash.CombatPistol));
+                        if (hasWep)
+                        {
+                            girl.Weapons.RemoveAll();
+                            ShowHudStatus("~y~已收回防衛武器！", 2000);
+                        }
+                        else if (girl != null)
+                        {
+                            girl.Weapons.Give(WeaponHash.MicroSMG, 9999, true, true);
+                            ShowHudStatus("~g~已給予 Micro SMG 防衛武器！", 2000);
+                        }
+                        break;
+                    case 2: // Get into the back/front seat
                     {
                         Ped plSandSeat = Game.Player.Character;
                         bool plInVSandSeat = plSandSeat.IsInVehicle();
@@ -5242,6 +5257,18 @@ namespace CinnamonCoffee
                     _girlLastHealth = -1f;
                     FullReset();
                     return;
+                }
+
+                // Hypnosis Mode: Set relationship group & combat attributes
+                if (!aLifeMode)
+                {
+                    if (girl.RelationshipGroup != Game.Player.Character.RelationshipGroup)
+                        girl.RelationshipGroup = Game.Player.Character.RelationshipGroup;
+                    
+                    // Allow her to fight if armed, but do not make her totally fearless
+                    // 46 = AlwaysFight (she will fight enemies instead of fleeing instantly, if armed)
+                    Function.Call(Hash.SET_PED_COMBAT_ATTRIBUTES, girl, 46, true);
+                    Function.Call(Hash.SET_PED_COMBAT_ATTRIBUTES, girl, 5, false); // Don't fight armed peds when unarmed
                 }
 
                 // Prostitution mode: if she's too far away, she leaves
@@ -12794,6 +12821,8 @@ namespace CinnamonCoffee
                 ShowSubtitle("~r~" + name + " ~s~avoids you.", 3000);
                 Function.Call(Hash.TASK_SMART_FLEE_PED, ped, Game.Player.Character, 150f, -1, false, false);
             }
+            else
+            {
                 if (d != null) { d.Relationship = "Hostile"; SaveALife(); }
                 ShowSubtitle("~r~" + name + " ~s~isn't taking it anymore!", 3000);
                 ped.BlockPermanentEvents = false;
@@ -14270,8 +14299,12 @@ namespace CinnamonCoffee
         {
             DrawSectionHeader("互動", x, ref y);
             DrawMenuItem("服務項目 ~b~[>]~s~", 0, x, ref y, lh);
+            
+            bool hasWep = girl != null && (girl.Weapons.HasWeapon(WeaponHash.MicroSMG) || girl.Weapons.HasWeapon(WeaponHash.CombatPistol));
+            DrawMenuItem(hasWep ? "收回防衛武器" : "給予防衛武器 (Micro SMG)", 1, x, ref y, lh);
+            
             if (FindBackseatVehicle() != null)
-                DrawMenuItem(GetSeatItemLabel(), 1, x, ref y, lh);
+                DrawMenuItem(GetSeatItemLabel(), 2, x, ref y, lh);
         }
 
         private void DrawMainMenu(float x, ref float y, float lh)
@@ -14303,7 +14336,7 @@ namespace CinnamonCoffee
             {
                 string searchLabel = aLifeMode
                     ? (sandboxMode ? "搭訕女性 ~b~[>]~s~" : "招攬特殊服務 ~b~[>]~s~")
-                    : (sandboxMode ? "尋找最近的女性" : "尋找最近的特殊服務");
+                    : (sandboxMode ? "催眠最近的女性" : "尋找最近的特殊服務");
                 DrawMenuItem(searchLabel, idx, x, ref y, lh); idx++;
             }
 
@@ -14313,8 +14346,8 @@ namespace CinnamonCoffee
             y += lh * 0.8f;
             DrawSectionHeader("選項", x, ref y);
             string aiModeLabel = hasGirl
-                ? "~c~AI 模式：" + (aLifeMode ? "A-Life" : "Sandbox") + "~s~"
-                : "AI 模式：" + (aLifeMode ? "~p~A-Life~s~" : "~b~Sandbox~s~");
+                ? "~c~AI 模式：" + (aLifeMode ? "A-Life" : "催眠模式") + "~s~"
+                : "AI 模式：" + (aLifeMode ? "~p~A-Life~s~" : "~b~催眠模式~s~");
             DrawMenuItem(aiModeLabel, idx, x, ref y, lh); idx++;
             string gameModeLabel = (hasGirl && aLifeMode)
                 ? "~c~遊戲模式：" + (sandboxMode ? "普通" : "交易") + "~s~"
