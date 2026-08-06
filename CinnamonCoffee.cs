@@ -12699,6 +12699,74 @@ namespace CinnamonCoffee
             ShowSubtitle(response, 3000);
         }
 
+        private bool IsSeatValidForVehicle(Vehicle car, VehicleSeat seat)
+        {
+            if (car == null || !car.Exists()) return false;
+            int maxPass = Function.Call<int>(Hash.GET_VEHICLE_MAX_NUMBER_OF_PASSENGERS, car);
+            int sIdx = (int)seat;
+            if (sIdx == -1) return true; // Driver seat is always valid
+            return sIdx >= 0 && sIdx < maxPass;
+        }
+
+        /// <summary>
+        /// 為女性 NPC 計算最適當的入座位置。
+        /// 玩家固定坐在駕駛座，NPC 優先坐 preferredSeat（一般為副駕）。
+        /// 僅在該座位實體存在且無其他人（或已有女性自己）時才選擇。
+        /// </summary>
+        private VehicleSeat GetBestSeatForGirl(Vehicle car, VehicleSeat preferredSeat = VehicleSeat.Passenger)
+        {
+            if (car == null || !car.Exists()) return preferredSeat;
+
+            // 依優先順序嘗試：preferredSeat -> 副駕 -> 左後座 -> 右後座
+            VehicleSeat[] candidates;
+            if (preferredSeat == VehicleSeat.LeftRear)
+                candidates = new VehicleSeat[] { VehicleSeat.LeftRear, VehicleSeat.RightRear, VehicleSeat.Passenger };
+            else
+                candidates = new VehicleSeat[] { VehicleSeat.Passenger, VehicleSeat.LeftRear, VehicleSeat.RightRear };
+
+            foreach (VehicleSeat s in candidates)
+            {
+                if (!IsSeatValidForVehicle(car, s)) continue; // 跳過該車型不存在的座位
+                Ped occ = car.GetPedOnSeat(s);
+                if (occ == null || !occ.Exists() || occ == girl)
+                    return s;
+            }
+
+            return (VehicleSeat)(-2); // 全滿或無可用空位
+        }
+
+        private void TaskGirlEnterVehicle(Vehicle car, VehicleSeat preferredSeat = VehicleSeat.Passenger)
+        {
+            if (!hasGirl || girl == null || !girl.Exists() || girl.IsDead) return;
+            if (car == null || !car.Exists() || car.IsDead) return;
+
+            // 自動解鎖車門
+            if (Function.Call<int>(Hash.GET_VEHICLE_DOOR_LOCK_STATUS, car) > 1)
+            {
+                Function.Call(Hash.SET_VEHICLE_DOORS_LOCKED, car, 1);
+            }
+
+            // 智慧座位選擇：副駕被佔用時自動轉移至後座（若有）
+            VehicleSeat targetSeat = GetBestSeatForGirl(car, preferredSeat);
+            if ((int)targetSeat == -2)
+            {
+                ShowHudStatus("~r~載具已滿！", 2000);
+                return;
+            }
+
+            Ped occupant = car.GetPedOnSeat(targetSeat);
+            if (occupant != null && occupant.Exists() && occupant != girl)
+            {
+                ShowHudStatus("~r~該座位已被佔用！", 2000);
+                return; // 避免強行搶座把人拉下車
+            }
+
+            girl.BlockPermanentEvents = true;
+            // Flag 16 (0x10 = ECF_DONT_JACK_ANYONE) 禁止拉下座上乘客
+            Function.Call(Hash.TASK_ENTER_VEHICLE, girl, car, -1, (int)targetSeat, 2.0f, 16, 0);
+            _vehEntryStartTime = Game.GameTime;
+        }
+
         /// <summary>
         /// Make a ped flee or fight the player depending on her Aggressiveness.
         /// Used both from OpenApproachMenu (already -2) and from rejection handlers (just pushed to -2).
@@ -12851,56 +12919,7 @@ namespace CinnamonCoffee
             return FindBackseatVehicle() != null;
         }
 
-        /// <summary>
-        /// 為女性 NPC 計算最適當的入座位置。
-        /// 玩家固定坐在駕駛座，NPC 優先坐 preferredSeat（一般為副駕）。
-        /// 若副駕已被其他 NPC 佔用，則自動轉移至後座（左後 / 右後）。
-        /// </summary>
-        private VehicleSeat GetBestSeatForGirl(Vehicle car, VehicleSeat preferredSeat = VehicleSeat.Passenger)
-        {
-            if (car == null || !car.Exists()) return preferredSeat;
 
-            // 依優先順序嘗試：preferredSeat -> 副駕 -> 左後座 -> 右後座
-            VehicleSeat[] candidates;
-            if (preferredSeat == VehicleSeat.LeftRear)
-                candidates = new VehicleSeat[] { VehicleSeat.LeftRear, VehicleSeat.RightRear, VehicleSeat.Passenger };
-            else
-                candidates = new VehicleSeat[] { VehicleSeat.Passenger, VehicleSeat.LeftRear, VehicleSeat.RightRear };
-
-            foreach (VehicleSeat s in candidates)
-            {
-                Ped occ = car.GetPedOnSeat(s);
-                if (occ == null || occ == girl)
-                    return s;
-            }
-
-            return preferredSeat; // 全滿，回傳預設（由上層處理）
-        }
-
-
-        private void TaskGirlEnterVehicle(Vehicle car, VehicleSeat preferredSeat = VehicleSeat.Passenger)
-        {
-            if (!hasGirl || girl == null || !girl.Exists() || girl.IsDead) return;
-            if (car == null || !car.Exists() || car.IsDead) return;
-
-            // 自動解鎖車門
-            if (Function.Call<int>(Hash.GET_VEHICLE_DOOR_LOCK_STATUS, car) > 1)
-            {
-                Function.Call(Hash.SET_VEHICLE_DOORS_LOCKED, car, 1);
-            }
-
-            // 智慧座位選擇：副駕被佔用時自動轉移至後座
-            VehicleSeat targetSeat = GetBestSeatForGirl(car, preferredSeat);
-            Ped occupant = car.GetPedOnSeat(targetSeat);
-            if (occupant != null && occupant != girl)
-            {
-                return; // 全部座位皆滿
-            }
-
-            girl.BlockPermanentEvents = true;
-            Function.Call(Hash.TASK_ENTER_VEHICLE, girl, car, -1, (int)targetSeat, 2.0f, 1, 0);
-            _vehEntryStartTime = Game.GameTime;
-        }
 
         private bool IsPlayerInBackSeat(Vehicle car)
         {
@@ -13045,14 +13064,14 @@ namespace CinnamonCoffee
                     // Task girl to enter left rear (seat 1)
                     TaskGirlEnterVehicle(car, VehicleSeat.LeftRear);
                     // Task player to enter right rear (seat 2)
-                    Function.Call(Hash.TASK_ENTER_VEHICLE, pl, car, -1, 2, 2.0f, 1, 0);
+                    Function.Call(Hash.TASK_ENTER_VEHICLE, pl, car, -1, 2, 2.0f, 16, 0);
                 }
                 else
                 {
                     // Task girl to enter passenger (seat 0)
                     TaskGirlEnterVehicle(car, VehicleSeat.Passenger);
                     // Task player to enter driver (seat -1)
-                    Function.Call(Hash.TASK_ENTER_VEHICLE, pl, car, -1, -1, 2.0f, 1, 0);
+                    Function.Call(Hash.TASK_ENTER_VEHICLE, pl, car, -1, -1, 2.0f, 16, 0);
                 }
             }
         }
