@@ -9,8 +9,8 @@
 * **原始模組名稱**：Cinnamon Coffee
 * **原始作者**：StrelokCheeki
 * **上游來源連結**：[GTA5-Mods Cinnamon Coffee](https://www.gta5-mods.com/scripts/cinnamon-coffee)
-* **漢化維護版本**：v1.2+ (Enhanced Edition)
-* **測試環境**：ScriptHookV / ScriptHookV .NET (Legacy & Enhanced)
+* **漢化維護版本**：v1.3+ (Enhanced Edition)
+* **測試環境**：Legacy 3725 / 3751
 
 ---
 

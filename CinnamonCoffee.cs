@@ -285,7 +285,7 @@ namespace CinnamonCoffee
         private const string SETTINGS_FILE = "scripts\\CinnamonCoffee.cfg";
         private const string ALIFE_FILE = "scripts\\CinnamonCoffeeALife.ini";
 
-        private const string MOD_VERSION      = "v1.2";
+        private const string MOD_VERSION      = "v1.3";
         private const string UPDATE_API_URL   = "https://api.github.com/repos/HSSkyBoy/NoCoolCoffee/releases/latest";
         private string _updateAvailableMsg    = null; // non-null 時在 HUD 顯示更新提示
         private bool   _updateMsgShown        = false;
