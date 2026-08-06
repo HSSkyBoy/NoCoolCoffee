@@ -264,7 +264,7 @@ namespace CinnamonCoffee
         };
 
         private readonly string[] carServiceItems = {
-            "口交", "Sex"
+            "口交", "性愛"
         };
 
         private readonly string[] sitDownSubItems = {
@@ -2296,7 +2296,7 @@ namespace CinnamonCoffee
                             break;
                         case 1:
                             if (aLifeMode) { menuLevel = MenuLevel.Leave; menuIndex = 0; }
-                            else { ShowHudStatus("~y~WOMAN DISMISSED!", 2000); FullReset(); menuLevel = MenuLevel.Main; menuIndex = 0; }
+                            else { ShowHudStatus("~y~已解散伴侶！", 2000); FullReset(); menuLevel = MenuLevel.Main; menuIndex = 0; }
                             break;
                         case 2: // Teleport Woman/Hooker to Player
                             if (girl != null && girl.Exists())
@@ -2307,14 +2307,14 @@ namespace CinnamonCoffee
                                 ALifePedData _tpDat = null;
                                 if (_currentGirlKey != null) _aLifePeds.TryGetValue(_currentGirlKey, out _tpDat);
                                 bool _tpIsHooker = !sandboxMode || _aLifeHookerServices || (_tpDat != null && _tpDat.IsHooker);
-                                ShowHudStatus("~y~" + (_tpIsHooker ? "特殊服務" : "女性") + " TELEPORTED TO PLAYER!", 2000);
+                                ShowHudStatus("~y~" + (_tpIsHooker ? "特殊服務" : "女性") + " 已傳送至玩家身邊！", 2000);
                             }
                             else
                             {
                                 ALifePedData _tpDatMissing = null;
                                 if (_currentGirlKey != null) _aLifePeds.TryGetValue(_currentGirlKey, out _tpDatMissing);
                                 bool _tpIsHookerMissing = !sandboxMode || _aLifeHookerServices || (_tpDatMissing != null && _tpDatMissing.IsHooker);
-                                ShowHudStatus("~r~NO " + (_tpIsHookerMissing ? "特殊服務" : "女性") + " FOUND!", 2000);
+                                ShowHudStatus("~r~未找到 " + (_tpIsHookerMissing ? "特殊服務" : "女性") + "！", 2000);
                             }
                             break;
                         case 3: // AI Mode
@@ -2342,20 +2342,20 @@ namespace CinnamonCoffee
                             {
                                 _telemetry.Reconnect();
                                 pingPendingTime = Game.GameTime;
-                                ShowHudStatus("~y~CONNECTING TO DEVICE...", 5500);
+                                ShowHudStatus("~y~正在連線至裝置……", 5500);
                             }
                             else if (_telemetry.IsDeviceOnline)
                             {
                                 _telemetry.SendStop();
                                 _telemetry.HardDisconnect();
-                                ShowHudStatus("~r~DEVICE DISCONNECTED", 3000);
+                                ShowHudStatus("~r~裝置已中斷連線", 3000);
                             }
                             else
                             {
                                 _telemetry.ResetPong();
                                 _telemetry.SendPing();
                                 pingPendingTime = Game.GameTime;
-                                ShowHudStatus("~y~CHECKING DEVICE...", 5500);
+                                ShowHudStatus("~y~正在檢查裝置……", 5500);
                             }
                             break;
                     }
@@ -2396,20 +2396,20 @@ namespace CinnamonCoffee
                             {
                                 _telemetry.Reconnect();
                                 pingPendingTime = Game.GameTime;
-                                ShowHudStatus("~y~CONNECTING TO DEVICE...", 5500);
+                                ShowHudStatus("~y~正在連線至裝置……", 5500);
                             }
                             else if (_telemetry.IsDeviceOnline)
                             {
                                 _telemetry.SendStop();
                                 _telemetry.HardDisconnect();
-                                ShowHudStatus("~r~DEVICE DISCONNECTED", 3000);
+                                ShowHudStatus("~r~裝置已中斷連線", 3000);
                             }
                             else
                             {
                                 _telemetry.ResetPong();
                                 _telemetry.SendPing();
                                 pingPendingTime = Game.GameTime;
-                                ShowHudStatus("~y~CHECKING DEVICE...", 5500);
+                                ShowHudStatus("~y~正在檢查裝置……", 5500);
                             }
                             break;
                     }
@@ -2429,7 +2429,7 @@ namespace CinnamonCoffee
                         bool gInVSandSeat  = girl != null && girl.Exists() && girl.IsInVehicle();
                         bool sameVehSandSeat = plInVSandSeat && gInVSandSeat && girl.CurrentVehicle == plSandSeat.CurrentVehicle;
                         if (plInVSandSeat && !sameVehSandSeat)
-                            ShowHudStatus("~y~WAITING FOR HER...", 2000);
+                            ShowHudStatus("~y~正在等待她……", 2000);
                         else
                             TrySwapSeats();
                         break;
@@ -2946,7 +2946,7 @@ namespace CinnamonCoffee
                     // Block if the player is in a vehicle but she hasn't entered it yet.
                     // Exception: both on foot → "Enter Vehicle from Back Seat" path is fine.
                     if (plInVSeat && !sameVehSeat)
-                        ShowHudStatus("~y~WAITING FOR HER...", 2000);
+                        ShowHudStatus("~y~正在等待她……", 2000);
                     else
                         TrySwapSeats();
                 }
@@ -2971,7 +2971,7 @@ namespace CinnamonCoffee
                         bool bothFoot = !pInVAct && !gInVAct;
                         if (!sameVeh && !bothFoot)
                         {
-                            ShowHudStatus("~y~WAITING FOR HER...", 2000);
+                            ShowHudStatus("~y~正在等待她……", 2000);
                         }
                         else
                         {
@@ -3663,7 +3663,7 @@ namespace CinnamonCoffee
                     }
                     else
                     {
-                        ShowHudStatus("~y~WAITING FOR HER...", 2000);
+                        ShowHudStatus("~y~正在等待她……", 2000);
                     }
                 }
                 else if (menuIndex == 3 && _escalateConsented && FindBackseatVehicle() != null) // Enter/swap back seat
@@ -3673,7 +3673,7 @@ namespace CinnamonCoffee
                     bool gInVIntSeat  = girl != null && girl.Exists() && girl.IsInVehicle();
                     bool sameVehIntSeat = plInVIntSeat && gInVIntSeat && girl.CurrentVehicle == plIntSeat.CurrentVehicle;
                     if (plInVIntSeat && !sameVehIntSeat)
-                        ShowHudStatus("~y~WAITING FOR HER...", 2000);
+                        ShowHudStatus("~y~正在等待她……", 2000);
                     else
                         TrySwapSeats();
                 }
@@ -4773,7 +4773,7 @@ namespace CinnamonCoffee
             }
             else
             {
-                ShowHudStatus("~y~WAITING FOR HER...", 2000);
+                ShowHudStatus("~y~正在等待她……", 2000);
             }
         }
 
@@ -4808,7 +4808,7 @@ namespace CinnamonCoffee
                 if (_telemetry.IsConnected)
                 {
                     if (_telemetry.IsDeviceOnline)
-                        ShowHudStatus("~g~DEVICE CONNECTED!", 3000);
+                        ShowHudStatus("~g~裝置已成功連線！", 3000);
                     else
                         ShowHudStatus("~r~未找到裝置！", 3000);
                     pingPendingTime = 0;
@@ -4987,7 +4987,7 @@ namespace CinnamonCoffee
                         deviceToken = result;
                         _telemetry.SetToken(deviceToken);
                         SaveSettings();
-                        ShowHudStatus("~g~TOKEN SAVED!", 2000);
+                        ShowHudStatus("~g~TOKEN 已成功儲存！", 2000);
                     }
                     tokenKeyboardOpen = false;
                 }
@@ -5381,7 +5381,7 @@ namespace CinnamonCoffee
                         { menuLevel = MenuLevel.Main; menuIndex = 0; }
                         else
                         { menuLevel = MenuLevel.Actions; menuIndex = 0; }
-                        ShowHudStatus("~y~WAITING FOR HER...", 2000);
+                        ShowHudStatus("~y~正在等待她……", 2000);
                     }
                 }
 
@@ -6813,12 +6813,12 @@ namespace CinnamonCoffee
                                 }
                             }
                             Game.Player.Money += lastPaidAmount;
-                            ShowHudStatus("~r~ABORTED! ~s~REFUNDED AMOUNT: ~g~$" + lastPaidAmount, 3000);
+                            ShowHudStatus("~r~服務已中斷！~s~退款金額：~g~$" + lastPaidAmount, 3000);
                             lastPaidAmount = 0;
                         }
                         else
                         {
-                            ShowHudStatus("~r~ABORTED!", 3000);
+                            ShowHudStatus("~r~服務已中斷！", 3000);
                         }
 
                         // Snap both peds back to proposition loop immediately
@@ -7633,9 +7633,9 @@ namespace CinnamonCoffee
             {
                 Vehicle car = player.CurrentVehicle;
                 if (car == null || !IsSuitableVehicle(car))
-                { ShowHudStatus("~r~GET A PROPER CAR FIRST!", 2000); return; }
+                { ShowHudStatus("~r~請先尋找合適的載具！", 2000); return; }
                 if (car.GetPedOnSeat(VehicleSeat.Passenger) != null)
-                { ShowHudStatus("~r~FRONT SEAT ALREADY OCCUPIED!", 2000); return; }
+                { ShowHudStatus("~r~副駕駛座已被佔用！", 2000); return; }
             }
 
             // Pre-load A-Life data; hostility is handled inside the approach flow, not here.
@@ -7686,7 +7686,7 @@ namespace CinnamonCoffee
                 found = FindNearestFemale(player.Position, 7f);
                 if (found == null)
                 {
-                    ShowHudStatus(sandboxMode ? "~r~NO WOMEN NEARBY!" : "~r~NO HOOKERS NEARBY!", 2000);
+                    ShowHudStatus(sandboxMode ? "~r~附近沒有女性！" : "~r~附近沒有特殊服務目標！", 2000);
                     return;
                 }
 
@@ -7696,12 +7696,12 @@ namespace CinnamonCoffee
                     Vehicle car = player.CurrentVehicle;
                     if (car == null || !IsSuitableVehicle(car))
                     {
-                        ShowHudStatus("~r~GET A PROPER CAR FIRST!", 2000);
+                        ShowHudStatus("~r~請先尋找合適的載具！", 2000);
                         return;
                     }
                     if (car.GetPedOnSeat(VehicleSeat.Passenger) != null)
                     {
-                        ShowHudStatus("~r~FRONT SEAT ALREADY OCCUPIED!", 2000);
+                        ShowHudStatus("~r~副駕駛座已被佔用！", 2000);
                         return;
                     }
                 }
@@ -13598,7 +13598,7 @@ namespace CinnamonCoffee
 
             // Show the quoted price after she's agreed — works for both exclusive hooker and Prost A-Life
             if (_aLifeFinishInsidePrice > 0)
-                DrawMenuItem("Finish (Inside Her)  ~g~($" + _aLifeFinishInsidePrice + ")~s~", drawFinishInside, x, ref y, lh);
+                DrawMenuItem("完成 (內射)  ~g~($" + _aLifeFinishInsidePrice + ")~s~", drawFinishInside, x, ref y, lh);
             else
                 DrawMenuItem("完成 (內射)", drawFinishInside, x, ref y, lh);
         }
@@ -13608,7 +13608,7 @@ namespace CinnamonCoffee
             if (_approachCandidate == null || !_approachCandidate.Exists())
             {
                 DrawSectionHeader("接近", x, ref y);
-                DrawTextOnScreen("~r~Target lost.~s~", x, y); y += lh;
+                DrawTextOnScreen("~r~目標已遺失。~s~", x, y); y += lh;
                 return;
             }
 
@@ -13849,7 +13849,7 @@ namespace CinnamonCoffee
             }
             if (total > 999999999) total = 999999999;
             y += lh * 0.3f;
-            DrawMenuItem("CONFIRM ~s~(Total: ~g~$" + total.ToString("N0") + "~s~)", 9, x, ref y, lh);
+            DrawMenuItem("確認給予 ~s~(總金額: ~g~$" + total.ToString("N0") + "~s~)", 9, x, ref y, lh);
         }
 
         private void DrawInviteToVehicleMenu(float x, ref float y, float lh)
@@ -13983,7 +13983,7 @@ namespace CinnamonCoffee
             // Business is hidden when she's a girlfriend or obsessed — no arrangement needed
             bool hideBusinessMenu = (dAct != null && (dAct.Relationship == "Girlfriend" || dAct.Relationship == "Obsessed"));
             if (!hideBusinessMenu)
-                DrawMenuItem("Business ~b~[>]~s~", 6, x, ref y, lh);
+                DrawMenuItem("交易談判 ~b~[>]~s~", 6, x, ref y, lh);
         }
 
         private void DrawConvSubMenu(float x, ref float y, float lh)
