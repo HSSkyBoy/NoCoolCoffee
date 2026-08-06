@@ -285,7 +285,7 @@ namespace CinnamonCoffee
         private const string SETTINGS_FILE = "scripts\\CinnamonCoffee.cfg";
         private const string ALIFE_FILE = "scripts\\CinnamonCoffeeALife.ini";
 
-        private const string MOD_VERSION      = "v1.3.2";
+        private const string MOD_VERSION      = "v1.4.0";
         private const string UPDATE_API_URL   = "https://api.github.com/repos/HSSkyBoy/NoCoolCoffee/releases/latest";
         private string _updateAvailableMsg    = null; // non-null 時在 HUD 顯示更新提示
         private bool   _updateMsgShown        = false;
@@ -5269,6 +5269,23 @@ namespace CinnamonCoffee
                     // 46 = AlwaysFight (she will fight enemies instead of fleeing instantly, if armed)
                     Function.Call(Hash.SET_PED_COMBAT_ATTRIBUTES, girl, 46, true);
                     Function.Call(Hash.SET_PED_COMBAT_ATTRIBUTES, girl, 5, false); // Don't fight armed peds when unarmed
+
+                    // Active counter-attack: if she is armed, actively target anyone who attacks the player or her
+                    bool hasWep = girl.Weapons.HasWeapon(WeaponHash.MicroSMG) || girl.Weapons.HasWeapon(WeaponHash.CombatPistol);
+                    if (hasWep && !girl.IsInVehicle())
+                    {
+                        Ped attacker = player.Attacker;
+                        if (attacker == null || !attacker.Exists() || attacker.IsDead)
+                            attacker = girl.Attacker;
+
+                        if (attacker != null && attacker.Exists() && !attacker.IsDead && attacker != player && attacker != girl)
+                        {
+                            if (!girl.IsInCombat)
+                            {
+                                girl.Task.FightAgainst(attacker);
+                            }
+                        }
+                    }
                 }
 
                 // Prostitution mode: if she's too far away, she leaves
