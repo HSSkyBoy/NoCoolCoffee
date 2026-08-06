@@ -1,4 +1,4 @@
-name: Build and Package Cinnamon Coffee Mod
+name: Build and Package
 
 on:
   push:

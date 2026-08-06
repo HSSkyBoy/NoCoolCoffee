@@ -350,6 +350,8 @@ namespace CinnamonCoffee
         private bool playerWasInVehicle = false;
         private bool _backseatEntryPending = false; // true while TrySwapSeats outside-entry is in progress — suppresses auto passenger-seat entry
         private bool _backseatCarSex = false; // true during backseat car sex — uses random@drunk_driver_2 anims
+        private int _vehEntryStartTime = 0; // GameTime when vehicle entry task started for stuck timeout check
+        private int _lastVehEnterTaskTime = 0; // GameTime when TaskGirlEnterVehicle was last issued
         private Mode mode = Mode.None;
         private VehicleAnimType vehicleAnimType = VehicleAnimType.Normal;
 
@@ -2977,15 +2979,11 @@ namespace CinnamonCoffee
                     _invitedToVehicle = true;
                     // Tell her to enter the appropriate seat of the player's current vehicle
                     Ped plInv = Game.Player.Character;
-                    if (plInv.IsInVehicle())
+                    Vehicle carInv = plInv.IsInVehicle() ? plInv.CurrentVehicle : FindBackseatVehicle();
+                    if (carInv != null && carInv.Exists())
                     {
-                        Vehicle carInv = plInv.CurrentVehicle;
-                        if (carInv != null)
-                        {
-                            VehicleSeat invSeat = IsPlayerInBackSeat(carInv) ? VehicleSeat.LeftRear : VehicleSeat.Passenger;
-                            if (carInv.GetPedOnSeat(invSeat) == null)
-                                girl.Task.EnterVehicle(carInv, invSeat);
-                        }
+                        VehicleSeat invSeat = IsPlayerInBackSeat(carInv) ? VehicleSeat.LeftRear : VehicleSeat.Passenger;
+                        TaskGirlEnterVehicle(carInv, invSeat);
                     }
                     menuLevel = MenuLevel.Actions;
                     menuIndex = 0;
@@ -5220,11 +5218,10 @@ namespace CinnamonCoffee
                     if (menuLevel == MenuLevel.Conversation || menuLevel == MenuLevel.Intimacy) { menuLevel = MenuLevel.Actions; menuIndex = 0; }
                     Vehicle car = player.CurrentVehicle;
                     VehicleSeat followSeat = IsPlayerInBackSeat(car) ? VehicleSeat.LeftRear : VehicleSeat.Passenger;
-                    if (car != null && IsSuitableVehicle(car) &&
-                        car.GetPedOnSeat(followSeat) == null)
+                    if (car != null && IsSuitableVehicle(car))
                     {
                         if (!IsALifeVehicleEntryGated())
-                            girl.Task.EnterVehicle(car, followSeat);
+                            TaskGirlEnterVehicle(car, followSeat);
                         else
                         {
                             // Gate blocked entry — cancel the active follow task so she doesn't
@@ -5233,6 +5230,40 @@ namespace CinnamonCoffee
                             girl.BlockPermanentEvents = true;
                         }
                     }
+                }
+
+                // Continuous check & stuck protection when player is in vehicle and girl should be entering
+                if (playerInVeh && !girlInVeh && !_backseatEntryPending && !IsALifeVehicleEntryGated())
+                {
+                    Vehicle car = player.CurrentVehicle;
+                    if (car != null && IsSuitableVehicle(car))
+                    {
+                        bool isGettingIn = Function.Call<bool>(Hash.IS_PED_GETTING_INTO_A_VEHICLE, girl);
+                        if (isGettingIn)
+                        {
+                            // Stuck timeout: if she's been trying to get into vehicle for over 16s (e.g. door blocked/pathfinding loop), warp her inside
+                            if (_vehEntryStartTime > 0 && (Game.GameTime - _vehEntryStartTime > 16000))
+                            {
+                                VehicleSeat warpSeat = GetBestSeatForGirl(car, IsPlayerInBackSeat(car) ? VehicleSeat.LeftRear : VehicleSeat.Passenger);
+                                Function.Call(Hash.SET_PED_INTO_VEHICLE, girl, car, (int)warpSeat);
+                                _vehEntryStartTime = 0;
+                            }
+                        }
+                        else
+                        {
+                            // Not in vehicle and not getting into vehicle — re-task entry every 3 seconds
+                            if (Game.GameTime - _lastVehEnterTaskTime > 3000)
+                            {
+                                _lastVehEnterTaskTime = Game.GameTime;
+                                VehicleSeat followSeat = IsPlayerInBackSeat(car) ? VehicleSeat.LeftRear : VehicleSeat.Passenger;
+                                TaskGirlEnterVehicle(car, followSeat);
+                            }
+                        }
+                    }
+                }
+                else
+                {
+                    _vehEntryStartTime = 0;
                 }
 
                 // Clear backseat-entry flag once both are seated
@@ -5246,6 +5277,7 @@ namespace CinnamonCoffee
                     if (menuLevel == MenuLevel.Conversation || menuLevel == MenuLevel.Intimacy) { menuLevel = MenuLevel.Actions; menuIndex = 0; }
                     if (girlInVeh)
                         girl.Task.LeaveVehicle();
+                    _vehEntryStartTime = 0;
                 }
 
                 // On foot: follow player (skip when backseat entry is in progress)
@@ -7698,7 +7730,7 @@ namespace CinnamonCoffee
                     VehicleSeat pickupSeat = (player.CurrentVehicle != null && IsPlayerInBackSeat(player.CurrentVehicle))
                         ? VehicleSeat.LeftRear : VehicleSeat.Passenger;
                     if (!IsALifeVehicleEntryGated())
-                        girl.Task.EnterVehicle(player.CurrentVehicle, pickupSeat);
+                        TaskGirlEnterVehicle(player.CurrentVehicle, pickupSeat);
                     else
                     {
                         // She's been recruited but not yet invited in — stop her task and wait.
@@ -8032,7 +8064,7 @@ namespace CinnamonCoffee
                         VehicleSeat approachSeat = (player.CurrentVehicle != null && IsPlayerInBackSeat(player.CurrentVehicle))
                             ? VehicleSeat.LeftRear : VehicleSeat.Passenger;
                         if (!IsALifeVehicleEntryGated())
-                            girl.Task.EnterVehicle(player.CurrentVehicle, approachSeat);
+                            TaskGirlEnterVehicle(player.CurrentVehicle, approachSeat);
                         else
                         {
                             // She accepted the approach but hasn't been invited into the car yet.
@@ -12705,17 +12737,23 @@ namespace CinnamonCoffee
         /// </summary>
         private bool ShowInviteVehicleItem()
         {
-            if (!aLifeMode || !sandboxMode) return false;
             if (!hasGirl || girl == null || !girl.Exists()) return false;
             if (_invitedToVehicle) return false;
-            if (!Game.Player.Character.IsInVehicle()) return false;
-            ALifePedData dSiv;
-            if (_currentGirlKey == null || !_aLifePeds.TryGetValue(_currentGirlKey, out dSiv)) return false;
-            if (dSiv.IsHooker) return false; // exclusive hooker auto-follows, no invite needed
-            string relSiv = dSiv.Relationship;
-            if (relSiv == "Friendzoned" || relSiv == "女朋友" || relSiv == "Obsessed") return false;
-            // If she's already in the player's vehicle, treat as invited — no point showing the item
+
             Ped plSiv = Game.Player.Character;
+            Vehicle targetCar = plSiv.IsInVehicle() ? plSiv.CurrentVehicle : FindBackseatVehicle();
+            if (targetCar == null || !targetCar.Exists()) return false;
+
+            if (aLifeMode && sandboxMode)
+            {
+                ALifePedData dSiv;
+                if (_currentGirlKey == null || !_aLifePeds.TryGetValue(_currentGirlKey, out dSiv)) return false;
+                if (dSiv.IsHooker) return false; // exclusive hooker auto-follows, no invite needed
+                string relSiv = dSiv.Relationship;
+                if (relSiv == "Friendzoned" || relSiv == "女朋友" || relSiv == "Obsessed") return false;
+            }
+
+            // If she's already in the player's vehicle, treat as invited — no point showing the item
             if (girl.IsInVehicle() && plSiv.IsInVehicle() && girl.CurrentVehicle == plSiv.CurrentVehicle)
             { _invitedToVehicle = true; return false; }
             return true;
@@ -12739,7 +12777,57 @@ namespace CinnamonCoffee
             return dSeat.IsHooker || dSeat.ALifeMode == "Prostitute";
         }
 
-        /// <summary>傳回 true when the player is sitting in a rear seat of the given vehicle.</summary>
+        /// <summary>
+        /// 為女性 NPC 計算最適當的入座位置。
+        /// 玩家固定坐在駕駛座，NPC 優先坐 preferredSeat（一般為副駕）。
+        /// 若副駕已被其他 NPC 佔用，則自動轉移至後座（左後 / 右後）。
+        /// </summary>
+        private VehicleSeat GetBestSeatForGirl(Vehicle car, VehicleSeat preferredSeat = VehicleSeat.Passenger)
+        {
+            if (car == null || !car.Exists()) return preferredSeat;
+
+            // 依優先順序嘗試：preferredSeat -> 副駕 -> 左後座 -> 右後座
+            VehicleSeat[] candidates;
+            if (preferredSeat == VehicleSeat.LeftRear)
+                candidates = new VehicleSeat[] { VehicleSeat.LeftRear, VehicleSeat.RightRear, VehicleSeat.Passenger };
+            else
+                candidates = new VehicleSeat[] { VehicleSeat.Passenger, VehicleSeat.LeftRear, VehicleSeat.RightRear };
+
+            foreach (VehicleSeat s in candidates)
+            {
+                Ped occ = car.GetPedOnSeat(s);
+                if (occ == null || occ == girl)
+                    return s;
+            }
+
+            return preferredSeat; // 全滿，回傳預設（由上層處理）
+        }
+
+
+        private void TaskGirlEnterVehicle(Vehicle car, VehicleSeat preferredSeat = VehicleSeat.Passenger)
+        {
+            if (!hasGirl || girl == null || !girl.Exists() || girl.IsDead) return;
+            if (car == null || !car.Exists() || car.IsDead) return;
+
+            // 自動解鎖車門
+            if (Function.Call<int>(Hash.GET_VEHICLE_DOOR_LOCK_STATUS, car) > 1)
+            {
+                Function.Call(Hash.SET_VEHICLE_DOORS_LOCKED, car, 1);
+            }
+
+            // 智慧座位選擇：副駕被佔用時自動轉移至後座
+            VehicleSeat targetSeat = GetBestSeatForGirl(car, preferredSeat);
+            Ped occupant = car.GetPedOnSeat(targetSeat);
+            if (occupant != null && occupant != girl)
+            {
+                return; // 全部座位皆滿
+            }
+
+            girl.BlockPermanentEvents = true;
+            Function.Call(Hash.TASK_ENTER_VEHICLE, girl, car, -1, (int)targetSeat, 2.0f, 1, 0);
+            _vehEntryStartTime = Game.GameTime;
+        }
+
         private bool IsPlayerInBackSeat(Vehicle car)
         {
             if (car == null) return false;
@@ -12747,7 +12835,6 @@ namespace CinnamonCoffee
             return car.GetPedOnSeat(VehicleSeat.LeftRear) == pl || car.GetPedOnSeat(VehicleSeat.RightRear) == pl;
         }
 
-        /// <summary>傳回 true when mode is Car and the player is currently in the back seat.</summary>
         private bool IsBackseatCarMode()
         {
             if (mode != Mode.Car) return false;
@@ -12756,8 +12843,6 @@ namespace CinnamonCoffee
             return IsPlayerInBackSeat(pl.CurrentVehicle);
         }
 
-        /// <summary>Find a backseat-capable vehicle the player can enter.
-        /// Returns the current vehicle if already in one, otherwise scans for the nearest suitable vehicle within range.</summary>
         private Vehicle FindBackseatVehicle()
         {
             Ped pl = Game.Player.Character;
@@ -12872,7 +12957,7 @@ namespace CinnamonCoffee
                 _backseatEntryPending = true; // suppress auto passenger-seat entry in HandleIdleState
 
                 // Task girl to enter left rear (seat 1)
-                Function.Call(Hash.TASK_ENTER_VEHICLE, girl, car, -1, 1, 2.0f, 1, 0);
+                TaskGirlEnterVehicle(car, VehicleSeat.LeftRear);
                 // Task player to enter right rear (seat 2)
                 Function.Call(Hash.TASK_ENTER_VEHICLE, pl,   car, -1, 2, 2.0f, 1, 0);
             }
@@ -13203,6 +13288,8 @@ namespace CinnamonCoffee
             _standingBjSwallowAt = 0;
             _backseatEntryPending = false;
             _backseatCarSex = false;
+            _vehEntryStartTime = 0;
+            _lastVehEnterTaskTime = 0;
             approachPhase = 0;
             approachAnimWait = 0;
             approachSexySwapTime = 0;
