@@ -12726,8 +12726,6 @@ namespace CinnamonCoffee
                 ShowSubtitle("~r~" + name + " ~s~avoids you.", 3000);
                 Function.Call(Hash.TASK_SMART_FLEE_PED, ped, Game.Player.Character, 150f, -1, false, false);
             }
-            else
-            {
                 if (d != null) { d.Relationship = "Hostile"; SaveALife(); }
                 ShowSubtitle("~r~" + name + " ~s~isn't taking it anymore!", 3000);
                 ped.BlockPermanentEvents = false;
@@ -12847,14 +12845,10 @@ namespace CinnamonCoffee
             return pl.IsInVehicle() && girl.IsInVehicle() && girl.CurrentVehicle == pl.CurrentVehicle;
         }
 
-        /// <summary>傳回 true when the "Move to back/front seat" item should appear in the Actions menu (prostitution / hooker A-Life girls only).</summary>
+        /// <summary>傳回 true when the "Move to back/front seat" item should appear in the Actions menu.</summary>
         private bool ShowSeatSwapInActions()
         {
-            if (!aLifeMode) return false;
-            if (FindBackseatVehicle() == null) return false;
-            ALifePedData dSeat;
-            if (_currentGirlKey == null || !_aLifePeds.TryGetValue(_currentGirlKey, out dSeat)) return false;
-            return dSeat.IsHooker || dSeat.ALifeMode == "Prostitute";
+            return FindBackseatVehicle() != null;
         }
 
         /// <summary>
@@ -12910,9 +12904,17 @@ namespace CinnamonCoffee
 
         private bool IsPlayerInBackSeat(Vehicle car)
         {
-            if (car == null) return false;
+            if (car == null || !car.Exists()) return false;
             Ped pl = Game.Player.Character;
-            return car.GetPedOnSeat(VehicleSeat.LeftRear) == pl || car.GetPedOnSeat(VehicleSeat.RightRear) == pl;
+            if (pl == null || !pl.Exists() || !pl.IsInVehicle()) return false;
+            int maxPass = Function.Call<int>(Hash.GET_VEHICLE_MAX_NUMBER_OF_PASSENGERS, car);
+            if (maxPass < 2) return false; // 2-seater cars have no backseat
+            for (int s = 1; s <= maxPass; s++)
+            {
+                if (car.GetPedOnSeat((VehicleSeat)s) == pl)
+                    return true;
+            }
+            return false;
         }
 
         private bool IsBackseatCarMode()
@@ -12929,24 +12931,21 @@ namespace CinnamonCoffee
             if (pl.IsInVehicle())
             {
                 Vehicle v = pl.CurrentVehicle;
-                if (v != null && Function.Call<int>(Hash.GET_VEHICLE_MAX_NUMBER_OF_PASSENGERS, v) >= 3
+                if (v != null && IsSexSuitableVehicle(v) && Function.Call<int>(Hash.GET_VEHICLE_MAX_NUMBER_OF_PASSENGERS, v) >= 1
                     && !backseatBlacklist.Contains(v.Model.Hash))
                     return v;
                 return null;
             }
-            // Scan for the closest vehicle within 10m that has a backseat
-            // Outside entry requires physical rear doors — 2-door coupes with rear seats only allow
-            // seat-swapping from inside (entering from outside with no rear door looks wrong).
+            // Scan for closest suitable vehicle within 10m
             Vector3 pos = pl.Position;
             Vehicle closest = null;
             float closestDist = 10f;
             foreach (Vehicle v in World.GetNearbyVehicles(pl, closestDist))
             {
                 if (v == null || !v.Exists() || v.IsDead) continue;
-                if (Function.Call<int>(Hash.GET_VEHICLE_MAX_NUMBER_OF_PASSENGERS, v) < 3) continue;
+                if (!IsSexSuitableVehicle(v)) continue;
+                if (Function.Call<int>(Hash.GET_VEHICLE_MAX_NUMBER_OF_PASSENGERS, v) < 1) continue;
                 if (backseatBlacklist.Contains(v.Model.Hash)) continue;
-                // Check for a physical rear door bone — if missing, the vehicle is 2-door (no outside entry)
-                if (Function.Call<int>(Hash.GET_ENTITY_BONE_INDEX_BY_NAME, v, "door_dside_r") == -1) continue;
                 float d = v.Position.DistanceTo(pos);
                 if (d < closestDist)
                 {
@@ -12965,9 +12964,9 @@ namespace CinnamonCoffee
             {
                 Vehicle car = pl.CurrentVehicle;
                 bool inBack = car != null && IsPlayerInBackSeat(car);
-                return inBack ? "Get into the Front Seat" : "Get into the Back Seat";
+                return inBack ? "換到前座" : "換到後座";
             }
-            return "Enter Vehicle from Back Seat";
+            return "從後座上車";
         }
 
         /// <summary>Swap player and girl between front and back seats (blackscreen),
@@ -12991,14 +12990,21 @@ namespace CinnamonCoffee
                 car = FindBackseatVehicle();
                 if (car == null)
                 {
-                    ShowHudStatus("~r~NO VEHICLE WITH BACKSEAT NEARBY!", 2000);
+                    ShowHudStatus("~r~附近沒有合適的載具！", 2000);
                     return;
                 }
             }
-            int maxPass = Function.Call<int>(Hash.GET_VEHICLE_MAX_NUMBER_OF_PASSENGERS, car);
-            if (maxPass < 3)
+
+            if (car == null || !IsSexSuitableVehicle(car))
             {
-                ShowHudStatus("~r~VEHICLE HAS NO BACKSEAT!", 2000);
+                ShowHudStatus("~r~該載具不支援此功能！", 2000);
+                return;
+            }
+
+            int maxPass = Function.Call<int>(Hash.GET_VEHICLE_MAX_NUMBER_OF_PASSENGERS, car);
+            if (maxPass < 1)
+            {
+                ShowHudStatus("~r~該載具無法乘坐！", 2000);
                 return;
             }
 
@@ -13007,14 +13013,11 @@ namespace CinnamonCoffee
                 // ── Already in the vehicle → blackscreen swap ──
                 bool goToBack = !IsPlayerInBackSeat(car);
 
-                MenuLevel savedMenu  = menuLevel;
-                int       savedIndex = menuIndex;
-
                 menuLevel = MenuLevel.None;
                 Function.Call(Hash.DO_SCREEN_FADE_OUT, 500);
                 Wait(600);
 
-                if (goToBack)
+                if (goToBack && maxPass >= 2)
                 {
                     Function.Call(Hash.SET_PED_INTO_VEHICLE, pl, car, 2);   // right rear
                     Function.Call(Hash.SET_PED_INTO_VEHICLE, girl, car, 1); // left rear
@@ -13028,18 +13031,29 @@ namespace CinnamonCoffee
                 Function.Call(Hash.DO_SCREEN_FADE_IN, 500);
                 Wait(600);
 
-                menuLevel = savedMenu;
-                menuIndex = savedIndex;
+                mode = Mode.Car;
+                menuLevel = MenuLevel.Services;
+                menuIndex = 0;
             }
             else
             {
-                // ── Outside the vehicle → animated entry (menu stays open) ──
+                // ── Outside the vehicle → animated entry ──
                 _backseatEntryPending = true; // suppress auto passenger-seat entry in HandleIdleState
 
-                // Task girl to enter left rear (seat 1)
-                TaskGirlEnterVehicle(car, VehicleSeat.LeftRear);
-                // Task player to enter right rear (seat 2)
-                Function.Call(Hash.TASK_ENTER_VEHICLE, pl,   car, -1, 2, 2.0f, 1, 0);
+                if (maxPass >= 2)
+                {
+                    // Task girl to enter left rear (seat 1)
+                    TaskGirlEnterVehicle(car, VehicleSeat.LeftRear);
+                    // Task player to enter right rear (seat 2)
+                    Function.Call(Hash.TASK_ENTER_VEHICLE, pl, car, -1, 2, 2.0f, 1, 0);
+                }
+                else
+                {
+                    // Task girl to enter passenger (seat 0)
+                    TaskGirlEnterVehicle(car, VehicleSeat.Passenger);
+                    // Task player to enter driver (seat -1)
+                    Function.Call(Hash.TASK_ENTER_VEHICLE, pl, car, -1, -1, 2.0f, 1, 0);
+                }
             }
         }
 
