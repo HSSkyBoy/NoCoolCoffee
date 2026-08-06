@@ -13953,31 +13953,31 @@ namespace CinnamonCoffee
                 string[][] prostBranches = new string[][] {
                     // 0: Get to Know Her
                     new string[] {
-                        "\"What do I call you?\"",
-                        "\"Where you from?\"",
-                        "\"You always work this area?\"",
-                        "\"How long you been doing this?\""
+                        "\"我該怎麼稱呼妳？\"",
+                        "\"妳是哪裡人？\"",
+                        "\"妳一直在這一帶工作嗎？\"",
+                        "\"妳做這行多久了？\""
                     },
                     // 1: Small Talk
                     new string[] {
-                        nightDraw ? "\"Slow night?\"" : "\"Slow day?\"",
-                        nightDraw ? "\"You staying out late?\"" : "\"You been out long?\"",
-                        "\"Anyone giving you trouble?\"",
-                        "\"You working alone?\""
+                        nightDraw ? "\"今晚生意清淡嗎？\"" : "\"今天生意清淡嗎？\"",
+                        nightDraw ? "\"妳今晚要待到很晚嗎？\"" : "\"妳出來很久了嗎？\"",
+                        "\"有人找妳麻煩嗎？\"",
+                        "\"妳是一個人單幹嗎？\""
                     },
                     // 2: Check Mood
                     new string[] {
-                        "\"How you holding up?\"",
-                        "\"You okay?\"",
-                        "\"You seem stressed.\"",
-                        nightDraw ? "\"You look good tonight.\"" : "\"You look good today.\""
+                        "\"妳最近過得怎麼樣？\"",
+                        "\"妳還好嗎？\"",
+                        "\"妳看起來壓力很大。\"",
+                        nightDraw ? "\"妳今晚看起來很迷人。\"" : "\"妳今天看起來很迷人。\""
                     },
                     // 3: Flirt
                     new string[] {
-                        "\"You're hard to walk past.\"",
-                        "\"I always look for you out here.\"",
-                        "\"You've got a way about you.\"",
-                        nightDraw ? "\"You make this worth coming back for tonight.\"" : "\"You make this worth coming back for.\""
+                        "\"走過妳身邊時，很難不轉頭看妳。\"",
+                        "\"我每次來這都會找妳。\"",
+                        "\"妳身上有一股獨特的魅力。\"",
+                        nightDraw ? "\"因為有妳，讓今晚很值得回來。\"" : "\"因為有妳，讓這一切很值得回來。\""
                     },
                 };
                 string[] prostItems = prostBranches[_convSelectedBranch];
@@ -13989,77 +13989,77 @@ namespace CinnamonCoffee
             string[][] branches = new string[][] {
                 // 0: Get to Know Her
                 new string[] {
-                    "\"What's your name?\"",
-                    "\"What do you do for fun?\"",
-                    "\"You from around here?\"",
-                    "\"What kind of guys do you like?\"",
-                    "\"What are you looking for?\"",
-                    "\"You seeing anyone?\"",
-                    "\"What's your story?\""
+                    "\"妳叫什麼名字？\"",
+                    "\"妳平常有什麼休閒娛樂？\"",
+                    "\"妳是本地人嗎？\"",
+                    "\"妳喜歡哪一類型的男生？\"",
+                    "\"妳心目中在尋找什麼樣的關係？\"",
+                    "\"妳目前有交往對象嗎？\"",
+                    "\"可以聊聊妳的故事嗎？\""
                 },
                 // 1: Small Talk
                 new string[] {
-                    "\"Nice weather.\"",
-                    "\"You hungry?\"",
-                    IsNight() ? "\"Been busy tonight?\"" : "\"Been busy today?\"",
-                    "\"You like this city?\"",
-                    "\"You seem tired.\"",
-                    "\"What have you been up to?\""
+                    "\"今天天氣不錯。\"",
+                    "\"妳肚子餓嗎？\"",
+                    IsNight() ? "\"今晚過得充實嗎？\"" : "\"今天過得充實嗎？\"",
+                    "\"妳喜歡這座城市嗎？\"",
+                    "\"妳看起來有點疲倦。\"",
+                    "\"妳最近都在忙些什麼？\""
                 },
                 // 2: Check Mood
                 new string[] {
-                    "\"How are you feeling?\"",
-                    "\"You okay?\"",
-                    "\"You seem tense.\"",
-                    "\"You look happy.\"",
-                    "\"You seem distracted.\""
+                    "\"妳今天心情怎麼樣？\"",
+                    "\"妳還好嗎？\"",
+                    "\"妳看起來有點緊繃。\"",
+                    "\"妳看起來心情很好。\"",
+                    "\"妳看起來有點分心。\""
                 },
                 // 3: Flirt
                 new string[] {
-                    "\"You look incredible.\"",
-                    "\"There's something about you I can't ignore.\"",
-                    "\"I want you.\"",
-                    (dAct != null && dAct.HasMetSecondTime) ? "\"I think about you more than I should.\"" : "~c~\"I think about you more than I should.\" ~r~(2nd meet+)~s~",
-                    "\"You're trouble, aren't you?\"",
-                    (dAct != null && dAct.HasMetSecondTime) ? "\"Did you miss me?\"" : "~c~\"Did you miss me?\" ~r~(2nd meet+)~s~",
-                    IsNight() ? "\"You look good tonight.\"" : "\"You look good today.\"",
-                    "\"I love you.\""
+                    "\"妳看起來太迷人了。\"",
+                    "\"妳有一種讓我無法忽視的吸引力。\"",
+                    "\"我想擁有妳。\"",
+                    (dAct != null && dAct.HasMetSecondTime) ? "\"我想妳的次數，已經超過了該有的分寸。\"" : "~c~\"我想妳的次數，已經超過了該有的分寸。\" ~r~(第二次會面+)~s~",
+                    "\"妳是個磨人的小妖精，對吧？\"",
+                    (dAct != null && dAct.HasMetSecondTime) ? "\"妳有想我嗎？\"" : "~c~\"妳有想我嗎？\" ~r~(第二次會面+)~s~",
+                    IsNight() ? "\"妳今晚非常漂亮。\"" : "\"妳今天非常漂亮。\"",
+                    "\"我愛妳。\""
                 },
                 // 4: Make Her Mine / Break Up
                 isGfBranch ? new string[] {
-                    "\"I need some space.\"",
-                    "\"This isn't working.\"",
-                    "\"I think we should end this.\"",
-                    "\"I don't feel the same anymore.\"",
-                    "\"I'm sorry. I can't do this.\"",
-                    "\"It's not you, it's me.\"",
-                    "\"I think we rushed into this.\""
+                    "\"我需要一些個人空間。\"",
+                    "\"我們之間行不通了。\"",
+                    "\"我覺得我們應該到此為止。\"",
+                    "\"我對妳不再有以前的感覺了。\"",
+                    "\"對不起，我沒辦法再繼續下去了。\"",
+                    "\"這不是妳的錯，是我自己的問題。\"",
+                    "\"我覺得我們當初進展得太快了。\""
                 } : new string[] {
-                    "\"I want more than this.\"",
-                    "\"Would you be mine?\"",
-                    "\"I've been thinking about us.\"",
-                    "\"Let me take you somewhere nice.\"",
-                    "\"You're different from everyone else.\"",
-                    "\"What would it take to make this real?\"",
-                    "\"I think I'm falling for you.\""
+                    "\"我不滿足於只是普通朋友。\"",
+                    "\"妳願意做我的女朋友嗎？\"",
+                    "\"我一直都在思考我們的未來。\"",
+                    "\"讓我帶妳去個浪漫的地方。\"",
+                    "\"妳跟其他人截然不同。\"",
+                    "\"我們要怎樣才能真正走在一起？\"",
+                    "\"我想我已經無可救藥地愛上妳了。\""
                 },
                 // 5: Ask Personal Stuff
                 new string[] {
-                    "\"What are you really like?\"",
-                    "\"Why are you out here alone?\"",
-                    "\"What's your family like?\"",
-                    "\"What do you want out of life?\"",
-                    "\"What's your biggest regret?\"",
-                    "\"What scares you?\"",
-                    "\"Have you ever been in love?\""
+                    "\"真實的妳是什麼樣子的？\"",
+                    "\"妳為什麼一個人孤單待在外面？\"",
+                    "\"妳的家人是什麼樣的？\"",
+                    "\"妳生命中追求的是什麼？\"",
+                    "\"妳這輩子最大的遺憾是什麼？\"",
+                    "\"妳最害怕的是什麼？\"",
+                    "\"妳曾真正愛過一個人嗎？\""
                 },
                 // 6: Business — dynamic based on IsHooker / WasHooker state
                 new string[] {
                     (dAct != null && dAct.IsHooker)
-                        ? "\"I think we should stop seeing each other like this.\""
+                        ? "\"我想我們不應該再以這種金錢關係見面了。\""
                         : (dAct != null && dAct.WasHooker)
-                            ? "\"You still interested to spend time with me? I'd make it worth your while again.\""
-                            : "\"I'll pay you to spend time with me.\""
+                            ? "\"妳還有興趣陪陪我嗎？我一樣會給妳豐厚的報酬。\""
+                            : "\"我想付費買下妳的相處時間。\""
                 }
             };
 
@@ -14078,11 +14078,11 @@ namespace CinnamonCoffee
             // ── Prostitution A-Life: street-tone goodbye clusters ─────────────────
             if (dLeaveH != null && dLeaveH.ALifeMode == "Prostitute")
             {
-                DrawMenuItem("Short & Sweet ~b~[>]~s~", 0, x, ref y, lh);
-                DrawMenuItem("Smooth ~b~[>]~s~",        1, x, ref y, lh);
-                DrawMenuItem("Real ~b~[>]~s~",          2, x, ref y, lh);
-                DrawMenuItem("Warm ~b~[>]~s~",          3, x, ref y, lh);
-                DrawMenuItem("Flirty ~b~[>]~s~",        4, x, ref y, lh);
+                DrawMenuItem("簡短甜美 ~b~[>]~s~", 0, x, ref y, lh);
+                DrawMenuItem("圓滑風趣 ~b~[>]~s~", 1, x, ref y, lh);
+                DrawMenuItem("真誠率性 ~b~[>]~s~", 2, x, ref y, lh);
+                DrawMenuItem("溫暖體貼 ~b~[>]~s~", 3, x, ref y, lh);
+                DrawMenuItem("俏皮打情 ~b~[>]~s~", 4, x, ref y, lh);
                 return;
             }
 
@@ -14101,7 +14101,7 @@ namespace CinnamonCoffee
             // ── Prostitution A-Life: street-tone leave lines ──────────────────────
             if (dLeaveD != null && dLeaveD.ALifeMode == "Prostitute")
             {
-                string[] prostClusterNames = { "Short & Sweet", "Smooth", "Real", "Warm", "Flirty" };
+                string[] prostClusterNames = { "簡短甜美", "圓滑風趣", "真誠率性", "溫慢體貼", "俏皮打情" };
                 string prostClusterName = (_leaveSelectedCluster >= 0 && _leaveSelectedCluster < prostClusterNames.Length)
                     ? prostClusterNames[_leaveSelectedCluster] : "?";
                 DrawSectionHeader(prostClusterName.ToUpper(), x, ref y);
@@ -14109,33 +14109,33 @@ namespace CinnamonCoffee
                 string[][] prostLeaveLines = {
                     // Short & Sweet
                     new string[] {
-                        "\"Aight, I'm out.\"",
-                        "\"Later.\"",
-                        "\"Stay up.\""
+                        "\"行了，我先走了。\"",
+                        "\"待會見。\"",
+                        "\"打起精神來。\""
                     },
                     // Smooth
                     new string[] {
-                        "\"Always good with you.\"",
-                        "\"You make it easy to come back.\"",
-                        "\"I'll be seeing you.\""
+                        "\"跟妳在一起總是這麼棒。\"",
+                        "\"妳讓我總是忍不住想再回來找妳。\"",
+                        "\"我們還會再見面的。\""
                     },
                     // Real
                     new string[] {
-                        "\"You're solid. For real.\"",
-                        "\"I always know what I'm getting with you.\"",
-                        "\"No games. I respect that.\""
+                        "\"妳真的很實在，我是說真的。\"",
+                        "\"跟妳在一起我總是能感到最真實的放鬆。\"",
+                        "\"不玩虛招，我欣賞這點。\""
                     },
                     // Warm
                     new string[] {
-                        "\"Watch yourself out here.\"",
-                        "\"I mean it \u2014 take care.\"",
-                        "\"You deserve better than this corner.\""
+                        "\"一個人在這附近要小心安全。\"",
+                        "\"我是認真的，多保重自己。\"",
+                        "\"妳不應該只待在這種街角。\""
                     },
                     // Flirty
                     new string[] {
-                        "\"Now I gotta walk away from that. Not fair.\"",
-                        "\"Every time gets harder to leave.\"",
-                        "\"You know you're trouble, right?\""
+                        "\"現在我不得不離開溫柔鄉了，這真不公平。\"",
+                        "\"每次離開妳都變得更困難了。\"",
+                        "\"妳 know 妳是個迷人的小麻煩，對吧？\""
                     }
                 };
                 int pc = (_leaveSelectedCluster >= 0 && _leaveSelectedCluster < prostLeaveLines.Length)
@@ -14157,34 +14157,34 @@ namespace CinnamonCoffee
             string[][] leaveLines = {
                 // Gentle
                 new string[] {
-                    "\"This meant something to me.\"",
-                    "\"I have to go, but I'm glad we met.\"",
-                    "\"Stay safe out there, yeah?\""
+                    "\"這對我來說很有意義。\"",
+                    "\"我得先走了，但很高興能遇見妳。\"",
+                    "\"出門在外要注意安全喔。\""
                 },
                 // Confident
                 new string[] {
-                    "\"I'll see you around.\"",
-                    "\"You know where I'll be.\"",
-                    "\"This was good. Let's not wait too long.\""
+                    "\"我們有緣再見。\"",
+                    "\"妳知道去哪裡能找到我。\"",
+                    "\"這次體驗很棒，下次別讓我等太久。\""
                 },
                 // Cool
                 new string[] {
-                    "\"I'll let myself out.\"",
-                    "\"No big thing. Later.\"",
-                    "\"Don't make it weird. See you.\""
+                    "\"我自己走就行。\"",
+                    "\"沒什麼大不了的，回頭見。\"",
+                    "\"別搞得太煽情了，再見。\""
                 },
                 // Flattering
                 new string[] {
-                    "\"You're hard to walk away from.\"",
-                    "\"I'm already thinking about next time.\"",
-                    "\"Best part of my day. By far.\"",
-                    "\"I love you.\""
+                    "\"要轉身離開妳真的太難了。\"",
+                    "\"我現在就已經在期待下一次相處了。\"",
+                    "\"這絕對是我今天最美好的時刻。\"",
+                    "\"我愛妳。\""
                 },
                 // Playful
                 new string[] {
-                    "\"Alright, before I do something I don't regret.\"",
-                    "\"You're dangerous, you know that?\"",
-                    "\"Don't miss me. Actually, no \u2014 miss me.\""
+                    "\"好吧，在我做出什麼不會後悔的傻事之前先走。\"",
+                    "\"妳 know 妳很危險，對吧？\"",
+                    "\"可別太想我。啊，不對，還是多想我一點吧。\""
                 }
             };
 
@@ -14215,25 +14215,25 @@ namespace CinnamonCoffee
                 ALifePedData _teleDat = null;
                 if (_currentGirlKey != null) _aLifePeds.TryGetValue(_currentGirlKey, out _teleDat);
                 bool _teleIsHooker = !sandboxMode || _aLifeHookerServices || (_teleDat != null && _teleDat.IsHooker);
-                string _teleLabel  = _teleIsHooker ? "Teleport Hooker to Player" : "Teleport Woman to Player";
+                string _teleLabel  = _teleIsHooker ? "傳送目標（特殊服務）至玩家身邊" : "傳送目標（女性）至玩家身邊";
                 if (aLifeMode)
                 {
-                    DrawMenuItem("Interact ~b~[>]~s~", idx, x, ref y, lh); idx++;
+                    DrawMenuItem("互動 ~b~[>]~s~", idx, x, ref y, lh); idx++;
                     DrawMenuItem("離開 ~b~[>]~s~",   idx, x, ref y, lh); idx++;
                     DrawMenuItem(_teleLabel,           idx, x, ref y, lh); idx++;
                 }
                 else
                 {
-                    DrawMenuItem("Interact ~b~[>]~s~", idx, x, ref y, lh); idx++;
-                    DrawMenuItem("Dismiss Her",        idx, x, ref y, lh); idx++;
+                    DrawMenuItem("互動 ~b~[>]~s~", idx, x, ref y, lh); idx++;
+                    DrawMenuItem("解散目標",        idx, x, ref y, lh); idx++;
                     DrawMenuItem(_teleLabel,           idx, x, ref y, lh); idx++;
                 }
             }
             else
             {
                 string searchLabel = aLifeMode
-                    ? (sandboxMode ? "Approach the Woman ~b~[>]~s~" : "Approach the Hooker ~b~[>]~s~")
-                    : (sandboxMode ? "Search for Nearest Woman" : "Search for Nearest Hooker");
+                    ? (sandboxMode ? "搭訕女性 ~b~[>]~s~" : "招攬特殊服務 ~b~[>]~s~")
+                    : (sandboxMode ? "尋找最近的女性" : "尋找最近的特殊服務");
                 DrawMenuItem(searchLabel, idx, x, ref y, lh); idx++;
             }
 
@@ -14243,11 +14243,11 @@ namespace CinnamonCoffee
             y += lh * 0.8f;
             DrawSectionHeader("選項", x, ref y);
             string aiModeLabel = hasGirl
-                ? "~c~AI Mode: " + (aLifeMode ? "A-Life" : "Sandbox") + "~s~"
+                ? "~c~AI 模式：" + (aLifeMode ? "A-Life" : "Sandbox") + "~s~"
                 : "AI 模式：" + (aLifeMode ? "~p~A-Life~s~" : "~b~Sandbox~s~");
             DrawMenuItem(aiModeLabel, idx, x, ref y, lh); idx++;
             string gameModeLabel = (hasGirl && aLifeMode)
-                ? "~c~Game Mode: " + (sandboxMode ? "普通" : "交易") + "~s~"
+                ? "~c~遊戲模式：" + (sandboxMode ? "普通" : "交易") + "~s~"
                 : "遊戲模式：" + (sandboxMode ? "~b~Casual~s~" : "~o~Prostitution~s~");
             DrawMenuItem(gameModeLabel, idx, x, ref y, lh); idx++;
             DrawMenuItem("設定 ~b~[>]~s~", idx, x, ref y, lh); idx++;
@@ -14275,13 +14275,13 @@ namespace CinnamonCoffee
             else if (deviceToken.Length > 0)
                 tokenDisplay = "Token：~w~" + deviceToken + "~s~";
             else
-                tokenDisplay = "Token：~r~（未設定 — 按下 " + MenuSelectDisplay + " to enter)~s~";
+                tokenDisplay = "Token：~r~（未設定 — 按下 " + MenuSelectDisplay + " 輸入)~s~";
             DrawMenuItem(tokenDisplay, idx, x, ref y, lh); idx++;
 
             string bridgeStatus = _telemetry.IsHardDisconnected ? "~r~未連接！"
-                : !_telemetry.IsConnected && pingPendingTime <= 0 ? "~r~EXE OFFLINE!"
-                : !_telemetry.IsConnected ? "~y~CONNECTING..."
-                : _telemetry.IsDeviceOnline ? "~g~CONNECTED!"
+                : !_telemetry.IsConnected && pingPendingTime <= 0 ? "~r~連線程式未啟動！"
+                : !_telemetry.IsConnected ? "~y~正在連線……"
+                : _telemetry.IsDeviceOnline ? "~g~已連線！"
                 : "~r~未連接！";
             DrawMenuItem("裝置狀態：" + bridgeStatus, idx, x, ref y, lh); idx++;
         }
@@ -14291,38 +14291,38 @@ namespace CinnamonCoffee
             DrawSectionHeader("設定", x, ref y);
             int idx = 0;
 
-            string tutorialLabel = "Show Tutorial Messages: " + (showTutorialMessages ? "~g~ON" : "~r~OFF") + "~s~";
+            string tutorialLabel = "顯示教學提示訊息：" + (showTutorialMessages ? "~g~開啟" : "~r~關閉") + "~s~";
             DrawMenuItem(tutorialLabel, idx, x, ref y, lh); idx++;
-            string dickLabel = "Male Nudity: " + (dildoEnabled ? "~g~ON" : "~r~OFF") + "~s~";
+            string dickLabel = "男性身體裸露 (假陽具)：" + (dildoEnabled ? "~g~開啟" : "~r~關閉") + "~s~";
             DrawMenuItem(dickLabel, idx, x, ref y, lh); idx++;
 
-            string svcVoiceLabel = "Female Voice for ''Services'': " + (femaleServiceVoice ? "~g~ON" : "~r~OFF") + "~s~";
+            string svcVoiceLabel = "服務進行中女性語音：" + (femaleServiceVoice ? "~g~開啟" : "~r~關閉") + "~s~";
             DrawMenuItem(svcVoiceLabel, idx, x, ref y, lh); idx++;
 
-            string moanVoiceLabel = "Female Moaning: " + (femaleMoanVoice ? "~g~ON" : "~r~OFF") + "~s~";
+            string moanVoiceLabel = "服務進行中女性呻吟聲：" + (femaleMoanVoice ? "~g~開啟" : "~r~關閉") + "~s~";
             DrawMenuItem(moanVoiceLabel, idx, x, ref y, lh); idx++;
 
-            string voiceLabel = "Female Voice on Finish: " + (femaleEndVoice ? "~g~ON" : "~r~OFF") + "~s~";
+            string voiceLabel = "結束時女性高潮語音：" + (femaleEndVoice ? "~g~開啟" : "~r~關閉") + "~s~";
             DrawMenuItem(voiceLabel, idx, x, ref y, lh); idx++;
 
-            string bjSoundsLabel = "Explicit BJ Sounds: " + (bjSoundsEnabled ? "~g~ON" : "~r~OFF") + "~s~";
+            string bjSoundsLabel = "真實口交音效功能：" + (bjSoundsEnabled ? "~g~開啟" : "~r~關閉") + "~s~";
             DrawMenuItem(bjSoundsLabel, idx, x, ref y, lh); idx++;
 
-            string slapSoundsLabel = "Explicit Sex Sounds: " + (slapSoundsEnabled ? "~g~ON" : "~r~OFF") + "~s~";
+            string slapSoundsLabel = "真實性愛撞擊音效：" + (slapSoundsEnabled ? "~g~開啟" : "~r~關閉") + "~s~";
             DrawMenuItem(slapSoundsLabel, idx, x, ref y, lh); idx++;
 
-            string sitAnimLabel = "Street Intro/Outro Animation: " + (streetSitAnimEnabled ? "~g~ON" : "~r~OFF") + "~s~";
+            string sitAnimLabel = "街頭互動前戲與結束動畫：" + (streetSitAnimEnabled ? "~g~開啟" : "~r~關閉") + "~s~";
             DrawMenuItem(sitAnimLabel, idx, x, ref y, lh); idx++;
 
-            string lightLabel = "Car Interior Light: " + (interiorLightEnabled ? "~g~ON" : "~r~OFF") + "~s~";
+            string lightLabel = "互動中開啟車內照明燈：" + (interiorLightEnabled ? "~g~開啟" : "~r~關閉") + "~s~";
             DrawMenuItem(lightLabel, idx, x, ref y, lh); idx++;
 
-            string engineLabel = "Car Engine: " + (carEngineEnabled ? "~g~ON" : "~r~OFF") + "~s~";
+            string engineLabel = "互動期間保持引擎發動：" + (carEngineEnabled ? "~g~開啟" : "~r~關閉") + "~s~";
             DrawMenuItem(engineLabel, idx, x, ref y, lh); idx++;
 
             string driveLabel = !carEngineEnabled
-                ? "~c~Driveable Car During Animation: " + (driveableCar ? "開啟" : "關閉") + "~s~"
-                : "Driveable Car During Animation: " + (driveableCar ? "~g~ON" : "~r~OFF") + "~s~";
+                ? "~c~動畫播放中允許控制車輛：" + (driveableCar ? "開啟" : "關閉") + "~s~"
+                : "動畫播放中允許控制車輛：" + (driveableCar ? "~g~開啟" : "~r~關閉") + "~s~";
             DrawMenuItem(driveLabel, idx, x, ref y, lh); idx++;
         }
 
